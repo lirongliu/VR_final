@@ -93,16 +93,32 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 
 			Transform spotlight = this.transform.Find("Spotlight");
 			spotlight.SetParent(avatar.transform);
-
+			
+			playerLocal = avatar.transform;
 
 		} else if (photonView.isMine && NetworkController.whoAmI == Constants.IS_CB_PLAYER) {
 			//Debug.Log ("player is mine. I am the cardboard player.");
-
+			
 			GameObject cb = GameObject.Find ("CardboardMain");
-			cb.transform.SetParent(avatar.transform);
+
+			GameObject avatarHead = Instantiate(Resources.Load("AvatarHead", typeof(GameObject))) as GameObject;
+			GameObject avatarBody = Instantiate(Resources.Load("AvatarBody", typeof(GameObject))) as GameObject;
+
+			avatarBody.transform.SetParent(avatar.transform);
+
+			
+			cb.transform.SetParent(avatarBody.transform);
+			avatarHead.transform.SetParent(cb.transform);
 			cb.transform.localPosition = new Vector3(0, Constants.cbAvatarHeight, 0);
+			avatarHead.transform.localPosition = Vector3.zero;
+
+//			CharacterJoint fj = avatarBody.GetComponent<CharacterJoint>();
+//			fj.connectedBody = cb.GetComponent<Rigidbody>();
+
 
 			this.transform.localPosition = new Vector3(-5,1,-2);
+			playerLocal = cb.transform;
+
 		}
 		playerGlobal = avatar.transform;
 	}
@@ -151,18 +167,18 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 
 		
 		if (Input.GetKey ("right")) {
-			playerGlobal.Rotate (new Vector3 (0, 2, 0));
+			playerLocal.Rotate (new Vector3 (0, 2, 0));
 		}
 		if (Input.GetKey ("left")) {
-			playerGlobal.Rotate (new Vector3 (0, -2, 0));
+			playerLocal.Rotate (new Vector3 (0, -2, 0));
 		}
 		
 		if (Input.GetKey ("down")) {
-			playerGlobal.Rotate (new Vector3 (2, 0, 0));
+			playerLocal.Rotate (new Vector3 (2, 0, 0));
 		}
 		
 		if (Input.GetKey ("up")) {
-			playerGlobal.Rotate (new Vector3 (-2, 0, 0));
+			playerLocal.Rotate (new Vector3 (-2, 0, 0));
 		}
 		
 	}
