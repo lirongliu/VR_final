@@ -1,18 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Diagnostics;
 
 public class NetworkedPlayer : Photon.MonoBehaviour
 {
-	public GameObject avatar;
 	
+	public GameObject avatar;
 	public Transform playerGlobal;
 	public Transform playerLocal;
-	
+
+	private GameObject hitObject;
+
+
 	protected Vector3 correctAvatarPos = Vector3.zero; //We lerp towards this
 	protected Quaternion correctAvatarRot = Quaternion.identity; //We lerp towards this
-	
-	void Update()
-	{
+
+	Stopwatch stopWatch;
+
+	void Update(){
+
+
 		if (!photonView.isMine) {
 			//Update remote player (smooth this, this looks good, at the cost of some accuracy)
 			avatar.transform.localPosition = Vector3.Lerp (avatar.transform.localPosition, correctAvatarPos, Time.deltaTime * 5);
@@ -20,52 +27,96 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 		}
 		else {
 			inputHandler();
+
+			//gaze
+			if (NetworkController.whoAmI == Constants.IS_CB_PLAYER) {
+				RaycastHit hit;
+				if (Physics.Raycast (Camera.main.transform.position, Camera.main.transform.forward, out hit)) {
+					if (hit.collider != null) {
+
+						if (hit.collider.gameObject == hitObject) {
+							//UnityEngine.Debug.Log("if: hitObject="+hitObject.tag);
+							if (stopWatch.ElapsedMilliseconds > 300) {
+								//Destroy (hit.collider.gameObject);
+
+								//RPCs only support basic data like floats, ints, bools, Vector2 and 3 and Quaternions.
+								//can not send RaycastHit as a parameter
+
+								if (NetworkController.enemyList.IndexOf (hit.collider.gameObject)!=null){
+									//print("NetworkedPlayer enemyList:"+NetworkController.enemyList[0]+"\t"+NetworkController.enemyList[1]+"\t"+NetworkController.enemyList[2]);
+									//print("INDEX:"+NetworkController.enemyList.IndexOf (hit.collider.gameObject));
+									photonView.RPC ("destroyEnemy",PhotonTargets.All,NetworkController.enemyList.IndexOf(hit.collider.gameObject));
+								}
+
+
+							} else {
+								if (hitObject.tag == "Enemy") {
+									Renderer r = hitObject.GetComponent<Renderer> ();
+									r.material.color = Color.yellow;
+
+//									print("INDEX:"+NetworkController.enemyList.IndexOf (hit.Object));
+//									NetworkController.enemyList.IndexOf (hitObject);
+//									photonView.RPC ("changeColor",PhotonTargets.All,NetworkController.enemyList.IndexOf(hitObject));
+
+								}
+							}
+						} else {
+							if (hit.collider.gameObject.tag == "Enemy") {
+								hitObject = hit.collider.gameObject;
+								Renderer r = hitObject.GetComponent<Renderer> ();
+								r.material.color = Color.white;
+							} else {
+								stopWatch.Reset ();
+								stopWatch.Start ();
+							}
+						}
+					} else {
+
+						hitObject = null;
+						stopWatch.Reset ();
+					}
+				}
+			}
 		}
 
 	}
 	
 	void Start ()
 	{
-		Debug.Log("i'm instantiated");
+		stopWatch = new Stopwatch ();
+		//Debug.Log("i'm instantiated");
 
 		if (photonView.isMine && NetworkController.whoAmI == Constants.IS_IPAD_PLAYER) {
-			Debug.Log ("player is mine. I am the iPad player.");
+			//Debug.Log ("player is mine. I am the iPad player.");
 
-			this.transform.localPosition = new Vector3(2, 1, 2);
+			this.transform.localPosition = new Vector3(5,2,-1);
+
 			Transform spotlight = this.transform.Find("Spotlight");
 			spotlight.SetParent(avatar.transform);
 
+
 		} else if (photonView.isMine && NetworkController.whoAmI == Constants.IS_CB_PLAYER) {
-			Debug.Log ("player is mine. I am the cardboard player.");
+			//Debug.Log ("player is mine. I am the cardboard player.");
 
 			GameObject cb = GameObject.Find ("CardboardMain");
 			cb.transform.SetParent(avatar.transform);
-//			cb.transform.localPosition = new Vector3(0, Constants.cbAvatarHeight, 0);
-			this.transform.localPosition = new Vector3(-2,1,-2);
-			
-			//avatar.SetActive(false);
+			cb.transform.localPosition = new Vector3(0, Constants.cbAvatarHeight, 0);
+
+			this.transform.localPosition = new Vector3(-5,1,-2);
 		}
 		playerGlobal = avatar.transform;
 	}
 	
 	protected void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
 	{
-		if (stream.isWriting)
-		{
+		if (stream.isWriting){
 			stream.SendNext(playerGlobal.position);
 			stream.SendNext(playerGlobal.rotation);
-//			stream.SendNext(playerLocal.localPosition);
-//			stream.SendNext(playerLocal.localRotation);
-//			print ("sent correctAvatarPos: " + playerGlobal.position);
 
 		}
-		else
-		{
-//			this.transform.position = (Vector3)stream.ReceiveNext();
-//			this.transform.rotation = (Quaternion)stream.ReceiveNext();
+		else{
 			correctAvatarPos = (Vector3)stream.ReceiveNext();
 			correctAvatarRot = (Quaternion)stream.ReceiveNext();
-//			print ("received correctAvatarPos: " + correctAvatarPos);
 
 		}
 	}
@@ -115,4 +166,19 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 		}
 		
 	}
+
+	[PunRPC]
+	void destroyEnemy(int item_index){
+		Destroy ((UnityEngine.GameObject)NetworkController.enemyList[item_index]);
+	}
+
+	[PunRPC]
+	void changeColor(int item_index){
+		GameObject local_hitObject = (UnityEngine.GameObject)NetworkController.enemyList [item_index];
+		Renderer r = local_hitObject.GetComponent<Renderer> ();
+		r.material.color = Color.yellow;
+
+	}
+
+
 }

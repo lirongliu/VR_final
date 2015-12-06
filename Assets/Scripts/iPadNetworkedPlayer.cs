@@ -5,15 +5,19 @@ public class iPadNetworkedPlayer : NetworkedPlayer {
 
 	// Use this for initialization
 	void Start () {
-		
-		Debug.Log("i'm instantiated");
+
+
+		//Debug.Log("i'm instantiated");
 		
 		if (photonView.isMine) {
-			Debug.Log ("player is mine. I am the iPad player.");
+			//Debug.Log ("player is mine. I am the iPad player.");
 			
 			this.transform.localPosition = new Vector3(0, 1, 0);
+			//this.transform.localPosition = new Vector3(62, 1, 30);
+
 			playerGlobal = this.transform;
-			
+
+			//Debug.Log(this.transform.localPosition.x+"\t"+this.transform.localPosition.y+"\t"+this.transform.localPosition.z);
 		}
 	}
 	
@@ -23,10 +27,13 @@ public class iPadNetworkedPlayer : NetworkedPlayer {
 			//Update remote player (smooth this, this looks good, at the cost of some accuracy)
 			avatar.transform.localPosition = Vector3.Lerp (avatar.transform.localPosition, correctAvatarPos, Time.deltaTime * 5);
 			avatar.transform.localRotation = Quaternion.Lerp (avatar.transform.localRotation, correctAvatarRot, Time.deltaTime * 5);
-			print ("correctAvatarPos: " + correctAvatarPos);
+			//print ("correctAvatarPos: " + correctAvatarPos);
 		}
 		else {
 			inputHandler();
 		}
+
 	}
+
+
 }
