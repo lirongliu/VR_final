@@ -56,13 +56,17 @@ public class NetworkController : MonoBehaviour
 			}
 		}
 
-
+		Vector3 originalTablet = new Vector3 (5, 2, -1);
+		Vector3 originalCB = new Vector3 (-5, 1, -2);
 		//instantiate cardboard & ipad players, and some enemies
 		if (whoAmI == Constants.IS_CB_PLAYER) {
 			GameObject networkedPlayer = PhotonNetwork.Instantiate("cbNetworkedPlayer",Vector3.zero , Quaternion.identity, 0);
+//			GameObject networkedPlayer = PhotonNetwork.Instantiate("cbNetworkedPlayer",originalCB , Quaternion.identity, 0);
+
 
 		} else {        
 			GameObject networkedPlayer = PhotonNetwork.Instantiate("iPadNetworkedPlayer", Vector3.zero, Quaternion.identity, 0);
+//			GameObject networkedPlayer = PhotonNetwork.Instantiate("iPadNetworkedPlayer", originalTablet, Quaternion.identity, 0);
 
 
 

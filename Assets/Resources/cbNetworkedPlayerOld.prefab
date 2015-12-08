@@ -47,7 +47,7 @@ GameObject:
   - 65: {fileID: 6590282}
   - 23: {fileID: 2334890}
   - 108: {fileID: 10862344}
-  - 54: {fileID: 5474212}
+  - 54: {fileID: 5471504}
   m_Layer: 0
   m_Name: Avatar
   m_TagString: cbNetworkedPlayerAvatar
@@ -124,7 +124,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 183464}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &5474212
+--- !u!54 &5471504
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

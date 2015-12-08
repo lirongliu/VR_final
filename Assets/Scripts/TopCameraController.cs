@@ -12,7 +12,8 @@ public class TopCameraController : MonoBehaviour {
 	void Update () {
 		GameObject iPadAvatar = GameObject.FindGameObjectWithTag ("iPadNetworkedPlayerAvatar");
 		GameObject cbAvatar = GameObject.FindGameObjectWithTag ("cbNetworkedPlayerAvatar");
-
+		print ("iPadAvatar" + iPadAvatar);
+		print ("cbAvatar" + cbAvatar);
 		if (iPadAvatar != null && cbAvatar != null) {
 			Vector3 iPadAvatarPos = iPadAvatar.transform.position;
 			Vector3 cbAvatarPos = cbAvatar.transform.position;

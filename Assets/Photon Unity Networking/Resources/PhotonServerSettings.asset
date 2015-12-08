@@ -40,4 +40,7 @@ MonoBehaviour:
   - destroyEnemy
   - createEnemy
   - changeColor
+  - decreseSpotlightIntensity
+  - generateEnemy
+  - decreseTabletSpotlightIntensity
   DisableAutoOpenWizard: 1
