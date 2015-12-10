@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 
-public class NetworkController : MonoBehaviour
+public class NetworkController : Photon.PunBehaviour
 {
 	public bool iPadTest = false;
 	public bool cbTest = false;
@@ -13,6 +13,7 @@ public class NetworkController : MonoBehaviour
 
 	private GameObject enemy1,enemy2,enemy3;
 
+
 	void Start(){
 		enemyList = new ArrayList ();
 
@@ -20,17 +21,33 @@ public class NetworkController : MonoBehaviour
 		Debug.Log ("Connected");
 		
 	}
+
+	void Update() {
+//		if (PhotonNetwork.playerList.Length > 1) {
+//			if (PhotonNetwork.isMasterClient) {
+//				
+//				// Temp enemies. To be deleted
+//				enemy1 = (GameObject)Instantiate (Enemy, new Vector3 (15, 1, -9), Quaternion.identity);
+//				enemy2 = (GameObject)Instantiate (Enemy, new Vector3 (3.5f, 1, -21), Quaternion.identity);
+//				enemy3 = (GameObject)Instantiate (Enemy, new Vector3 (-13.5f, 1, -11), Quaternion.identity);
+//				
+//				enemyList.Add(enemy1);
+//				enemyList.Add(enemy2);
+//				enemyList.Add(enemy3);
+//				print("NetworkController enemyList:"+enemyList[0]+"\t"+enemyList[1]+"\t"+enemyList[2]);
+//			}
+//		}
+	}
 	
-	void OnJoinedLobby(){
+	public override void OnJoinedLobby() {
 		Debug.Log("joined lobby");
 		
 		RoomOptions roomOptions = new RoomOptions() { };
 		PhotonNetwork.JoinOrCreateRoom(_room, roomOptions, TypedLobby.Default);
 	}
 	
-	
-	void OnJoinedRoom(){
-
+	public override void OnJoinedRoom() {
+		Debug.Log("joined room");
 
 		//set cameras for different users
 		if (iPadTest) {
@@ -64,15 +81,20 @@ public class NetworkController : MonoBehaviour
 			GameObject networkedPlayer = PhotonNetwork.Instantiate("iPadNetworkedPlayer", Vector3.zero, Quaternion.identity, 0);
 		}
 
-		// Temp enemies. To be deleted
-		enemy1 = (GameObject)Instantiate (Enemy, new Vector3 (15, 1, -9), Quaternion.identity);
-		enemy2 = (GameObject)Instantiate (Enemy, new Vector3 (3.5f, 1, -21), Quaternion.identity);
-		enemy3 = (GameObject)Instantiate (Enemy, new Vector3 (-13.5f, 1, -11), Quaternion.identity);
+	}
 
-		enemyList.Add(enemy1);
-		enemyList.Add(enemy2);
-		enemyList.Add(enemy3);
-		print("NetworkController enemyList:"+enemyList[0]+"\t"+enemyList[1]+"\t"+enemyList[2]);
+	void OnPhotonPlayerDisconnected(PhotonPlayer player)
+	{
+		Debug.Log("OnPhotonPlayerDisconnected: " + player);
+		reset ();
+
+	}
+
+	
+	void reset() {
+		foreach (GameObject enemy in enemyList) {
+			Destroy(enemy);
+		}
 	}
 
 }

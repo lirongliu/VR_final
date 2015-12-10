@@ -10,6 +10,13 @@ public class EnemyController : Photon.MonoBehaviour {
 
 	void Start () {
 		this.revive ();
+		
+		if (avatar == null) {
+			cbPlayer = GameObject.FindWithTag("cbNetworkedPlayer");
+			if (cbPlayer != null) {
+				avatar=cbPlayer.transform.Find("Avatar");
+			}
+		}
 	}
 	
 
@@ -17,13 +24,10 @@ public class EnemyController : Photon.MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-		if (cbPlayer == null) {
-			cbPlayer = GameObject.FindWithTag("cbNetworkedPlayer");
-			avatar=cbPlayer.transform.Find("Avatar");
+		
+		if (avatar != null) {
+			this.transform.position = Vector3.Lerp (this.transform.position, avatar.position, Time.deltaTime * 0.1f);
 		}
-
-		this.transform.position = Vector3.Lerp (this.transform.position,avatar.position,Time.deltaTime * 0.1f);
-
 	}
 	
 	public void revive() {
