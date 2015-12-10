@@ -95,6 +95,7 @@ public class NetworkController : Photon.PunBehaviour
 		foreach (GameObject enemy in enemyList) {
 			Destroy(enemy);
 		}
+		enemyList.Clear ();
 	}
 
 }

@@ -22,69 +22,7 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	protected Transform headTransform;
 	
 	Stopwatch stopWatch;
-	
-	void Update(){
-		
-		if (!photonView.isMine) {
-			//Update remote player (smooth this, this looks good, at the cost of some accuracy)
-			avatar.transform.localPosition = Vector3.Lerp (avatar.transform.localPosition, correctAvatarPos, Time.deltaTime * 5);
-			avatar.transform.localRotation = Quaternion.Lerp (avatar.transform.localRotation, correctAvatarRot, Time.deltaTime * 5);
-			headTransform.localRotation = Quaternion.Lerp (headTransform.localRotation, correctHeadRot, Time.deltaTime * 5);
-		}
-		else {
-			inputHandler();
-			
-			//gaze
-			if (NetworkController.whoAmI == Constants.IS_CB_PLAYER) {
-				RaycastHit hit;
-				if (Physics.Raycast (Camera.main.transform.position, Camera.main.transform.forward, out hit)) {
-					
-					if (hit.collider != null) {
-						if (hit.collider.gameObject == hitEnemy) {
-							EnemyController ec = hitEnemy.GetComponent<EnemyController>();
-							ec.getHit(300);
 
-							if (ec.shouldBeDead()) {
-								
-								if (NetworkController.enemyList.IndexOf (hitEnemy)!=null && NetworkController.enemyList.IndexOf (hitEnemy)!=(-1)){
-									//print("NetworkedPlayer enemyList:"+NetworkController.enemyList[0]+"\t"+NetworkController.enemyList[1]+"\t"+NetworkController.enemyList[2]);
-									//print("INDEX:"+NetworkController.enemyList.IndexOf (hit.collider.gameObject));
-									photonView.RPC ("destroyEnemy",PhotonTargets.All,NetworkController.enemyList.IndexOf(hitEnemy));
-								}
-							}
-
-						} else {
-							if (hitEnemy != null) {
-								EnemyController ec = hitEnemy.GetComponent<EnemyController>();
-								ec.revive();
-								hitEnemy = null;
-							}
-
-							if (hit.collider.gameObject.tag == "Enemy") {
-								hitEnemy = hit.collider.gameObject;
-							}
-						}
-					}
-				}
-
-
-				// check whether the spotlight hits tablet avatar
-				GameObject tabletPlayerAvatar = Utility.getTabletPlayerAvatar();
-				if(Utility.getVectorAngle(Camera.main.transform.forward, tabletPlayerAvatar.transform.position - Camera.main.transform.position) < Constants.cbSpotlightAngle / 2) {
-					print ("hit by spotlight!!!!");
-					photonView.RPC ("decreseTabletSpotlightIntensity",PhotonTargets.All);
-					
-				}
-			}
-			
-			
-			if(Time.frameCount%200==0){
-				photonView.RPC ("generateEnemy",PhotonTargets.All,Random.Range(-90,90),Random.Range(-90,90));
-			}
-		}
-		
-	}
-	
 	void Start ()
 	{
 		stopWatch = new Stopwatch ();
@@ -141,7 +79,73 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 		playerGlobal = avatar.transform;
 		
 	}
+
 	
+	void Update(){
+		
+		if (!photonView.isMine) {
+			//Update remote player (smooth this, this looks good, at the cost of some accuracy)
+			avatar.transform.localPosition = Vector3.Lerp (avatar.transform.localPosition, correctAvatarPos, Time.deltaTime * 5);
+			avatar.transform.localRotation = Quaternion.Lerp (avatar.transform.localRotation, correctAvatarRot, Time.deltaTime * 5);
+			headTransform.localRotation = Quaternion.Lerp (headTransform.localRotation, correctHeadRot, Time.deltaTime * 5);
+		}
+		else {
+			inputHandler();
+			
+			//gaze
+			if (NetworkController.whoAmI == Constants.IS_CB_PLAYER) {
+				RaycastHit hit;
+				if (Physics.Raycast (Camera.main.transform.position, Camera.main.transform.forward, out hit)) {
+					
+					if (hit.collider != null) {
+						if (hit.collider.gameObject == hitEnemy) {
+							EnemyController ec = hitEnemy.GetComponent<EnemyController>();
+							ec.getHit(300);
+							
+							if (ec.shouldBeDead()) {
+								
+								if (NetworkController.enemyList.IndexOf (hitEnemy)!=null && NetworkController.enemyList.IndexOf (hitEnemy)!=(-1)){
+									//print("NetworkedPlayer enemyList:"+NetworkController.enemyList[0]+"\t"+NetworkController.enemyList[1]+"\t"+NetworkController.enemyList[2]);
+									//print("INDEX:"+NetworkController.enemyList.IndexOf (hit.collider.gameObject));
+									photonView.RPC ("destroyEnemy",PhotonTargets.All,NetworkController.enemyList.IndexOf(hitEnemy));
+								}
+							}
+							
+						} else {
+							if (hitEnemy != null) {
+								EnemyController ec = hitEnemy.GetComponent<EnemyController>();
+								ec.revive();
+								hitEnemy = null;
+							}
+							
+							if (hit.collider.gameObject.tag == "Enemy") {
+								hitEnemy = hit.collider.gameObject;
+							}
+						}
+					}
+				}
+				
+				
+				// check whether the spotlight hits tablet avatar
+				GameObject tabletPlayerAvatar = Utility.getTabletPlayerAvatar();
+				if(Utility.getVectorAngle(Camera.main.transform.forward, tabletPlayerAvatar.transform.position - Camera.main.transform.position) < Constants.cbSpotlightAngle / 2) {
+					print ("hit by spotlight!!!!");
+					photonView.RPC ("decreseTabletSpotlightIntensity",PhotonTargets.All);
+					
+				}
+
+				// only cb is responsible for generating enemies
+				if(Time.frameCount%100==0){
+					photonView.RPC ("generateEnemy",PhotonTargets.All,Random.Range(-90,90),Random.Range(-90,90));
+				}
+			}
+			
+
+		}
+		
+	}
+
+
 	protected void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
 	{
 		if (stream.isWriting){
