@@ -27,6 +27,13 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	{
 		stopWatch = new Stopwatch ();
 		//Debug.Log("i'm instantiated");
+
+		
+		if (this.tag == "cbNetworkedPlayer") {
+			avatar.transform.localPosition = new Vector3 (-5, 0.5f, -2);
+		}  else {
+			avatar.transform.localPosition = new Vector3 (5, 0.5f, -1);
+		}
 		
 		if (this.tag == "cbNetworkedPlayer" && photonView.isMine) {
 			GameObject cb = GameObject.Find ("CardboardMain");
@@ -37,11 +44,12 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 
 			/* hierachy:
 			 * avatar
-			 * body
+			 * avatarBody
 			 * CardboardMain
 			 * head
 			 */
 			avatarBodyTransform.SetParent(avatar.transform);
+			avatarBodyTransform.localPosition = Vector3.zero;
 			
 			cb.transform.SetParent(avatarBodyTransform);
 			avatarHeadTransform.SetParent(cb.transform);
@@ -57,24 +65,19 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 
 			/* hierachy:
 			 * avatar
-			 * body
+			 * avatarBody
 			 * head
 			 */
 			avatarBodyTransform.SetParent(avatar.transform);
+			avatarBodyTransform.localPosition = Vector3.zero;
+
 			avatarHeadTransform.SetParent(avatarBodyTransform);
 			avatarHeadTransform.localPosition = new Vector3(0, Constants.cbAvatarHeight, 0);
 
 			// set head transform
 			this.headTransform = Utility.FindTransform (avatar.transform, "AvatarHead");
 		}
-		
-		
-		if (this.tag == "cbNetworkedPlayer") {
-			avatar.transform.localPosition = new Vector3 (-5, 1, -2);
-		}  else {
-			avatar.transform.localPosition = new Vector3 (5, 2, -1);
-		}
-		
+
 		playerLocal = headTransform;
 		playerGlobal = avatar.transform;
 		
@@ -168,24 +171,30 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	}
 	
 	protected void inputHandler() {
+		AvatarController avatarController = avatar.GetComponent<AvatarController> ();
 		if (Input.GetKey ("q")) {	//	moving towards the viewing direction
-			this.translate (playerGlobal.forward);
+//			this.translate (playerGlobal.forward);
+			avatarController.Move(playerGlobal.forward);
 		}
 		
 		if (Input.GetKey ("d")) {
-			this.translate (new Vector3(1, 0, 0));
+//			this.translate (new Vector3(1, 0, 0));
+			avatarController.Move(new Vector3(0.1f, 0, 0));
 		}
 		
 		if (Input.GetKey ("a")) {
-			this.translate (new Vector3(-1, 0, 0));
+//			this.translate (new Vector3(-1, 0, 0));
+			avatarController.Move(new Vector3(-0.1f, 0, 0));
 		}
 		
 		if (Input.GetKey ("s")) {
-			this.translate (new Vector3(0, 0, -1));
+//			this.translate (new Vector3(0, 0, -1));
+			avatarController.Move(new Vector3(0, 0, -0.1f));
 		}
 		
 		if (Input.GetKey ("w")) {
-			this.translate (new Vector3(0, 0, 1));
+//			this.translate (new Vector3(0, 0, 1));
+			avatarController.Move(new Vector3(0, 0, 0.1f));
 		}
 		
 		
