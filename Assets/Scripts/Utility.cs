@@ -31,6 +31,19 @@ public class Utility : MonoBehaviour {
 		
 	}
 
+	public static float getVectorAngle(Vector3 from, Vector3 to) {
+		float angle = Vector3.Angle(from, to);
+		return Mathf.Abs (angle);
+	}
+
+	public static GameObject getTabletPlayerAvatar() {
+		return GameObject.FindGameObjectWithTag (Constants.tabletPlayerAvatarTag);
+	}
+	
+	public static GameObject getCbPlayerAvatar() {
+		return GameObject.FindGameObjectWithTag (Constants.cbPlayerAvatarTag);
+	}
+
 	// Use this for initialization
 	void Start () {
 	

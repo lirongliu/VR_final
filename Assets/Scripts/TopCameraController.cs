@@ -10,6 +10,9 @@ public class TopCameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+
+		// 
 		GameObject iPadAvatar = GameObject.FindGameObjectWithTag ("iPadNetworkedPlayerAvatar");
 		GameObject cbAvatar = GameObject.FindGameObjectWithTag ("cbNetworkedPlayerAvatar");
 		print ("iPadAvatar" + iPadAvatar);
@@ -19,9 +22,6 @@ public class TopCameraController : MonoBehaviour {
 			Vector3 cbAvatarPos = cbAvatar.transform.position;
 			Vector3 center = (iPadAvatarPos + cbAvatarPos) / 2;
 			this.transform.position = new Vector3(center.x, 15 ,center.z);
-
-//			print (this.transform.position);
-//			print (gameObject.transform.position);
 
 			Camera camera = this.GetComponent<Camera>();
 			if (camera != null) {

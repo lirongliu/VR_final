@@ -6,13 +6,14 @@ public class EnemyController : Photon.MonoBehaviour {
 	private GameObject cbPlayer;
 	private Transform avatar;
 
-	void Start () {
+	private float life;
 
+	void Start () {
+		this.revive ();
 	}
 	
 
 	void Update () {
-
 	}
 
 	void FixedUpdate(){
@@ -24,8 +25,23 @@ public class EnemyController : Photon.MonoBehaviour {
 		this.transform.position = Vector3.Lerp (this.transform.position,avatar.position,Time.deltaTime * 0.1f);
 
 	}
+	
+	public void revive() {
+		Renderer r = GetComponent<Renderer> ();
+		r.material.color = Color.gray;
 
+		life = 100;
+	}
 
+	public void getHit(float damage) {
+		Renderer r = GetComponent<Renderer> ();
+		r.material.color = Color.red;
 
+		life -= damage * Time.deltaTime;
+	}
 
+	public bool shouldBeDead() {
+		return life <= 0;
+	}
+	
 }

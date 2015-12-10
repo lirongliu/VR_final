@@ -47,7 +47,6 @@ public class NetworkController : MonoBehaviour
 				GameObject.Find ("CardboardMain").SetActive (false);
 				GameObject.Find ("iPadCamera").SetActive (true);
 				whoAmI = Constants.IS_IPAD_PLAYER;
-				//            PhotonNetwork.Instantiate("NetworkedPlayer", Vector3.zero, Quaternion.identity, 0);
 			} else {        // cardboard
 				
 				GameObject.Find ("CardboardMain").SetActive (true);
@@ -61,17 +60,11 @@ public class NetworkController : MonoBehaviour
 		//instantiate cardboard & ipad players, and some enemies
 		if (whoAmI == Constants.IS_CB_PLAYER) {
 			GameObject networkedPlayer = PhotonNetwork.Instantiate("cbNetworkedPlayer",Vector3.zero , Quaternion.identity, 0);
-//			GameObject networkedPlayer = PhotonNetwork.Instantiate("cbNetworkedPlayer",originalCB , Quaternion.identity, 0);
-
-
 		} else {        
 			GameObject networkedPlayer = PhotonNetwork.Instantiate("iPadNetworkedPlayer", Vector3.zero, Quaternion.identity, 0);
-//			GameObject networkedPlayer = PhotonNetwork.Instantiate("iPadNetworkedPlayer", originalTablet, Quaternion.identity, 0);
-
-
-
 		}
-		//PhotonNetwork.Instantiate("CardboardMain", new Vector3(Random.Range(-5.0F, 5.0F), 0, Random.Range(-5.0F, 5.0F)), Quaternion.identity, 0);
+
+		// Temp enemies. To be deleted
 		enemy1 = (GameObject)Instantiate (Enemy, new Vector3 (15, 1, -9), Quaternion.identity);
 		enemy2 = (GameObject)Instantiate (Enemy, new Vector3 (3.5f, 1, -21), Quaternion.identity);
 		enemy3 = (GameObject)Instantiate (Enemy, new Vector3 (-13.5f, 1, -11), Quaternion.identity);
@@ -82,9 +75,4 @@ public class NetworkController : MonoBehaviour
 		print("NetworkController enemyList:"+enemyList[0]+"\t"+enemyList[1]+"\t"+enemyList[2]);
 	}
 
-	[PunRPC]
-	void createEnemy(){
-
-
-	}
 }

@@ -23,6 +23,9 @@ public class SpotLightController : MonoBehaviour {
 				this.transform.SetParent (headTransform);
 				this.transform.localPosition = Vector3.zero;
 			}
+
+			Light light = this.GetComponent<Light>();
+			light.spotAngle = Constants.cbSpotlightAngle;
 		}
 	}
 	

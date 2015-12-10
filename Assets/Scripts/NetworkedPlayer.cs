@@ -11,6 +11,7 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	public GameObject Enemy;
 	
 	private GameObject hitObject;
+	private GameObject hitEnemy;
 	
 	
 	protected Vector3 correctAvatarPos = Vector3.zero; //We lerp towards this
@@ -37,53 +38,42 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 			if (NetworkController.whoAmI == Constants.IS_CB_PLAYER) {
 				RaycastHit hit;
 				if (Physics.Raycast (Camera.main.transform.position, Camera.main.transform.forward, out hit)) {
+					
 					if (hit.collider != null) {
-						
-						if (hit.collider.gameObject == hitObject) {
-							//UnityEngine.Debug.Log("if: hitObject="+hitObject.tag);
-							print ("stopWatch.ElapsedMilliseconds" + stopWatch.ElapsedMilliseconds);
-							if (stopWatch.ElapsedMilliseconds > 300) {
-								//Destroy (hit.collider.gameObject);
+						if (hit.collider.gameObject == hitEnemy) {
+							EnemyController ec = hitEnemy.GetComponent<EnemyController>();
+							ec.getHit(300);
+
+							if (ec.shouldBeDead()) {
 								
-								//RPCs only support basic data like floats, ints, bools, Vector2 and 3 and Quaternions.
-								//can not send RaycastHit as a parameter
-								
-								if (NetworkController.enemyList.IndexOf (hit.collider.gameObject)!=null && NetworkController.enemyList.IndexOf (hit.collider.gameObject)!=(-1)){
+								if (NetworkController.enemyList.IndexOf (hitEnemy)!=null && NetworkController.enemyList.IndexOf (hitEnemy)!=(-1)){
 									//print("NetworkedPlayer enemyList:"+NetworkController.enemyList[0]+"\t"+NetworkController.enemyList[1]+"\t"+NetworkController.enemyList[2]);
 									//print("INDEX:"+NetworkController.enemyList.IndexOf (hit.collider.gameObject));
-									photonView.RPC ("destroyEnemy",PhotonTargets.All,NetworkController.enemyList.IndexOf(hit.collider.gameObject));
-									print ("ajsdkflajsdflkj");
-								}
-							}   else {
-								if (hitObject.tag == "Enemy") {
-									Renderer r = hitObject.GetComponent<Renderer> ();
-									r.material.color = Color.yellow;
+									photonView.RPC ("destroyEnemy",PhotonTargets.All,NetworkController.enemyList.IndexOf(hitEnemy));
 								}
 							}
+
 						} else {
-							print ("tag " + hit.collider.gameObject.tag);
+							if (hitEnemy != null) {
+								EnemyController ec = hitEnemy.GetComponent<EnemyController>();
+								ec.revive();
+								hitEnemy = null;
+							}
+
 							if (hit.collider.gameObject.tag == "Enemy") {
-								hitObject = hit.collider.gameObject;
-								Renderer r = hitObject.GetComponent<Renderer> ();
-								r.material.color = Color.white;
-							} else if(Utility.checkTag(hit.collider.gameObject.transform, "iPadNetworkedPlayerAvatar")) {
-								
-								//GameObject iPadAvatar=hit.collider.gameObject;
-								//Transform spotLight=iPadAvatar.transform.Find("Spotlight");
-								//spotLight.GetComponent<Light>().intensity-=0.05f;
-								photonView.RPC ("decreseTabletSpotlightIntensity",PhotonTargets.All);
-								
-								
-							} else {
-								stopWatch.Reset ();
-								stopWatch.Start ();
+								hitEnemy = hit.collider.gameObject;
 							}
 						}
-					}   else {
-						
-						hitObject = null;
-						stopWatch.Reset ();
 					}
+				}
+
+
+				// check whether the spotlight hits tablet avatar
+				GameObject tabletPlayerAvatar = Utility.getTabletPlayerAvatar();
+				if(Utility.getVectorAngle(Camera.main.transform.forward, tabletPlayerAvatar.transform.position - Camera.main.transform.position) < Constants.cbSpotlightAngle / 2) {
+					print ("hit by spotlight!!!!");
+					photonView.RPC ("decreseTabletSpotlightIntensity",PhotonTargets.All);
+					
 				}
 			}
 			
@@ -105,7 +95,14 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 			
 			Transform avatarHeadTransform = this.transform.Find("AvatarHead");
 			Transform avatarBodyTransform = this.transform.Find("AvatarBody");
-			
+
+
+			/* hierachy:
+			 * avatar
+			 * body
+			 * CardboardMain
+			 * head
+			 */
 			avatarBodyTransform.SetParent(avatar.transform);
 			
 			cb.transform.SetParent(avatarBodyTransform);
@@ -113,25 +110,23 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 			cb.transform.localPosition = new Vector3(0, Constants.cbAvatarHeight, 0);
 			avatarHeadTransform.localPosition = Vector3.zero;
 			
-			
-			//playerLocal = headTransform;
-			
-			// get head transform
+			// set head transform
 			this.headTransform = cb.transform;
 		}   else {
 			
 			Transform avatarHeadTransform = this.transform.Find("AvatarHead");
 			Transform avatarBodyTransform = this.transform.Find("AvatarBody");
-			
+
+			/* hierachy:
+			 * avatar
+			 * body
+			 * head
+			 */
 			avatarBodyTransform.SetParent(avatar.transform);
 			avatarHeadTransform.SetParent(avatarBodyTransform);
 			avatarHeadTransform.localPosition = new Vector3(0, Constants.cbAvatarHeight, 0);
-			
-			
-			//playerLocal = avatar.transform;
-			
-			// get head transform
-			
+
+			// set head transform
 			this.headTransform = Utility.FindTransform (avatar.transform, "AvatarHead");
 		}
 		
@@ -158,7 +153,6 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 			correctAvatarPos = (Vector3)stream.ReceiveNext();
 			correctAvatarRot = (Quaternion)stream.ReceiveNext();
 			correctHeadRot = (Quaternion)stream.ReceiveNext();
-			
 		}
 	}
 	
