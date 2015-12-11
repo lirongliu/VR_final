@@ -24,7 +24,7 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 
 	}
 	
-	protected void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+	protected virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
 		if (stream.isWriting){
 			stream.SendNext(playerGlobal.position);
 			stream.SendNext(playerGlobal.rotation);
@@ -37,7 +37,7 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 		}
 	}
 	
-	protected void inputHandler() {
+	protected virtual void inputHandler() {
 		float movingSpeed = 0.2f;
 
 		AvatarController avatarController = avatar.GetComponent<AvatarController> ();

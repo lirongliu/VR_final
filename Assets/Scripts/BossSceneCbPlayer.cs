@@ -31,8 +31,9 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 
 		if (!photonView.isMine) {
 			//Update remote player (smooth this, this looks good, at the cost of some accuracy)
-			avatar.transform.localPosition = Vector3.Lerp (avatar.transform.localPosition, correctAvatarPos, Time.deltaTime * 5);
-			avatar.transform.localRotation = Quaternion.Lerp (avatar.transform.localRotation, correctAvatarRot, Time.deltaTime * 5);
+			print ("correctAvatarPos: " + correctAvatarPos);
+//			avatar.transform.localPosition = Vector3.Lerp (avatar.transform.localPosition, correctAvatarPos, Time.deltaTime * 5);
+//			avatar.transform.localRotation = Quaternion.Lerp (avatar.transform.localRotation, correctAvatarRot, Time.deltaTime * 5);
 			headTransform.localRotation = Quaternion.Lerp (headTransform.localRotation, correctHeadRot, Time.deltaTime * 5);
 		} else {
 			inputHandler ();
@@ -46,6 +47,40 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 			if (Time.frameCount % 100 == 0) {
 				photonView.RPC ("generateEnemy", PhotonTargets.All, Random.Range (-30, 30), Random.Range (-30, 30));
 			}
+		}
+	}
+	
+	override protected void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+		if (stream.isWriting){
+//			stream.SendNext(cbAvatar.transform.position);
+			//			stream.SendNext(playerGlobal.rotation);
+						stream.SendNext(headTransform.localRotation);
+		}
+		else{
+//						correctAvatarPos = (Vector3)stream.ReceiveNext();
+			//			correctAvatarRot = (Quaternion)stream.ReceiveNext();
+			correctHeadRot = (Quaternion)stream.ReceiveNext();
+		}
+	}
+	
+ 	override protected void inputHandler() {
+		float movingSpeed = 0.2f;
+		
+		AvatarController avatarController = avatar.GetComponent<AvatarController> ();
+		
+		if (Input.GetKey ("right")) {
+			playerLocal.Rotate (new Vector3 (0, 2, 0));
+		}
+		if (Input.GetKey ("left")) {
+			playerLocal.Rotate (new Vector3 (0, -2, 0));
+		}
+		
+		if (Input.GetKey ("down")) {
+			playerLocal.Rotate (new Vector3 (2, 0, 0));
+		}
+		
+		if (Input.GetKey ("up")) {
+			playerLocal.Rotate (new Vector3 (-2, 0, 0));
 		}
 	}
 }
