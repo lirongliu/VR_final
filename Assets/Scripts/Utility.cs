@@ -17,13 +17,13 @@ public class Utility : MonoBehaviour {
 
 	public static bool checkTag(Transform objTransform, string tag){
 		while (objTransform != objTransform.root) {
-			if (objTransform.tag == tag) {
+			if (objTransform.CompareTag(tag)) {
 				return true;
 			}
 			objTransform = objTransform.parent;
 		}
 		
-		if (objTransform.tag == tag) {
+		if (objTransform.CompareTag(tag)) {
 			return true;
 		}
 		

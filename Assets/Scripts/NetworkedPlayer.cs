@@ -29,13 +29,13 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 		//Debug.Log("i'm instantiated");
 
 		
-		if (this.tag == "cbNetworkedPlayer") {
+		if (this.CompareTag("cbNetworkedPlayer")) {
 			avatar.transform.localPosition = new Vector3 (-5, 0.5f, -2);
 		}  else {
 			avatar.transform.localPosition = new Vector3 (5, 0.5f, -1);
 		}
 		
-		if (this.tag == "cbNetworkedPlayer" && photonView.isMine) {
+		if (this.CompareTag("cbNetworkedPlayer") && photonView.isMine) {
 			GameObject cb = GameObject.Find ("CardboardMain");
 			
 			Transform avatarHeadTransform = this.transform.Find("AvatarHead");
@@ -99,7 +99,6 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 			if (NetworkController.whoAmI == Constants.IS_CB_PLAYER) {
 				RaycastHit hit;
 				if (Physics.Raycast (Camera.main.transform.position, Camera.main.transform.forward, out hit)) {
-					
 					if (hit.collider != null) {
 						if (hit.collider.gameObject == hitEnemy) {
 							EnemyController ec = hitEnemy.GetComponent<EnemyController>();
@@ -120,21 +119,40 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 								ec.revive();
 								hitEnemy = null;
 							}
-							
-							if (hit.collider.gameObject.tag == "Enemy") {
+
+//							print ("hit.collider.gameObject.tag " + hit.collider.gameObject.tag);
+							if (hit.collider.CompareTag("Enemy")) {
 								hitEnemy = hit.collider.gameObject;
 							}
 						}
 					}
 				}
-				
-				
+
 				// check whether the spotlight hits tablet avatar
 				GameObject tabletPlayerAvatar = Utility.getTabletPlayerAvatar();
-				if(Utility.getVectorAngle(Camera.main.transform.forward, tabletPlayerAvatar.transform.position - Camera.main.transform.position) < Constants.cbSpotlightAngle / 2) {
-					print ("hit by spotlight!!!!");
-					photonView.RPC ("decreseTabletSpotlightIntensity",PhotonTargets.All);
-					
+				if (tabletPlayerAvatar != null) {
+					float angle = Utility.getVectorAngle(Camera.main.transform.forward, tabletPlayerAvatar.transform.position - Camera.main.transform.position);
+					if(angle < Constants.cbSpotlightAngle / 2) {
+						bool hitByLight = false;
+						if (hit.collider != null) {
+							if (Utility.checkTag(hit.collider.gameObject.transform, Constants.tabletPlayerAvatarTag)) {
+								hitByLight = true;
+							} else {
+								float hitPointDist = Vector3.Distance(Camera.main.transform.position, hit.point);
+								float tabletAvatarDist = Vector3.Distance(Camera.main.transform.position, tabletPlayerAvatar.transform.position);
+								if (hitPointDist > tabletAvatarDist) {
+									hitByLight = true;
+								}
+							}
+						} else {
+							hitByLight = true;
+						}
+						if (hitByLight) {
+							print ("hit by spotlight!!!!");
+							photonView.RPC ("decreseTabletSpotlightIntensity",PhotonTargets.All);
+						}
+						
+					}
 				}
 
 				// only cb is responsible for generating enemies
@@ -171,30 +189,32 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	}
 	
 	protected void inputHandler() {
+		float movingSpeed = 0.2f;
+
 		AvatarController avatarController = avatar.GetComponent<AvatarController> ();
 		if (Input.GetKey ("q")) {	//	moving towards the viewing direction
 //			this.translate (playerGlobal.forward);
-			avatarController.Move(playerGlobal.forward);
+			avatarController.Move(Camera.main.transform.forward * 0.1f);
 		}
 		
 		if (Input.GetKey ("d")) {
 //			this.translate (new Vector3(1, 0, 0));
-			avatarController.Move(new Vector3(0.1f, 0, 0));
+			avatarController.Move(new Vector3(movingSpeed, 0, 0));
 		}
 		
 		if (Input.GetKey ("a")) {
 //			this.translate (new Vector3(-1, 0, 0));
-			avatarController.Move(new Vector3(-0.1f, 0, 0));
+			avatarController.Move(new Vector3(-movingSpeed, 0, 0));
 		}
 		
 		if (Input.GetKey ("s")) {
 //			this.translate (new Vector3(0, 0, -1));
-			avatarController.Move(new Vector3(0, 0, -0.1f));
+			avatarController.Move(new Vector3(0, 0, -movingSpeed));
 		}
 		
 		if (Input.GetKey ("w")) {
 //			this.translate (new Vector3(0, 0, 1));
-			avatarController.Move(new Vector3(0, 0, 0.1f));
+			avatarController.Move(new Vector3(0, 0, movingSpeed));
 		}
 		
 		
