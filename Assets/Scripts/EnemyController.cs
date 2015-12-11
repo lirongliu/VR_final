@@ -12,7 +12,7 @@ public class EnemyController : Photon.MonoBehaviour {
 		this.revive ();
 		
 		if (avatar == null) {
-			cbPlayer = GameObject.FindWithTag("cbNetworkedPlayer");
+			cbPlayer = GameObject.FindWithTag(Constants.cbNetworkedPlayerTag);
 			if (cbPlayer != null) {
 				avatar=cbPlayer.transform.Find("Avatar");
 			}

@@ -26,13 +26,13 @@ public class NetworkedPlayerOld : Photon.MonoBehaviour
 		//Debug.Log("i'm instantiated");
 
 		
-		if (this.CompareTag("cbNetworkedPlayer")) {
+		if (this.CompareTag(Constants.cbNetworkedPlayerTag)) {
 			avatar.transform.localPosition = new Vector3 (-5, 0.5f, -2);
 		}  else {
 			avatar.transform.localPosition = new Vector3 (5, 0.5f, -1);
 		}
 		
-		if (this.CompareTag("cbNetworkedPlayer") && photonView.isMine) {
+		if (this.CompareTag(Constants.cbNetworkedPlayerTag) && photonView.isMine) {
 			GameObject cb = GameObject.Find ("CardboardMain");
 			
 			Transform avatarHeadTransform = this.transform.Find("AvatarHead");
@@ -130,7 +130,7 @@ public class NetworkedPlayerOld : Photon.MonoBehaviour
 					if(angle < Constants.cbSpotlightAngle / 2) {
 						bool hitByLight = false;
 						if (hit.collider != null) {
-							if (Utility.checkTag(hit.collider.gameObject.transform, Constants.tabletPlayerAvatarTag)) {
+							if (Utility.checkTag(hit.collider.gameObject.transform, Constants.tbPlayerAvatarTag)) {
 								hitByLight = true;
 							} else {
 								float hitPointDist = Vector3.Distance(Camera.main.transform.position, hit.point);

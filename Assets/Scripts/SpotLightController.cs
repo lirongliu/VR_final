@@ -7,11 +7,11 @@ public class SpotLightController : MonoBehaviour {
 	void Start () {
 		print ("SpotLightController");
 
-		GameObject iPadNetworkedPlayer = GameObject.FindGameObjectWithTag ("iPadNetworkedPlayer");
-		GameObject cbNetworkedPlayer = GameObject.FindGameObjectWithTag ("cbNetworkedPlayer");
-		if (iPadNetworkedPlayer != null && this.transform.parent == iPadNetworkedPlayer.transform) {
+		GameObject tbNetworkedPlayer = GameObject.FindGameObjectWithTag (Constants.tbNetworkedPlayerTag);
+		GameObject cbNetworkedPlayer = GameObject.FindGameObjectWithTag (Constants.cbNetworkedPlayerTag);
+		if (tbNetworkedPlayer != null && this.transform.parent == tbNetworkedPlayer.transform) {
 			print ("IS_IPAD_PLAYER in SpotLightController");
-			Transform avatarTransform = iPadNetworkedPlayer.transform.Find ("Avatar");
+			Transform avatarTransform = tbNetworkedPlayer.transform.Find ("Avatar");
 			if (avatarTransform != null) {
 				this.transform.SetParent (avatarTransform);
 				this.transform.localPosition = new Vector3(0, 10, 0);

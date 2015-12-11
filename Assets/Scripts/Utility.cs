@@ -37,7 +37,7 @@ public class Utility : MonoBehaviour {
 	}
 
 	public static GameObject getTabletPlayerAvatar() {
-		return GameObject.FindGameObjectWithTag (Constants.tabletPlayerAvatarTag);
+		return GameObject.FindGameObjectWithTag (Constants.tbPlayerAvatarTag);
 	}
 	
 	public static GameObject getCbPlayerAvatar() {

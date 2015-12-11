@@ -12,8 +12,11 @@ public class Constants : MonoBehaviour {
 
 	public static float cbSpotlightAngle = 50;
 
-	public static string tabletPlayerAvatarTag = "iPadNetworkedPlayerAvatar";
+	public static string tbPlayerAvatarTag = "iPadNetworkedPlayerAvatar";
 	public static string cbPlayerAvatarTag = "cbNetworkedPlayerAvatar";
+	
+	public static string tbNetworkedPlayerTag = "iPadNetworkedPlayer";
+	public static string cbNetworkedPlayerTag = "cbNetworkedPlayer";
 
 	// Use this for initialization
 	void Start () {
