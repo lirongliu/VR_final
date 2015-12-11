@@ -25,6 +25,7 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 
 	void Start ()
 	{
+		DontDestroyOnLoad (this);
 		stopWatch = new Stopwatch ();
 		//Debug.Log("i'm instantiated");
 
@@ -79,10 +80,8 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 		}
 
 		playerLocal = headTransform;
-		playerGlobal = avatar.transform;
-		
+		playerGlobal = avatar.transform;		
 	}
-
 	
 	void Update(){
 		
@@ -196,7 +195,11 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 //			this.translate (playerGlobal.forward);
 			avatarController.Move(Camera.main.transform.forward * 0.1f);
 		}
-		
+
+		if (Input.GetKey ("l")) {
+			photonView.RPC("loadScene", PhotonTargets.All, "BossScene");
+		}
+
 		if (Input.GetKey ("d")) {
 //			this.translate (new Vector3(1, 0, 0));
 			avatarController.Move(new Vector3(movingSpeed, 0, 0));
@@ -273,6 +276,13 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 		}
 	}
 	
+	[PunRPC]
+	void loadScene(string sceneName) {
+		Application.LoadLevel (sceneName);
+		if (sceneName == "BossScene") {
+		} else if (sceneName == "DarkBackyardScene") {
+		}
+	}
 	
 	
 	

@@ -15,6 +15,7 @@ public class NetworkController : Photon.PunBehaviour
 
 
 	void Start(){
+		DontDestroyOnLoad (this);
 		enemyList = new ArrayList ();
 
 		PhotonNetwork.ConnectUsingSettings("0.1");
