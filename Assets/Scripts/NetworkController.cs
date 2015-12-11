@@ -20,7 +20,6 @@ public class NetworkController : Photon.PunBehaviour
 
 		PhotonNetwork.ConnectUsingSettings("0.1");
 		Debug.Log ("Connected");
-		
 	}
 
 	void Update() {
@@ -74,7 +73,6 @@ public class NetworkController : Photon.PunBehaviour
 	{
 		Debug.Log("OnPhotonPlayerDisconnected: " + player);
 		reset ();
-
 	}
 
 	

@@ -82,6 +82,7 @@ GameObject:
   - 114: {fileID: 11462184}
   - 114: {fileID: 11491804}
   - 114: {fileID: 11418756}
+  - 114: {fileID: 11412850}
   m_Layer: 0
   m_Name: cbNetworkedPlayer
   m_TagString: cbNetworkedPlayer
@@ -300,6 +301,21 @@ MonoBehaviour:
   viewIdField: 0
   instantiationId: -1
   isRuntimeInstantiated: 0
+--- !u!114 &11412850
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 194320}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e811a99cccf7a4b1cba1b37cb553ddd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  avatar: {fileID: 110198}
+  playerGlobal: {fileID: 0}
+  playerLocal: {fileID: 0}
+  Enemy: {fileID: 158638, guid: f063c54a9e26a457091f892bbb6ba13c, type: 2}
 --- !u!114 &11418756
 MonoBehaviour:
   m_ObjectHideFlags: 1

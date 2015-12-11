@@ -56,8 +56,45 @@ public class PunRPCs : MonoBehaviour {
 	[PunRPC]
 	void loadScene(string sceneName) {
 		Application.LoadLevel (sceneName);
+
+//		if (NetworkController.whoAmI == Constants.IS_CB_PLAYER) {
+		GameObject cbNetworkedPlayer = GameObject.FindWithTag ("cbNetworkedPlayer");
+		GameObject tbNetworkedPlayer = GameObject.FindWithTag ("iPadNetworkedPlayer");
+
 		if (sceneName == "BossScene") {
+			if (cbNetworkedPlayer != null) {
+				cbNetworkedPlayer.GetComponent<DarkSceneCbPlayer>().enabled = false;
+				BossSceneCbPlayer bossSceneCbPlayerScript = cbNetworkedPlayer.GetComponent<BossSceneCbPlayer>();
+				bossSceneCbPlayerScript.enabled = true;
+				PhotonView cbPhotonView = cbNetworkedPlayer.GetComponent<PhotonView>();
+				cbPhotonView.photonView.ObservedComponents.Add(bossSceneCbPlayerScript);
+
+			}
+			if (tbNetworkedPlayer != null) {
+
+				tbNetworkedPlayer.GetComponent<DarkSceneTbPlayer>().enabled = false;
+				BossSceneTbPlayer bossSceneTbPlayerScript = tbNetworkedPlayer.GetComponent<BossSceneTbPlayer>();
+				bossSceneTbPlayerScript.enabled = true;
+				PhotonView tbPhotonView = tbNetworkedPlayer.GetComponent<PhotonView>();
+				tbPhotonView.photonView.ObservedComponents.Add(bossSceneTbPlayerScript);
+			}
 		} else if (sceneName == "DarkBackyardScene") {
 		}
+
+//		} 
+//		else if (NetworkController.whoAmI == Constants.IS_IPAD_PLAYER) {
+//			
+//			GameObject tbNetworkedPlayer = GameObject.FindWithTag ("iPadNetworkedPlayer");
+//			
+//			if (sceneName == "BossScene") {
+//				tbNetworkedPlayer.GetComponent<DarkSceneTbPlayer>().enabled = false;
+//				BossSceneTbPlayer bossSceneTbPlayerScript = tbNetworkedPlayer.GetComponent<BossSceneTbPlayer>();
+//				bossSceneTbPlayerScript.enabled = true;
+//				PhotonView tbPhotonView = tbNetworkedPlayer.GetComponent<PhotonView>();
+//				tbPhotonView.photonView.ObservedComponents.Add(bossSceneTbPlayerScript);
+//				
+//			} else if (sceneName == "DarkBackyardScene") {
+//			}
+//		}
 	}
 }

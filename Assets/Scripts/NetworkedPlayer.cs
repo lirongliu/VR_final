@@ -14,8 +14,7 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	protected Vector3 correctAvatarPos = Vector3.zero; //We lerp towards this
 	protected Quaternion correctAvatarRot = Quaternion.identity; //We lerp towards this
 	protected Quaternion correctHeadRot = Quaternion.identity; //We lerp towards this
-	
-	
+
 	protected Transform headTransform;
 
 	void Start () {

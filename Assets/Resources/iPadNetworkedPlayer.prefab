@@ -82,6 +82,7 @@ GameObject:
   - 114: {fileID: 11454586}
   - 114: {fileID: 11460690}
   - 114: {fileID: 11490466}
+  - 114: {fileID: 11431340}
   m_Layer: 0
   m_Name: iPadNetworkedPlayer
   m_TagString: iPadNetworkedPlayer
@@ -285,6 +286,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b2d7f89ff77e4c2db17f2d73832cbcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11431340
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181438}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e70d3917361a24cb1b1bc51a28071733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  avatar: {fileID: 138594}
+  playerGlobal: {fileID: 0}
+  playerLocal: {fileID: 0}
+  Enemy: {fileID: 158638, guid: f063c54a9e26a457091f892bbb6ba13c, type: 2}
 --- !u!114 &11454586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -423,6 +439,10 @@ Prefab:
       propertyPath: ObservedComponents.Array.data[0]
       value: 
       objectReference: {fileID: 11460690}
+    - target: {fileID: 0}
+      propertyPath: avatar
+      value: 
+      objectReference: {fileID: 138594}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 181438}
