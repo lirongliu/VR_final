@@ -24,20 +24,6 @@ public class NetworkController : Photon.PunBehaviour
 	}
 
 	void Update() {
-//		if (PhotonNetwork.playerList.Length > 1) {
-//			if (PhotonNetwork.isMasterClient) {
-//				
-//				// Temp enemies. To be deleted
-//				enemy1 = (GameObject)Instantiate (Enemy, new Vector3 (15, 1, -9), Quaternion.identity);
-//				enemy2 = (GameObject)Instantiate (Enemy, new Vector3 (3.5f, 1, -21), Quaternion.identity);
-//				enemy3 = (GameObject)Instantiate (Enemy, new Vector3 (-13.5f, 1, -11), Quaternion.identity);
-//				
-//				enemyList.Add(enemy1);
-//				enemyList.Add(enemy2);
-//				enemyList.Add(enemy3);
-//				print("NetworkController enemyList:"+enemyList[0]+"\t"+enemyList[1]+"\t"+enemyList[2]);
-//			}
-//		}
 	}
 	
 	public override void OnJoinedLobby() {
@@ -98,5 +84,4 @@ public class NetworkController : Photon.PunBehaviour
 		}
 		enemyList.Clear ();
 	}
-
 }

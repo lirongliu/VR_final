@@ -5,7 +5,8 @@ public class SpotLightController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		print ("SpotLightController");
+
 		GameObject iPadNetworkedPlayer = GameObject.FindGameObjectWithTag ("iPadNetworkedPlayer");
 		GameObject cbNetworkedPlayer = GameObject.FindGameObjectWithTag ("cbNetworkedPlayer");
 		if (iPadNetworkedPlayer != null && this.transform.parent == iPadNetworkedPlayer.transform) {

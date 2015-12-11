@@ -81,6 +81,7 @@ GameObject:
   - 114: {fileID: 11486056}
   - 114: {fileID: 11454586}
   - 114: {fileID: 11460690}
+  - 114: {fileID: 11490466}
   m_Layer: 0
   m_Name: iPadNetworkedPlayer
   m_TagString: iPadNetworkedPlayer
@@ -290,7 +291,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 181438}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 674c9455ebfae47a6b404bd41a65ae87, type: 3}
   m_Name: 
@@ -305,7 +306,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 181438}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16e8c87903e824ce1a0f1309a0be2bab, type: 3}
   m_Name: 
@@ -313,7 +314,7 @@ MonoBehaviour:
   avatar: {fileID: 138594}
   playerGlobal: {fileID: 0}
   playerLocal: {fileID: 0}
-  Enemy: {fileID: 0}
+  Enemy: {fileID: 158638, guid: f063c54a9e26a457091f892bbb6ba13c, type: 2}
 --- !u!114 &11464686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -345,11 +346,24 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 11454586}
+  - {fileID: 11460690}
+  - {fileID: 11490466}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
   isRuntimeInstantiated: 0
+--- !u!114 &11490466
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09923ff589f12481884358705036dae4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enemy: {fileID: 158638, guid: f063c54a9e26a457091f892bbb6ba13c, type: 2}
 --- !u!135 &13525916
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -369,6 +383,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: ObservedComponents.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Enemy
       value: 
@@ -393,6 +411,18 @@ Prefab:
       propertyPath: m_CollisionDetection
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ObservedComponents.Array.data[1]
+      value: 
+      objectReference: {fileID: 11490466}
+    - target: {fileID: 0}
+      propertyPath: ObservedComponents.Array.data[0]
+      value: 
+      objectReference: {fileID: 11460690}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 181438}

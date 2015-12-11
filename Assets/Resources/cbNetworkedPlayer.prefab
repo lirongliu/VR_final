@@ -81,6 +81,7 @@ GameObject:
   - 114: {fileID: 11406890}
   - 114: {fileID: 11462184}
   - 114: {fileID: 11491804}
+  - 114: {fileID: 11418756}
   m_Layer: 0
   m_Name: cbNetworkedPlayer
   m_TagString: cbNetworkedPlayer
@@ -293,11 +294,24 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 11462184}
+  - {fileID: 11491804}
+  - {fileID: 11418756}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
   isRuntimeInstantiated: 0
+--- !u!114 &11418756
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 194320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09923ff589f12481884358705036dae4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enemy: {fileID: 158638, guid: f063c54a9e26a457091f892bbb6ba13c, type: 2}
 --- !u!114 &11420054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -315,7 +329,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 194320}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 674c9455ebfae47a6b404bd41a65ae87, type: 3}
   m_Name: 
@@ -341,15 +355,15 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 194320}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d41bfe9c5af5441c8a2e0b6fc604c0cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  avatar: {fileID: 0}
+  avatar: {fileID: 110198}
   playerGlobal: {fileID: 0}
   playerLocal: {fileID: 0}
-  Enemy: {fileID: 0}
+  Enemy: {fileID: 158638, guid: f063c54a9e26a457091f892bbb6ba13c, type: 2}
 --- !u!135 &13500136
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -370,6 +384,10 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: ObservedComponents.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: Enemy
       value: 
       objectReference: {fileID: 158638, guid: f063c54a9e26a457091f892bbb6ba13c, type: 2}
@@ -388,6 +406,22 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Constraints
       value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: avatar
+      value: 
+      objectReference: {fileID: 110198}
+    - target: {fileID: 0}
+      propertyPath: ObservedComponents.Array.data[0]
+      value: 
+      objectReference: {fileID: 11491804}
+    - target: {fileID: 0}
+      propertyPath: ObservedComponents.Array.data[1]
+      value: 
+      objectReference: {fileID: 11418756}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
