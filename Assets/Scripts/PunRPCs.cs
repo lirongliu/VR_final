@@ -30,8 +30,9 @@ public class PunRPCs : MonoBehaviour {
 	//generate enemy at a regular frequency
 	
 	[PunRPC]
-	void generateEnemy(int x_position,int z_position){
-		GameObject enemy = (GameObject)Instantiate (Enemy, new Vector3 (x_position,1,z_position), Quaternion.identity);
+	void generateEnemy(int x_position,int z_position, float maxLife, string type){
+		GameObject enemy = Utility.CreateEnemy (maxLife, type);
+//		GameObject enemy = (GameObject)Instantiate (Enemy, new Vector3 (x_position,1,z_position), Quaternion.identity);
 		
 		
 		//enemy.GetComponent<EnemyController> ().id = EnemyController.total_enemy_count;

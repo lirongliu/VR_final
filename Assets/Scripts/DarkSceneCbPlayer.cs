@@ -75,7 +75,7 @@ public class DarkSceneCbPlayer : NetworkedPlayer {
 			
 			// only cb is responsible for generating enemies
 			if (Time.frameCount % 100 == 0) {
-				photonView.RPC ("generateEnemy", PhotonTargets.All, Random.Range (-30, 30), Random.Range (-30, 30));
+				photonView.RPC ("generateEnemy", PhotonTargets.All, Random.Range (-30, 30), Random.Range (-30, 30), 100f, "chaseCb");
 			}
 		}
 	}

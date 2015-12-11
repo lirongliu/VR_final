@@ -22,7 +22,6 @@ public class BossSceneTbPlayer : NetworkedPlayer {
 	void Update(){
 		
 		if (!photonView.isMine) {
-			print ("correctHeadRot: " + correctHeadRot);
 			//Update remote player (smooth this, this looks good, at the cost of some accuracy)
 			cbAvatar.transform.localPosition = Vector3.Lerp (cbAvatar.transform.localPosition, correctAvatarPos, Time.deltaTime * 5);
 //			avatar.transform.localRotation = Quaternion.Lerp (avatar.transform.localRotation, correctAvatarRot, Time.deltaTime * 5);

@@ -2,19 +2,33 @@
 using System.Collections;
 
 public class EnemyController : Photon.MonoBehaviour {
-
-	private GameObject cbPlayer;
-	private Transform avatar;
-
+	private GameObject cbPlayer, tbPlayer;
+	private Transform cbAvatar, tbAvatar;
+	
+	private float maxLife;
 	private float life;
+	private string type;
+
+	public void config(float maxLife, string type) {
+		this.maxLife = maxLife;
+		this.life = maxLife;
+		this.type = type;
+	}
 
 	void Start () {
 		this.revive ();
 		
-		if (avatar == null) {
+		if (cbAvatar == null) {
 			cbPlayer = GameObject.FindWithTag(Constants.cbNetworkedPlayerTag);
 			if (cbPlayer != null) {
-				avatar=cbPlayer.transform.Find("Avatar");
+				cbAvatar=cbPlayer.transform.Find("Avatar");
+			}
+		}
+		
+		if (tbAvatar == null) {
+			tbPlayer = GameObject.FindWithTag(Constants.tbNetworkedPlayerTag);
+			if (tbPlayer != null) {
+				tbAvatar=tbPlayer.transform.Find("Avatar");
 			}
 		}
 	}
@@ -25,8 +39,12 @@ public class EnemyController : Photon.MonoBehaviour {
 
 	void FixedUpdate(){
 		
-		if (avatar != null) {
-			this.transform.position = Vector3.Lerp (this.transform.position, avatar.position, Time.deltaTime * 0.1f);
+		if (type == "boss") {
+		} else if (type == "chaseCb") {
+			if (cbAvatar != null) {
+				this.transform.position = Vector3.Lerp (this.transform.position, cbAvatar.position, Time.deltaTime * 0.1f);
+			}
+		} else if (type == "chaseBoth") {
 		}
 	}
 	
@@ -34,7 +52,7 @@ public class EnemyController : Photon.MonoBehaviour {
 		Renderer r = GetComponent<Renderer> ();
 		r.material.color = Color.gray;
 
-		life = 100;
+		life = maxLife;
 	}
 
 	public void getHit(float damage) {

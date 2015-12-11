@@ -31,7 +31,6 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 
 		if (!photonView.isMine) {
 			//Update remote player (smooth this, this looks good, at the cost of some accuracy)
-			print ("correctAvatarPos: " + correctAvatarPos);
 //			avatar.transform.localPosition = Vector3.Lerp (avatar.transform.localPosition, correctAvatarPos, Time.deltaTime * 5);
 //			avatar.transform.localRotation = Quaternion.Lerp (avatar.transform.localRotation, correctAvatarRot, Time.deltaTime * 5);
 			headTransform.localRotation = Quaternion.Lerp (headTransform.localRotation, correctHeadRot, Time.deltaTime * 5);
@@ -45,7 +44,7 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 			
 			// only cb is responsible for generating enemies
 			if (Time.frameCount % 100 == 0) {
-				photonView.RPC ("generateEnemy", PhotonTargets.All, Random.Range (-30, 30), Random.Range (-30, 30));
+				photonView.RPC ("generateEnemy", PhotonTargets.All, Random.Range (-30, 30), Random.Range (-30, 30), 100f, "chaseCb");
 			}
 		}
 	}

@@ -152,7 +152,7 @@ public class NetworkedPlayerOld : Photon.MonoBehaviour
 
 				// only cb is responsible for generating enemies
 				if(Time.frameCount%100==0){
-					photonView.RPC ("generateEnemy",PhotonTargets.All,Random.Range(-90,90),Random.Range(-90,90));
+					photonView.RPC ("generateEnemy", PhotonTargets.All, Random.Range (-30, 30), Random.Range (-30, 30), 100f, "chaseCb");
 				}
 			}
 			
