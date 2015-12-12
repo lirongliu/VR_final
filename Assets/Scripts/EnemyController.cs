@@ -9,10 +9,19 @@ public class EnemyController : Photon.MonoBehaviour {
 	private float life;
 	private string type;
 
+	private Vector3 chasingDir = Vector3.zero;	//	only useful for type == "chaseBoth"
+
 	public void config(float maxLife, string type) {
 		this.maxLife = maxLife;
 		this.life = maxLife;
 		this.type = type;
+
+//		if (type == "boss") {
+//			this.gameObject.tag = Constants.bossTag;
+//		} else {
+//			
+//			this.gameObject.tag = "Enemy";
+//		}
 	}
 
 	void Start () {
@@ -40,11 +49,22 @@ public class EnemyController : Photon.MonoBehaviour {
 	void FixedUpdate(){
 		
 		if (type == "boss") {
+			//	TODO: define boss movement
+			this.transform.position = Vector3.Lerp (this.transform.position, cbAvatar.position, Time.deltaTime * 0.05f);
+
 		} else if (type == "chaseCb") {
+			if (chasingDir == Vector3.zero) {
+				print ("chasingDir pre " + chasingDir);
+				chasingDir = cbAvatar.position - this.transform.position;
+				chasingDir.Normalize();
+				print ("chasingDir post " + chasingDir);
+			}
+			this.transform.position += chasingDir * Time.deltaTime * 10;
+		} else if (type == "chaseBoth") {
+			//	TODO: change it so that it chases both
 			if (cbAvatar != null) {
 				this.transform.position = Vector3.Lerp (this.transform.position, cbAvatar.position, Time.deltaTime * 0.1f);
 			}
-		} else if (type == "chaseBoth") {
 		}
 	}
 	

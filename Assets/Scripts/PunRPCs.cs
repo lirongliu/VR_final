@@ -31,7 +31,7 @@ public class PunRPCs : MonoBehaviour {
 	
 	[PunRPC]
 	void generateEnemy(int x_position,int z_position, float maxLife, string type){
-		GameObject enemy = Utility.CreateEnemy (maxLife, type);
+		GameObject enemy = Utility.CreateEnemy (x_position, z_position, maxLife, type);
 //		GameObject enemy = (GameObject)Instantiate (Enemy, new Vector3 (x_position,1,z_position), Quaternion.identity);
 		
 		
@@ -39,7 +39,13 @@ public class PunRPCs : MonoBehaviour {
 		//EnemyController.total_enemy_count++;
 		NetworkController.enemyList.Add (enemy);
 		
-		//print("generate enemy:"+NetworkController.enemyList.IndexOf (enemy)+"\tcount:"+NetworkController.enemyList.Count);
+		print("generate enemy:"+NetworkController.enemyList.IndexOf (enemy)+"\tcount:"+NetworkController.enemyList.Count);
+	}
+	
+	[PunRPC]
+	void generateBoss(int x_position,int z_position, float maxLife, string type){
+		GameObject boss = Utility.CreateEnemy (x_position, z_position, maxLife, type);
+		print ("generate boss");
 	}
 	
 	[PunRPC]

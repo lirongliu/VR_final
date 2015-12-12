@@ -4,7 +4,14 @@ using System.Collections;
 public class BossSceneCbPlayer : NetworkedPlayer {
 	
 	private GameObject hitEnemy;
-	
+	private GameObject boss;
+
+	void OnLevelWasLoaded(int level) {
+		print ("level " + level);
+//		if (level == 2) {
+			photonView.RPC ("generateBoss", PhotonTargets.All, Random.Range (-30, 30), Random.Range (-30, 30), 1000f, "boss");
+//		}
+	}
 	
 	void Start ()
 	{
@@ -24,7 +31,8 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 		}
 		
 		playerLocal = headTransform;
-		playerGlobal = avatar.transform;	
+		playerGlobal = avatar.transform;
+
 	}
 	
 	void Update(){
@@ -36,14 +44,22 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 			headTransform.localRotation = Quaternion.Lerp (headTransform.localRotation, correctHeadRot, Time.deltaTime * 5);
 		} else {
 			inputHandler ();
-			
+
+			if (boss == null) {
+				boss = GameObject.FindGameObjectWithTag (Constants.bossTag);
+			}
+
 			RaycastHit hit;
 			Physics.Raycast (Camera.main.transform.position, Camera.main.transform.forward, out hit);
 			this.checkHitEnemies (hit, ref hitEnemy);
 			this.checkHitTbPlayer (hit);
+
+			if (boss != null) {
+				this.checkHitBoss();
+			}
 			
 			// only cb is responsible for generating enemies
-			if (Time.frameCount % 100 == 0) {
+			if (Time.frameCount % 50 == 0) {
 				photonView.RPC ("generateEnemy", PhotonTargets.All, Random.Range (-30, 30), Random.Range (-30, 30), 100f, "chaseCb");
 			}
 		}
@@ -82,4 +98,30 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 			playerLocal.Rotate (new Vector3 (-2, 0, 0));
 		}
 	}
+
+	
+	protected void checkHitBoss() {
+		
+		float angle = Utility.getVectorAngle(Camera.main.transform.forward, boss.transform.position - Camera.main.transform.position);
+		if (angle < Constants.cbSpotlightAngle / 2) {
+			EnemyController ec = boss.GetComponent<EnemyController> ();
+			ec.getHit (300);
+			
+			if (ec.shouldBeDead ()) {
+
+				print ("boss should be dead");
+				
+//				if (NetworkController.enemyList.IndexOf (hitEnemy) != null && NetworkController.enemyList.IndexOf (hitEnemy) != (-1)) {
+//					//print("NetworkedPlayer enemyList:"+NetworkController.enemyList[0]+"\t"+NetworkController.enemyList[1]+"\t"+NetworkController.enemyList[2]);
+//					//print("INDEX:"+NetworkController.enemyList.IndexOf (hit.collider.gameObject));
+//					photonView.RPC ("destroyEnemy", PhotonTargets.All, NetworkController.enemyList.IndexOf (hitEnemy));
+//				}
+			}
+		} else {
+			
+			EnemyController ec = boss.GetComponent<EnemyController> ();
+			ec.revive();
+		}
+	}
+
 }

@@ -45,10 +45,17 @@ public class Utility : MonoBehaviour {
 	}
 
 	
-	public static GameObject CreateEnemy(float maxLife, string type)
+	public static GameObject CreateEnemy(int x_position,int z_position, float maxLife, string type)
 	{
-		Object prefab = Resources.Load("Enemy");
-		GameObject enemyObj = Instantiate(prefab) as GameObject;
+		Object prefab;
+		if (type == "boss") {
+			prefab = Resources.Load ("boss");
+		} else {
+			prefab = Resources.Load("Enemy");
+		}
+		GameObject enemyObj = Instantiate (prefab, new Vector3 (x_position,1,z_position), Quaternion.identity) as GameObject;
+
+//		GameObject enemyObj = Instantiate(prefab) as GameObject;
 		EnemyController enemyController = enemyObj.GetComponent<EnemyController>();
 		enemyController.config(maxLife, type);
 		//do additional initialization steps here

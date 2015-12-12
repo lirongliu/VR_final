@@ -18,6 +18,8 @@ public class Constants : MonoBehaviour {
 	public static string tbNetworkedPlayerTag = "iPadNetworkedPlayer";
 	public static string cbNetworkedPlayerTag = "cbNetworkedPlayer";
 
+	public static string bossTag = "boss";
+
 	// Use this for initialization
 	void Start () {
 	

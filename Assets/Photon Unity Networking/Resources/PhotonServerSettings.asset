@@ -44,4 +44,5 @@ MonoBehaviour:
   - generateEnemy
   - decreseTabletSpotlightIntensity
   - loadScene
+  - generateBoss
   DisableAutoOpenWizard: 1
