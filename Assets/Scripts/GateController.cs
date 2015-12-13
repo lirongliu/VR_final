@@ -12,17 +12,16 @@ public class GateController : MonoBehaviour {
 	void Update () {
 
 
-		GameObject cbPlayer= GameObject.FindWithTag("cbNetworkedPlayer");
-		GameObject tbPlayer= GameObject.FindWithTag("iPadNetworkedPlayer");
-		Transform tb_avatar = tbPlayer.transform.Find ("Avatar");
-
-		//Transform gete_right = this.transform.Find ("gate_right");
-		//Transform gete_left=this.transform.Find ("gate_left");
+		Transform cb_avatar= GameObject.FindWithTag("cbNetworkedPlayer").transform.Find("Avatar");
+		//Transform tb_avatar= GameObject.FindWithTag("iPadNetworkedPlayer").transform.Find("Avatar");
 
 		// if cb player or tablet player is close to the door
-		float distance = Vector3.Distance (tb_avatar.transform.position, this.transform.position);
+		//float distance1 = Vector3.Distance (tb_avatar.transform.position, this.transform.position);
+		float distance2 = Vector3.Distance (cb_avatar.transform.position, this.transform.position);
 
-		if (distance < 5) {
+		Debug.Log (cb_avatar.transform.position);
+
+		if ( distance2<5) {
 	
 			if (this.transform.Find ("gate_right").transform.localEulerAngles.y < 90){
 
