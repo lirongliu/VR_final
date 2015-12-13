@@ -15,7 +15,7 @@ ModelImporter:
   materials:
     importMaterials: 0
     materialName: 0
-    materialSearch: 1
+    materialSearch: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
