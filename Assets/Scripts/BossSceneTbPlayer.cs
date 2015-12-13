@@ -56,20 +56,21 @@ public class BossSceneTbPlayer : NetworkedPlayer {
 			photonView.RPC("loadScene", PhotonTargets.All, nextScene);
 		}
 
+		
 		if (Input.GetKey ("d")) {
-			avatarController.Move (new Vector3 (movingSpeed, 0, 0));
+			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(movingSpeed, 0, 0)));
 		}
 		
 		if (Input.GetKey ("a")) {
-			avatarController.Move (new Vector3 (-movingSpeed, 0, 0));
+			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(-movingSpeed, 0, 0)));
 		}
 		
 		if (Input.GetKey ("s")) {
-			avatarController.Move (new Vector3 (0, 0, -movingSpeed));
+			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(0, 0, -movingSpeed)));
 		}
 		
 		if (Input.GetKey ("w")) {
-			avatarController.Move (new Vector3 (0, 0, movingSpeed));
+			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(0, 0, movingSpeed)));
 		}
 
 	}
