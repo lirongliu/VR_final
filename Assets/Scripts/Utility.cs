@@ -62,6 +62,10 @@ public class Utility : MonoBehaviour {
 		return enemyObj;
 	}
 
+	public static GameController getGameController() {
+		return GameObject.Find ("GameController").GetComponent<GameController> ();
+	}
+
 	// Use this for initialization
 	void Start () {
 	

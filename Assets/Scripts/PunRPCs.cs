@@ -62,28 +62,45 @@ public class PunRPCs : MonoBehaviour {
 	
 	[PunRPC]
 	void loadScene(string sceneName) {
+		print ("sceneName " + sceneName);
 		Application.LoadLevel (sceneName);
 
 		GameObject cbNetworkedPlayer = GameObject.FindWithTag (Constants.cbNetworkedPlayerTag);
 		GameObject tbNetworkedPlayer = GameObject.FindWithTag (Constants.tbNetworkedPlayerTag);
 
-		if (sceneName == "BossScene") {
+		if (sceneName == Constants.bossSceneName) {
 			if (cbNetworkedPlayer != null) {
-				cbNetworkedPlayer.GetComponent<DarkSceneCbPlayer>().enabled = false;
-				BossSceneCbPlayer bossSceneCbPlayerScript = cbNetworkedPlayer.GetComponent<BossSceneCbPlayer>();
+				cbNetworkedPlayer.GetComponent<DarkBackyardSceneCbPlayer> ().enabled = false;
+				BossSceneCbPlayer bossSceneCbPlayerScript = cbNetworkedPlayer.GetComponent<BossSceneCbPlayer> ();
 				bossSceneCbPlayerScript.enabled = true;
-				PhotonView cbPhotonView = cbNetworkedPlayer.GetComponent<PhotonView>();
-				cbPhotonView.photonView.ObservedComponents.Add(bossSceneCbPlayerScript);
+				PhotonView cbPhotonView = cbNetworkedPlayer.GetComponent<PhotonView> ();
+				cbPhotonView.photonView.ObservedComponents.Add (bossSceneCbPlayerScript);
 			}
 
 			if (tbNetworkedPlayer != null) {
-				tbNetworkedPlayer.GetComponent<DarkSceneTbPlayer>().enabled = false;
-				BossSceneTbPlayer bossSceneTbPlayerScript = tbNetworkedPlayer.GetComponent<BossSceneTbPlayer>();
+				tbNetworkedPlayer.GetComponent<DarkBackyardSceneTbPlayer> ().enabled = false;
+				BossSceneTbPlayer bossSceneTbPlayerScript = tbNetworkedPlayer.GetComponent<BossSceneTbPlayer> ();
 				bossSceneTbPlayerScript.enabled = true;
-				PhotonView tbPhotonView = tbNetworkedPlayer.GetComponent<PhotonView>();
-				tbPhotonView.photonView.ObservedComponents.Add(bossSceneTbPlayerScript);
+				PhotonView tbPhotonView = tbNetworkedPlayer.GetComponent<PhotonView> ();
+				tbPhotonView.photonView.ObservedComponents.Add (bossSceneTbPlayerScript);
 			}
-		} else if (sceneName == "DarkBackyardScene") {
+		} else if (sceneName == Constants.darkBackyardSceneName) {
+			
+			if (cbNetworkedPlayer != null) {
+				cbNetworkedPlayer.GetComponent<BossSceneCbPlayer> ().enabled = false;
+				DarkBackyardSceneCbPlayer darkBackyardSceneCbPlayerScript = cbNetworkedPlayer.GetComponent<DarkBackyardSceneCbPlayer> ();
+				darkBackyardSceneCbPlayerScript.enabled = true;
+				PhotonView cbPhotonView = cbNetworkedPlayer.GetComponent<PhotonView> ();
+				cbPhotonView.photonView.ObservedComponents.Add (darkBackyardSceneCbPlayerScript);
+			}
+			
+			if (tbNetworkedPlayer != null) {
+				tbNetworkedPlayer.GetComponent<BossSceneTbPlayer> ().enabled = false;
+				DarkBackyardSceneTbPlayer darkBackyardSceneTbPlayerScript = tbNetworkedPlayer.GetComponent<DarkBackyardSceneTbPlayer> ();
+				darkBackyardSceneTbPlayerScript.enabled = true;
+				PhotonView tbPhotonView = tbNetworkedPlayer.GetComponent<PhotonView> ();
+				tbPhotonView.photonView.ObservedComponents.Add (darkBackyardSceneTbPlayerScript);
+			}
 		}
 
 	}

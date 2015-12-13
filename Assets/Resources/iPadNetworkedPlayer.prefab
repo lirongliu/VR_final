@@ -83,6 +83,7 @@ GameObject:
   - 114: {fileID: 11460690}
   - 114: {fileID: 11490466}
   - 114: {fileID: 11431340}
+  - 114: {fileID: 11416760}
   m_Layer: 0
   m_Name: iPadNetworkedPlayer
   m_TagString: iPadNetworkedPlayer
@@ -275,6 +276,21 @@ Light:
   m_ShadowRadius: 0
   m_ShadowAngle: 0
   m_AreaSize: {x: 1, y: 1}
+--- !u!114 &11416760
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4bd3ea9c93294a1498600c4297597b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  avatar: {fileID: 138594}
+  playerGlobal: {fileID: 0}
+  playerLocal: {fileID: 0}
+  Enemy: {fileID: 0}
 --- !u!114 &11426584
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -322,7 +338,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 181438}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16e8c87903e824ce1a0f1309a0be2bab, type: 3}
   m_Name: 
@@ -362,7 +378,7 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 11460690}
+  - {fileID: 11416760}
   - {fileID: 11490466}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
@@ -438,7 +454,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: ObservedComponents.Array.data[0]
       value: 
-      objectReference: {fileID: 11460690}
+      objectReference: {fileID: 11416760}
     - target: {fileID: 0}
       propertyPath: avatar
       value: 

@@ -46,7 +46,8 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 		}
 
 		if (Input.GetKey ("l")) {
-			photonView.RPC("loadScene", PhotonTargets.All, "BossScene");
+			string nextScene = Utility.getGameController().getNextScene();
+			photonView.RPC("loadScene", PhotonTargets.All, nextScene);
 		}
 
 		if (Input.GetKey ("d")) {

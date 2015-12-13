@@ -17,6 +17,7 @@ public class BossSceneTbPlayer : NetworkedPlayer {
 		
 //		playerLocal = headTransform;
 //		playerGlobal = cbAvatar.transform;
+		avatar.SetActive (false);
 	}
 	
 	void Update(){

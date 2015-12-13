@@ -20,6 +20,10 @@ public class Constants : MonoBehaviour {
 
 	public static string bossTag = "boss";
 
+	public static string backyardSceneName = "BackyardScene";
+	public static string darkBackyardSceneName = "DarkBackyardScene";
+	public static string bossSceneName = "BossScene";
+
 	// Use this for initialization
 	void Start () {
 	
