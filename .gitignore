@@ -18,3 +18,5 @@
 *.pidb.meta
 
 # Unity3D Generated File On Crash Reports
+
+.DS_Store
