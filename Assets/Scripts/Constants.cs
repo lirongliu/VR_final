@@ -24,6 +24,8 @@ public class Constants : MonoBehaviour {
 	public static string darkBackyardSceneName = "DarkBackyardScene";
 	public static string bossSceneName = "BossScene";
 
+	public static float movingSpeed = 6f;
+
 	// Use this for initialization
 	void Start () {
 	

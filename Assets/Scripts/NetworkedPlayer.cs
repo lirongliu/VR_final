@@ -38,7 +38,7 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	}
 	
 	protected virtual void inputHandler() {
-		float movingSpeed = 0.2f;
+		float movingSpeed = Constants.movingSpeed;
 
 		AvatarController avatarController = avatar.GetComponent<AvatarController> ();
 		if (Input.GetKey ("q")) {	//	moving towards the viewing direction
@@ -51,19 +51,19 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 		}
 
 		if (Input.GetKey ("d")) {
-			avatarController.Move(new Vector3(movingSpeed, 0, 0));
+			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(movingSpeed, 0, 0)));
 		}
 		
 		if (Input.GetKey ("a")) {
-			avatarController.Move(new Vector3(-movingSpeed, 0, 0));
+			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(-movingSpeed, 0, 0)));
 		}
 		
 		if (Input.GetKey ("s")) {
-			avatarController.Move(new Vector3(0, 0, -movingSpeed));
+			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(0, 0, -movingSpeed)));
 		}
 		
 		if (Input.GetKey ("w")) {
-			avatarController.Move(new Vector3(0, 0, movingSpeed));
+			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(0, 0, movingSpeed)));
 		}
 		
 		

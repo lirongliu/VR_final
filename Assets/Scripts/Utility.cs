@@ -66,6 +66,10 @@ public class Utility : MonoBehaviour {
 		return GameObject.Find ("GameController").GetComponent<GameController> ();
 	}
 
+	public static Vector3 movementAdjustedWithFPS(Vector3 displacementVec) {
+		return displacementVec * Time.deltaTime;
+	}
+
 	// Use this for initialization
 	void Start () {
 	

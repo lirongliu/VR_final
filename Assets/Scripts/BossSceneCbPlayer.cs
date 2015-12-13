@@ -33,6 +33,10 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 		playerLocal = headTransform;
 		playerGlobal = avatar.transform;
 
+		
+		// disable spotlight
+		GameObject spotlight = Utility.FindTransform (this.transform, "Spotlight").gameObject;
+		spotlight.GetComponent<Light> ().enabled = true;
 	}
 	
 	void Update(){
@@ -79,7 +83,7 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 	}
 	
  	override protected void inputHandler() {
-		float movingSpeed = 0.2f;
+		float movingSpeed = Constants.movingSpeed;
 		
 		AvatarController avatarController = avatar.GetComponent<AvatarController> ();
 		
