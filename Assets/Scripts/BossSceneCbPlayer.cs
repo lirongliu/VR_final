@@ -83,6 +83,11 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 		
 		AvatarController avatarController = avatar.GetComponent<AvatarController> ();
 		
+		if (Input.GetKey ("l")) {
+			string nextScene = Utility.getGameController().getNextScene();
+			photonView.RPC("loadScene", PhotonTargets.All, nextScene);
+		}
+
 		if (Input.GetKey ("right")) {
 			playerLocal.Rotate (new Vector3 (0, 2, 0));
 		}

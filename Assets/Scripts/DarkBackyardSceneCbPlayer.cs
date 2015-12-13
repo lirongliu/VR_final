@@ -11,52 +11,20 @@ public class DarkBackyardSceneCbPlayer : NetworkedPlayer {
 		DontDestroyOnLoad (this);
 
 		avatar.transform.localPosition = new Vector3 (-5, 0.5f, -2);
-		
+
 		if (photonView.isMine) {
 			GameObject cb = GameObject.Find ("CardboardMain");
 			
-			Transform avatarHeadTransform = this.transform.Find("AvatarHead");
-			Transform avatarBodyTransform = this.transform.Find("AvatarBody");
-			
-			
-			/* hierachy:
-			 * avatar
-			 * avatarBody
-			 * CardboardMain
-			 * head
-			 */
-			avatarBodyTransform.SetParent(avatar.transform);
-			avatarBodyTransform.localPosition = Vector3.zero;
-			
-			cb.transform.SetParent(avatarBodyTransform);
-			avatarHeadTransform.SetParent(cb.transform);
-			cb.transform.localPosition = new Vector3(0, Constants.cbAvatarHeight, 0);
-			avatarHeadTransform.localPosition = Vector3.zero;
-			
 			// set head transform
 			this.headTransform = cb.transform;
-		}   else {
-
-			Transform avatarHeadTransform = this.transform.Find("AvatarHead");
-			Transform avatarBodyTransform = this.transform.Find("AvatarBody");
-			
-			/* hierachy:
-			 * avatar
-			 * avatarBody
-			 * head
-			 */
-			avatarBodyTransform.SetParent(avatar.transform);
-			avatarBodyTransform.localPosition = Vector3.zero;
-			
-			avatarHeadTransform.SetParent(avatarBodyTransform);
-			avatarHeadTransform.localPosition = new Vector3(0, Constants.cbAvatarHeight, 0);
+		} else {
 			
 			// set head transform
 			this.headTransform = Utility.FindTransform (avatar.transform, "AvatarHead");
 		}
 		
 		playerLocal = headTransform;
-		playerGlobal = avatar.transform;		
+		playerGlobal = avatar.transform;
 	}
 	
 	void Update(){

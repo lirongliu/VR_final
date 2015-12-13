@@ -9,7 +9,6 @@ public class BossSceneTbPlayer : NetworkedPlayer {
 
 		cbAvatar = GameObject.FindGameObjectWithTag (Constants.cbPlayerAvatarTag);
 
-
 //		avatar.transform.localPosition = new Vector3 (5, 0.5f, -1);
 
 		// set head transform
@@ -50,7 +49,13 @@ public class BossSceneTbPlayer : NetworkedPlayer {
 		float movingSpeed = 0.2f;
 		
 		AvatarController avatarController = cbAvatar.GetComponent<AvatarController> ();
+
 		
+		if (Input.GetKey ("l")) {
+			string nextScene = Utility.getGameController().getNextScene();
+			photonView.RPC("loadScene", PhotonTargets.All, nextScene);
+		}
+
 		if (Input.GetKey ("d")) {
 			avatarController.Move (new Vector3 (movingSpeed, 0, 0));
 		}

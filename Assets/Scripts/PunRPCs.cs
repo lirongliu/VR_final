@@ -39,7 +39,7 @@ public class PunRPCs : MonoBehaviour {
 		//EnemyController.total_enemy_count++;
 		NetworkController.enemyList.Add (enemy);
 		
-		print("generate enemy:"+NetworkController.enemyList.IndexOf (enemy)+"\tcount:"+NetworkController.enemyList.Count);
+//		print("generate enemy:"+NetworkController.enemyList.IndexOf (enemy)+"\tcount:"+NetworkController.enemyList.Count);
 	}
 	
 	[PunRPC]
@@ -64,13 +64,14 @@ public class PunRPCs : MonoBehaviour {
 	void loadScene(string sceneName) {
 		print ("sceneName " + sceneName);
 		Application.LoadLevel (sceneName);
+		Utility.getGameController ().setCurrScene (sceneName);
 
 		GameObject cbNetworkedPlayer = GameObject.FindWithTag (Constants.cbNetworkedPlayerTag);
 		GameObject tbNetworkedPlayer = GameObject.FindWithTag (Constants.tbNetworkedPlayerTag);
 
 		if (sceneName == Constants.bossSceneName) {
 			if (cbNetworkedPlayer != null) {
-				cbNetworkedPlayer.GetComponent<DarkBackyardSceneCbPlayer> ().enabled = false;
+				cbNetworkedPlayer.GetComponent<BackyardSceneCbPlayer> ().enabled = false;
 				BossSceneCbPlayer bossSceneCbPlayerScript = cbNetworkedPlayer.GetComponent<BossSceneCbPlayer> ();
 				bossSceneCbPlayerScript.enabled = true;
 				PhotonView cbPhotonView = cbNetworkedPlayer.GetComponent<PhotonView> ();
@@ -78,7 +79,7 @@ public class PunRPCs : MonoBehaviour {
 			}
 
 			if (tbNetworkedPlayer != null) {
-				tbNetworkedPlayer.GetComponent<DarkBackyardSceneTbPlayer> ().enabled = false;
+				tbNetworkedPlayer.GetComponent<BackyardSceneTbPlayer> ().enabled = false;
 				BossSceneTbPlayer bossSceneTbPlayerScript = tbNetworkedPlayer.GetComponent<BossSceneTbPlayer> ();
 				bossSceneTbPlayerScript.enabled = true;
 				PhotonView tbPhotonView = tbNetworkedPlayer.GetComponent<PhotonView> ();
