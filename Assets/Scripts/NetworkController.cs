@@ -38,22 +38,22 @@ public class NetworkController : Photon.PunBehaviour
 		//set cameras for different users
 		if (iPadTest) {
 			GameObject.Find ("CardboardMain").SetActive (false);
-			GameObject.Find ("iPadCamera").SetActive (true);
+			GameObject.Find ("TabletCamera").SetActive (true);
 			whoAmI = Constants.IS_IPAD_PLAYER;
 		} else if (cbTest) {
 			GameObject.Find ("CardboardMain").SetActive (true);
-			GameObject.Find ("iPadCamera").SetActive (false);
+			GameObject.Find ("TabletCamera").SetActive (false);
 			whoAmI = Constants.IS_CB_PLAYER;
 		} else {
 			if (PhotonNetwork.playerList.Length == 1) {        //    iPad
 				
 				GameObject.Find ("CardboardMain").SetActive (false);
-				GameObject.Find ("iPadCamera").SetActive (true);
+				GameObject.Find ("TabletCamera").SetActive (true);
 				whoAmI = Constants.IS_IPAD_PLAYER;
 			} else {        // cardboard
 				
 				GameObject.Find ("CardboardMain").SetActive (true);
-				GameObject.Find ("iPadCamera").SetActive (false);
+				GameObject.Find ("TabletCamera").SetActive (false);
 				whoAmI = Constants.IS_CB_PLAYER;
 			}
 		}

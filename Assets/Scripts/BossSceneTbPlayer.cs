@@ -44,19 +44,21 @@ public class BossSceneTbPlayer : NetworkedPlayer {
 //			correctHeadRot = (Quaternion)stream.ReceiveNext();
 		}
 	}
-
 	override protected void inputHandler() {
-		float movingSpeed = 0.2f;
-		
-		AvatarController avatarController = cbAvatar.GetComponent<AvatarController> ();
+		float movingSpeed = Constants.movingSpeed;
 
-		
 		if (Input.GetKey ("l")) {
 			string nextScene = Utility.getGameController().getNextScene();
 			photonView.RPC("loadScene", PhotonTargets.All, nextScene);
 		}
 
 		
+		if (cbAvatar == null)
+			return;
+		
+		AvatarController avatarController = cbAvatar.GetComponent<AvatarController> ();
+		
+
 		if (Input.GetKey ("d")) {
 			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(movingSpeed, 0, 0)));
 		}

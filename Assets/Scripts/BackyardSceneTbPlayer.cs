@@ -27,7 +27,12 @@ public class BackyardSceneTbPlayer : NetworkedPlayer {
 		this.headTransform = Utility.FindTransform (avatar.transform, "AvatarHead");
 		
 		playerLocal = headTransform;
-		playerGlobal = avatar.transform;		
+		playerGlobal = avatar.transform;
+
+		
+		// disable spotlight
+		GameObject spotlight = Utility.FindTransform (this.transform, "Spotlight").gameObject;
+		spotlight.GetComponent<Light> ().enabled = false;
 	}
 	
 	void Update(){

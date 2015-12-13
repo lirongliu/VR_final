@@ -25,6 +25,11 @@ public class DarkBackyardSceneCbPlayer : NetworkedPlayer {
 		
 		playerLocal = headTransform;
 		playerGlobal = avatar.transform;
+
+		
+		// enable spotlight
+		GameObject spotlight = Utility.FindTransform (this.transform, "Spotlight").gameObject;
+		spotlight.GetComponent<Light> ().enabled = true;
 	}
 	
 	void Update(){

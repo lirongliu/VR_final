@@ -38,7 +38,7 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	}
 	
 	protected virtual void inputHandler() {
-		float movingSpeed = 6f;
+		float movingSpeed = Constants.movingSpeed;
 
 		AvatarController avatarController = avatar.GetComponent<AvatarController> ();
 		if (Input.GetKey ("q")) {	//	moving towards the viewing direction
