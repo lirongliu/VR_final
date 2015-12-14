@@ -80,7 +80,18 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 		if (Input.GetKey ("up")) {
 			playerLocal.Rotate (new Vector3 (-2, 0, 0));
 		}
+
+
+
 		
+		if (Input.GetKey ("]")) {
+			movingSpeed *= 1.5f;
+
+		}
+		
+		if (Input.GetKey ("[")) {
+			movingSpeed /= 1.5f;
+		}
 	}
 
 	public void move(Vector3 dir) {
@@ -149,5 +160,20 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 				}
 			}
 		}
+	}
+
+	protected bool arriveInDest(Vector3 dest, float allowance) {
+		GameObject cbNetworkedPlayerAvatar = GameObject.FindGameObjectWithTag (Constants.cbPlayerAvatarTag);
+		GameObject tbNetworkedPlayerAvatar = GameObject.FindGameObjectWithTag (Constants.tbPlayerAvatarTag);
+		if (cbNetworkedPlayerAvatar != null && tbNetworkedPlayerAvatar != null) {
+			float dist1 = Vector3.Distance(cbNetworkedPlayerAvatar.transform.position, dest);
+			float dist2 = Vector3.Distance(tbNetworkedPlayerAvatar.transform.position, dest);
+//			print ("dist1 " + dist1);
+//			print ("dist2 " + dist2);
+			if (dist1 + dist2 < allowance) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

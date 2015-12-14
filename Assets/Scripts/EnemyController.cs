@@ -15,9 +15,14 @@ public class EnemyController : Photon.MonoBehaviour {
 		this.maxLife = maxLife;
 		this.life = maxLife;
 		this.type = type;
+
+		if (type == "boss") {
+			DontDestroyOnLoad(this);
+		}
 	}
 
 	void Start () {
+
 		this.revive ();
 		
 		if (cbAvatar == null) {

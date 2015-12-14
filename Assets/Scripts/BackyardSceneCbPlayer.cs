@@ -71,23 +71,9 @@ public class BackyardSceneCbPlayer : NetworkedPlayer {
 			inputHandler ();
 		}
 
-		if (arriveInDest()) {
+		if (arriveInDest(Constants.backyardDestinationCoord, 10)) {
 			string nextScene = Utility.getGameController().getNextScene();
 			photonView.RPC("loadScene", PhotonTargets.All, nextScene);
 		}
-	}
-
-	bool arriveInDest() {
-		GameObject cbNetworkedPlayerAvatar = GameObject.FindGameObjectWithTag (Constants.cbPlayerAvatarTag);
-		if (cbNetworkedPlayerAvatar != null) {
-			float dist1 = Vector3.Distance(avatar.transform.position, Constants.backyardDestinationCoord);
-			float dist2 = Vector3.Distance(cbNetworkedPlayerAvatar.transform.position, Constants.backyardDestinationCoord);
-			print ("dist1 " + dist1);
-			print ("dist2 " + dist2);
-			if (dist1 + dist2 < 10) {
-				return true;
-			}
-		}
-		return false;
 	}
 }
