@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameController : MonoBehaviour {
 
-	public static bool play_audio=false;
+	public static bool play_audio=true;
 
 	public string currScene = Constants.backyardSceneName;
 	
