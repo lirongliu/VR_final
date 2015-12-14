@@ -44,6 +44,7 @@ public class NetworkController : Photon.PunBehaviour
 			GameObject.Find ("CardboardMain").SetActive (true);
 			GameObject.Find ("TabletCamera").SetActive (false);
 			whoAmI = Constants.IS_CB_PLAYER;
+			GameObject.FindWithTag("instruction").SetActive(false);
 		} else {
 			if (PhotonNetwork.playerList.Length == 1) {        //    iPad
 				
@@ -55,6 +56,7 @@ public class NetworkController : Photon.PunBehaviour
 				GameObject.Find ("CardboardMain").SetActive (true);
 				GameObject.Find ("TabletCamera").SetActive (false);
 				whoAmI = Constants.IS_CB_PLAYER;
+				GameObject.FindWithTag("instruction").SetActive(false);
 			}
 		}
 

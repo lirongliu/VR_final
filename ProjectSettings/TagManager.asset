@@ -12,6 +12,7 @@ TagManager:
   - Enemy
   - AvatarHead
   - boss
+  - instruction
   layers:
   - Default
   - TransparentFX
