@@ -27,6 +27,8 @@ public class Constants : MonoBehaviour {
 	public static string bossSceneName = "BossScene";
 
 	public static float defaultMovingSpeed = 6f;
+	
+	public static Vector3 backyardDestinationCoord = new Vector3 (68, 1, -93);
 
 	// Use this for initialization
 	void Start () {

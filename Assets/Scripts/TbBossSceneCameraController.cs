@@ -14,10 +14,11 @@ public class TbBossSceneCameraController : MonoBehaviour {
 		GameObject cbAvatar = GameObject.FindGameObjectWithTag (Constants.cbPlayerAvatarTag);
 		if (cbAvatar != null) {
 			Vector3 cbAvatarPos = cbAvatar.transform.position;
-			this.transform.position = new Vector3 (cbAvatarPos.x, 15, cbAvatarPos.z);
-			
+//			this.transform.position = new Vector3 (cbAvatarPos.x, 15, cbAvatarPos.z);
+			this.transform.position = new Vector3 (0, 15, 0);
+
 			Camera camera = this.GetComponent<Camera> ();
-			camera.orthographicSize = 30;
+			camera.orthographicSize = 12;
 		}
 	}
 }
