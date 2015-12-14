@@ -10,7 +10,7 @@ public class DarkBackyardSceneCbPlayer : NetworkedPlayer {
 	{
 		DontDestroyOnLoad (this);
 
-		avatar.transform.localPosition = new Vector3 (-5, 0.5f, -2);
+		avatar.transform.localPosition = Constants.darkBackyardStartCoord + new Vector3(-2, 0, 0);
 
 		if (photonView.isMine) {
 			GameObject cb = GameObject.Find ("CardboardMain");
@@ -30,6 +30,8 @@ public class DarkBackyardSceneCbPlayer : NetworkedPlayer {
 		// enable spotlight
 		GameObject spotlight = Utility.FindTransform (this.transform, "Spotlight").gameObject;
 		spotlight.GetComponent<Light> ().enabled = true;
+
+		this.movingSpeed = Constants.defaultMovingSpeed / 1.5f;	//	dark environment, slow the speed...
 	}
 	
 	void Update(){
@@ -50,6 +52,10 @@ public class DarkBackyardSceneCbPlayer : NetworkedPlayer {
 			if (Time.frameCount % 100 == 0) {
 				photonView.RPC ("generateEnemy", PhotonTargets.All, Random.Range (-30, 30), Random.Range (-30, 30), 100f, "chaseBoth");
 			}
+		}
+		
+		if (arriveInDest(Constants.darkBackyardDestinationCoord, 4)) {
+			print ("finished!!!");
 		}
 	}
 

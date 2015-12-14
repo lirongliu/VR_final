@@ -9,13 +9,16 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	public Transform playerGlobal;
 	public Transform playerLocal;
 	public GameObject Enemy;
-	
-	
+
 	protected Vector3 correctAvatarPos = Vector3.zero; //We lerp towards this
 	protected Quaternion correctAvatarRot = Quaternion.identity; //We lerp towards this
 	protected Quaternion correctHeadRot = Quaternion.identity; //We lerp towards this
 
 	protected Transform headTransform;
+
+	protected float movingSpeed = Constants.defaultMovingSpeed;
+
+//	private int count = 0;
 
 	void Start () {
 	}
@@ -38,35 +41,30 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	}
 	
 	protected virtual void inputHandler() {
-		float movingSpeed = Constants.movingSpeed;
-
-		AvatarController avatarController = avatar.GetComponent<AvatarController> ();
-		if (Input.GetKey ("q")) {	//	moving towards the viewing direction
-			avatarController.Move(Camera.main.transform.forward * 0.1f);
-		}
 
 		if (Input.GetKey ("l")) {
 			string nextScene = Utility.getGameController().getNextScene();
 			photonView.RPC("loadScene", PhotonTargets.All, nextScene);
 		}
 
+		if (Input.GetKey ("q")) {	//	moving towards the viewing direction
+			this.move(Camera.main.transform.forward);
+		}
 		if (Input.GetKey ("d")) {
-			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(movingSpeed, 0, 0)));
+			this.move(new Vector3(1, 0, 0));
 		}
 		
 		if (Input.GetKey ("a")) {
-			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(-movingSpeed, 0, 0)));
+			this.move(new Vector3(-1, 0, 0));
 		}
 		
 		if (Input.GetKey ("s")) {
-			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(0, 0, -movingSpeed)));
+			this.move(new Vector3(0, 0, -1));
 		}
 		
 		if (Input.GetKey ("w")) {
-			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(0, 0, movingSpeed)));
+			this.move(new Vector3(0, 0, 1));
 		}
-
-		//print ("movingSpeed"+ movingSpeed * Time.deltaTime);
 		
 		if (Input.GetKey ("right")) {
 			playerLocal.Rotate (new Vector3 (0, 2, 0));
@@ -82,7 +80,24 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 		if (Input.GetKey ("up")) {
 			playerLocal.Rotate (new Vector3 (-2, 0, 0));
 		}
+
+
+
 		
+		if (Input.GetKey ("]")) {
+			movingSpeed *= 1.5f;
+
+		}
+		
+		if (Input.GetKey ("[")) {
+			movingSpeed /= 1.5f;
+		}
+	}
+
+	public void move(Vector3 dir) {
+		
+		AvatarController avatarController = avatar.GetComponent<AvatarController> ();
+		avatarController.Move(Utility.movementAdjustedWithFPS(movingSpeed * dir));
 	}
 
 	protected void checkHitTbPlayer(RaycastHit hit) {
@@ -90,7 +105,7 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 		GameObject tabletPlayerAvatar = Utility.getTabletPlayerAvatar();
 		if (tabletPlayerAvatar != null) {
 			float angle = Utility.getVectorAngle(Camera.main.transform.forward, tabletPlayerAvatar.transform.position - Camera.main.transform.position);
-			if(angle < Constants.cbSpotlightAngle / 2) {
+			if(angle < Constants.cbMaxSpotlightAngle / 2) {
 				bool hitByLight = false;
 				if (hit.collider != null) {
 					if (Utility.checkTag(hit.collider.gameObject.transform, Constants.tbPlayerAvatarTag)) {
@@ -106,7 +121,9 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 					hitByLight = true;
 				}
 				if (hitByLight) {
-					print ("hit by spotlight!!!!");
+//					print ("hit by spotlight!!!!");
+//					count++;
+//					print ("count " + count);
 					photonView.RPC ("decreseTabletSpotlightIntensity",PhotonTargets.All);
 				}
 				
@@ -143,5 +160,20 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 				}
 			}
 		}
+	}
+
+	protected bool arriveInDest(Vector3 dest, float allowance) {
+		GameObject cbNetworkedPlayerAvatar = GameObject.FindGameObjectWithTag (Constants.cbPlayerAvatarTag);
+		GameObject tbNetworkedPlayerAvatar = GameObject.FindGameObjectWithTag (Constants.tbPlayerAvatarTag);
+		if (cbNetworkedPlayerAvatar != null && tbNetworkedPlayerAvatar != null) {
+			float dist1 = Vector3.Distance(cbNetworkedPlayerAvatar.transform.position, dest);
+			float dist2 = Vector3.Distance(tbNetworkedPlayerAvatar.transform.position, dest);
+//			print ("dist1 " + dist1);
+//			print ("dist2 " + dist2);
+			if (dist1 + dist2 < allowance) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

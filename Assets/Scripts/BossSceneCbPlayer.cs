@@ -8,16 +8,17 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 
 	void OnLevelWasLoaded(int level) {
 		print ("level " + level);
-//		if (level == 2) {
+		// FIXED: sometimes the boss doesn't show up in tbPlayer view.
+		if (level == 1 && photonView.isMine) {
 			photonView.RPC ("generateBoss", PhotonTargets.All, Random.Range (-30, 30), Random.Range (-30, 30), 1000f, "boss");
-//		}
+		}
 	}
 	
 	void Start ()
 	{
 		DontDestroyOnLoad (this);
 		
-		avatar.transform.localPosition = new Vector3 (-5, 0.5f, -2);
+		avatar.transform.localPosition = new Vector3 (-5, 1f, -2);
 
 		if (photonView.isMine) {
 			GameObject cb = GameObject.Find ("CardboardMain");
@@ -83,7 +84,6 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 	}
 	
  	override protected void inputHandler() {
-		float movingSpeed = Constants.movingSpeed;
 		
 		AvatarController avatarController = avatar.GetComponent<AvatarController> ();
 		
@@ -112,7 +112,7 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 	protected void checkHitBoss() {
 		
 		float angle = Utility.getVectorAngle(Camera.main.transform.forward, boss.transform.position - Camera.main.transform.position);
-		if (angle < Constants.cbSpotlightAngle / 2) {
+		if (angle < Constants.cbMaxSpotlightAngle / 2) {
 			EnemyController ec = boss.GetComponent<EnemyController> ();
 			ec.getHit (300);
 			

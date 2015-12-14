@@ -14,7 +14,7 @@ public class SpotLightController : MonoBehaviour {
 			Transform avatarTransform = tbNetworkedPlayer.transform.Find ("Avatar");
 			if (avatarTransform != null) {
 				this.transform.SetParent (avatarTransform);
-				this.transform.localPosition = new Vector3(0, 10, 0);
+				this.transform.localPosition = new Vector3(0, Constants.tbSpotlightHight, 0);
 			}
 		} else if (cbNetworkedPlayer != null && this.transform.parent == cbNetworkedPlayer.transform) {
 			print ("IS_CB_PLAYER in SpotLightController");
@@ -26,7 +26,7 @@ public class SpotLightController : MonoBehaviour {
 			}
 
 			Light light = this.GetComponent<Light>();
-			light.spotAngle = Constants.cbSpotlightAngle;
+			light.spotAngle = Constants.cbMaxSpotlightAngle;
 		}
 	}
 	

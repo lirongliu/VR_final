@@ -10,6 +10,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BackyardScene.unity
   - enabled: 1
-    path: Assets/Scenes/DarkBackyardScene.unity
-  - enabled: 1
     path: Assets/Scenes/BossScene.unity
+  - enabled: 1
+    path: Assets/Scenes/DarkBackyardScene.unity

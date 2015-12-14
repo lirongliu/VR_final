@@ -12,7 +12,7 @@ public class BossSceneTbPlayer : NetworkedPlayer {
 
 		cbAvatar = GameObject.FindGameObjectWithTag (Constants.cbPlayerAvatarTag);
 
-//		avatar.transform.localPosition = new Vector3 (5, 0.5f, -1);
+		avatar.transform.localPosition = new Vector3 (5, 1f, -1);
 
 		// set head transform
 //		this.headTransform = Utility.FindTransform (cbAvatar.transform, "AvatarHead");
@@ -55,7 +55,6 @@ public class BossSceneTbPlayer : NetworkedPlayer {
 		}
 	}
 	override protected void inputHandler() {
-		float movingSpeed = Constants.movingSpeed;
 
 		if (Input.GetKey ("l")) {
 			string nextScene = Utility.getGameController().getNextScene();
@@ -67,7 +66,6 @@ public class BossSceneTbPlayer : NetworkedPlayer {
 			return;
 		
 		AvatarController avatarController = cbAvatar.GetComponent<AvatarController> ();
-		
 
 		if (Input.GetKey ("d")) {
 			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(movingSpeed, 0, 0)));
