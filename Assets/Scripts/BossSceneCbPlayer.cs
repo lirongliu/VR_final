@@ -8,9 +8,9 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 
 	void OnLevelWasLoaded(int level) {
 		print ("level " + level);
-//		if (level == 2) {
+		if (level == 1) {
 			photonView.RPC ("generateBoss", PhotonTargets.All, Random.Range (-30, 30), Random.Range (-30, 30), 1000f, "boss");
-//		}
+		}
 	}
 	
 	void Start ()

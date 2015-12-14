@@ -27,9 +27,9 @@ public class TbDarkBackyardCameraController : MonoBehaviour {
 				float xDiff = Mathf.Abs (tbAvatarPos.x - cbAvatarPos.x);
 
 				if (xDiff / yDiff > camera.aspect) {
-					orthographicSize = xDiff / camera.aspect * 1.5f / 2f;
+					orthographicSize = xDiff / camera.aspect * 1.9f / 2f;
 				} else {
-					orthographicSize = yDiff * 1.5f / 2f;
+					orthographicSize = yDiff * 1.9f / 2f;
 				}
 
 				camera.orthographicSize = Mathf.Max (Constants.minOrthographicSize, orthographicSize);

@@ -62,6 +62,10 @@ public class PunRPCs : MonoBehaviour {
 	
 	[PunRPC]
 	void loadScene(string sceneName) {
+		
+		print ("sceneName " + sceneName);
+		Application.LoadLevel (sceneName);
+		Utility.getGameController ().setCurrScene (sceneName);
 
 		GameObject cbNetworkedPlayer = GameObject.FindWithTag (Constants.cbNetworkedPlayerTag);
 		GameObject tbNetworkedPlayer = GameObject.FindWithTag (Constants.tbNetworkedPlayerTag);
@@ -112,17 +116,14 @@ public class PunRPCs : MonoBehaviour {
 					tbCamera.GetComponent<TbDarkBackyardCameraController> ().enabled = true;
 				}
 			}
-		} else if (sceneName == Constants.backyardSceneName) {
-			GameObject[] objects = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
-			foreach (GameObject o in objects) {
-				Destroy(o);
-			}
-		}
+		} 
+//		else if (sceneName == Constants.backyardSceneName) {
+//			GameObject[] objects = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
+//			foreach (GameObject o in objects) {
+//				Destroy(o);
+//			}
+//		}
 
-		
-		print ("sceneName " + sceneName);
-		Application.LoadLevel (sceneName);
-		Utility.getGameController ().setCurrScene (sceneName);
 
 	}
 }
