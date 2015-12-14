@@ -31,6 +31,7 @@ GameObject:
   - 114: {fileID: 11447886}
   - 114: {fileID: 11442930}
   - 114: {fileID: 11411546}
+  - 82: {fileID: 8298150}
   m_Layer: 0
   m_Name: iPadNetworkedPlayer
   m_TagString: iPadNetworkedPlayer
@@ -232,6 +233,76 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!82 &8298150
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 152492}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 14743fff1cc134db9878b4352150f9db, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!108 &10845008
 Light:
   m_ObjectHideFlags: 1
@@ -335,6 +406,7 @@ MonoBehaviour:
   playerGlobal: {fileID: 0}
   playerLocal: {fileID: 0}
   Enemy: {fileID: 158638, guid: f063c54a9e26a457091f892bbb6ba13c, type: 2}
+  BossClip: {fileID: 8300000, guid: 6434d9a9158394ed7868c9ede23dbd09, type: 3}
 --- !u!114 &11447886
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -362,6 +434,7 @@ MonoBehaviour:
   playerGlobal: {fileID: 0}
   playerLocal: {fileID: 0}
   Enemy: {fileID: 158638, guid: f063c54a9e26a457091f892bbb6ba13c, type: 2}
+  Dark_Clip: {fileID: 8300000, guid: 01b958088415e4f4dac60180351343f7, type: 3}
 --- !u!114 &11495362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -436,6 +509,26 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 408f5cd13e6eb438e9d76a25e678d1e5, type: 2}
+    - target: {fileID: 0}
+      propertyPath: Dark_Clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 01b958088415e4f4dac60180351343f7, type: 3}
+    - target: {fileID: 0}
+      propertyPath: BossClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6434d9a9158394ed7868c9ede23dbd09, type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 14743fff1cc134db9878b4352150f9db, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 152492}
