@@ -62,12 +62,11 @@ public class PunRPCs : MonoBehaviour {
 	
 	[PunRPC]
 	void loadScene(string sceneName) {
-		print ("sceneName " + sceneName);
-		Application.LoadLevel (sceneName);
-		Utility.getGameController ().setCurrScene (sceneName);
 
 		GameObject cbNetworkedPlayer = GameObject.FindWithTag (Constants.cbNetworkedPlayerTag);
 		GameObject tbNetworkedPlayer = GameObject.FindWithTag (Constants.tbNetworkedPlayerTag);
+		
+		GameObject tbCamera = GameObject.Find("TabletCamera");
 
 		if (sceneName == Constants.bossSceneName) {
 			if (cbNetworkedPlayer != null) {
@@ -84,6 +83,12 @@ public class PunRPCs : MonoBehaviour {
 				bossSceneTbPlayerScript.enabled = true;
 				PhotonView tbPhotonView = tbNetworkedPlayer.GetComponent<PhotonView> ();
 				tbPhotonView.photonView.ObservedComponents.Add (bossSceneTbPlayerScript);
+
+				if (tbCamera != null) {
+					tbCamera.GetComponent<TbBackyardCameraController> ().enabled = false;
+					tbCamera.GetComponent<TbBossSceneCameraController> ().enabled = true;
+				}
+
 			}
 		} else if (sceneName == Constants.darkBackyardSceneName) {
 			
@@ -101,8 +106,23 @@ public class PunRPCs : MonoBehaviour {
 				darkBackyardSceneTbPlayerScript.enabled = true;
 				PhotonView tbPhotonView = tbNetworkedPlayer.GetComponent<PhotonView> ();
 				tbPhotonView.photonView.ObservedComponents.Add (darkBackyardSceneTbPlayerScript);
+
+				if (tbCamera != null) {
+					tbCamera.GetComponent<TbBossSceneCameraController> ().enabled = false;
+					tbCamera.GetComponent<TbDarkBackyardCameraController> ().enabled = true;
+				}
+			}
+		} else if (sceneName == Constants.backyardSceneName) {
+			GameObject[] objects = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
+			foreach (GameObject o in objects) {
+				Destroy(o);
 			}
 		}
+
+		
+		print ("sceneName " + sceneName);
+		Application.LoadLevel (sceneName);
+		Utility.getGameController ().setCurrScene (sceneName);
 
 	}
 }

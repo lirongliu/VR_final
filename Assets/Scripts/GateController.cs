@@ -24,7 +24,6 @@ public class GateController : MonoBehaviour {
 		float distance1 = Vector3.Distance (tb_avatar.transform.position, this.transform.position);
 		float distance2 = Vector3.Distance (cb_avatar.transform.position, this.transform.position);
 
-		Debug.Log (cb_avatar.transform.position);
 
 		if ( distance1 < 5 || distance2<5) {
 	

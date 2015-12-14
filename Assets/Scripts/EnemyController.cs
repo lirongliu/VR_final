@@ -15,13 +15,6 @@ public class EnemyController : Photon.MonoBehaviour {
 		this.maxLife = maxLife;
 		this.life = maxLife;
 		this.type = type;
-
-//		if (type == "boss") {
-//			this.gameObject.tag = Constants.bossTag;
-//		} else {
-//			
-//			this.gameObject.tag = "Enemy";
-//		}
 	}
 
 	void Start () {
@@ -54,10 +47,9 @@ public class EnemyController : Photon.MonoBehaviour {
 
 		} else if (type == "chaseCb") {
 			if (chasingDir == Vector3.zero) {
-				print ("chasingDir pre " + chasingDir);
 				chasingDir = cbAvatar.position - this.transform.position;
+				chasingDir = new Vector3(chasingDir.x, 0, chasingDir.z);
 				chasingDir.Normalize();
-				print ("chasingDir post " + chasingDir);
 			}
 			this.transform.position += chasingDir * Time.deltaTime * 10;
 		} else if (type == "chaseBoth") {

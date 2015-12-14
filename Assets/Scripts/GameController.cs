@@ -23,6 +23,7 @@ public class GameController : MonoBehaviour {
 		} else if (currScene == Constants.bossSceneName) {
 			nextScene = Constants.darkBackyardSceneName;
 		} else if (currScene == Constants.darkBackyardSceneName) {
+			nextScene = Constants.backyardSceneName;		//	for testing only...
 		}
 		return nextScene;
 	}
