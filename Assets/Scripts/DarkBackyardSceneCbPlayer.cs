@@ -9,6 +9,11 @@ public class DarkBackyardSceneCbPlayer : NetworkedPlayer {
 	{
 		DontDestroyOnLoad (this);
 
+		GameObject boss = GameObject.FindGameObjectWithTag (Constants.bossTag);
+		if (boss != null) {
+			Destroy(boss);
+		}
+
 		avatar.transform.localPosition = Constants.darkBackyardStartCoord + new Vector3(-2, 0, 0);
 
 		if (photonView.isMine) {

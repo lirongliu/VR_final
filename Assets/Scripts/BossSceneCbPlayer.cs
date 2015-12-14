@@ -133,16 +133,16 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 
 	
 	protected void checkHitBoss() {
-		print ("Camera.main.transform.position  " + Camera.main.transform.position);
-		print ("Camera.main.transform.forward  " + Camera.main.transform.forward);
-		print ("boss.transform.position " + boss.transform.position);
+//		print ("Camera.main.transform.position  " + Camera.main.transform.position);
+//		print ("Camera.main.transform.forward  " + Camera.main.transform.forward);
+//		print ("boss.transform.position " + boss.transform.position);
 		Vector3 realBossPos = boss.transform.position + new Vector3 (0, 7.5f, 0);
 		float angle = Utility.getVectorAngle(Camera.main.transform.forward, realBossPos - Camera.main.transform.position);
-		print ("angle " + angle);
+//		print ("angle " + angle);
 		if (angle < Constants.cbMaxSpotlightAngle / 2) {
 			EnemyController ec = boss.GetComponent<EnemyController> ();
 			ec.getHit (300);
-			print ("ec life " + ec.getLife());
+//			print ("ec life " + ec.getLife());
 			
 			if (ec.shouldBeDead ()) {
 
@@ -155,7 +155,7 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 				//			headTransform	}
 			}
 		} else {
-			print ("revive!!!");
+//			print ("revive!!!");
 			EnemyController ec = boss.GetComponent<EnemyController> ();
 			ec.revive();
 		}

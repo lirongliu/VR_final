@@ -62,7 +62,7 @@ public class PunRPCs : MonoBehaviour {
 	}
 
 	IEnumerator wait5s() {
-		yield return new WaitForSeconds(5);
+		yield return new WaitForSeconds(15);
 		GameController.tb_instruction.text = "";
 	}
 

@@ -10,6 +10,11 @@ public class DarkBackyardSceneTbPlayer : NetworkedPlayer {
 	void Start ()
 	{
 		DontDestroyOnLoad (this);
+
+		GameObject boss = GameObject.FindGameObjectWithTag (Constants.bossTag);
+		if (boss != null) {
+			Destroy(boss);
+		}
 		
 		avatar.SetActive (true);
 		

@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour {
 	
 
 	IEnumerator wait5s() {
-		yield return new WaitForSeconds(5);
+		yield return new WaitForSeconds(15);
 		tb_instruction.text = "";
 	}
 

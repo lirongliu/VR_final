@@ -99,18 +99,21 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	protected void cbInputHandler() {
 		
 		if (Input.touchCount > 0) {
+//			print ("touch!!!");
 			if (Input.GetTouch(0).phase == TouchPhase.Began) {
+				print ("Began!!!");
 				//				print ("touch Began");
 			} else if (Input.GetTouch(0).phase == TouchPhase.Stationary) {
+				print ("Stationary!!!");
 				
 			} else if (Input.GetTouch(0).phase == TouchPhase.Ended) {
+				print ("Ended!!!");
 				
 				changeMovementState();
 				
 			}
-		}
-
-		if (Input.GetMouseButtonUp (0) || Input.GetKeyUp("z")) {
+		} else if (Input.GetMouseButtonUp (0) || Input.GetKeyUp("z")) {
+			print ("GetMouseButtonUp!!!");
 			changeMovementState();
 		}
 	}
