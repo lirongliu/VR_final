@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour {
 		tb_instruction=GameObject.FindWithTag ("instruction").transform.Find("Text").GetComponent<Text>();
 
 		tb_instruction.text="Task 1:\nWork with your partner to find the exit of the maze!\nPlease note: neither of you can see the whole scene of the maze.";
-		StartCoroutine(wait5s());
+		StartCoroutine(wait8s());
 
 		print (Utility.FindTransform (GameObject.FindGameObjectWithTag ("cardboardCamera").transform, "Canvas"));
 
@@ -27,8 +27,8 @@ public class GameController : MonoBehaviour {
 	}
 	
 
-	IEnumerator wait5s() {
-		yield return new WaitForSeconds(5);
+	IEnumerator wait8s() {
+		yield return new WaitForSeconds(8);
 		tb_instruction.text = "";
 	}
 
