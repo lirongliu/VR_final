@@ -4,6 +4,9 @@ using System.Diagnostics;
 
 public class DarkBackyardSceneTbPlayer : NetworkedPlayer {
 
+	public AudioClip Dark_Clip;
+
+
 	void Start ()
 	{
 		DontDestroyOnLoad (this);
@@ -23,6 +26,13 @@ public class DarkBackyardSceneTbPlayer : NetworkedPlayer {
 		GameObject spotlight = Utility.FindTransform (this.transform, "Spotlight").gameObject;
 		spotlight.GetComponent<Light> ().enabled = true;
 
+
+		if (GameController.play_audio) {
+			AudioSource audio=this.GetComponent<AudioSource>();
+			audio.Stop();
+			audio.clip=Dark_Clip;
+			audio.Play();
+		}
 		this.movingSpeed = Constants.defaultMovingSpeed / 1.5f;	//	dark environment, slow the speed...
 	}
 	
