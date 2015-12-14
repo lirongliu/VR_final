@@ -33,6 +33,14 @@ public class BackyardSceneTbPlayer : NetworkedPlayer {
 		// disable spotlight
 		GameObject spotlight = Utility.FindTransform (this.transform, "Spotlight").gameObject;
 		spotlight.GetComponent<Light> ().enabled = false;
+
+		print ("GameController.play_audio" + GameController.play_audio);
+		//Debug.Log ("GameController.play_audio" + GameController.play_audio);
+
+		if (GameController.play_audio) {
+			AudioSource audio=this.GetComponent<AudioSource>();
+			audio.Play();
+		}
 	}
 	
 	void Update(){

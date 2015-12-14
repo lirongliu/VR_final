@@ -50,14 +50,22 @@ public class EnemyController : Photon.MonoBehaviour {
 		
 		if (type == "boss") {
 			//	TODO: define boss movement
-			this.transform.position = Vector3.Lerp (this.transform.position, cbAvatar.position, Time.deltaTime * 0.05f);
+			//this.transform.position = Vector3.Lerp (this.transform.position, cbAvatar.position, Time.deltaTime * 2);
+
+			//boss moves around cb player in a random way
+			float degree=Time.frameCount*0.05f;
+			float radius=40;
+			Vector3 new_pos=new Vector3( cbAvatar.position.x+ Mathf.Cos(degree)*radius, cbAvatar.position.y+Random.Range(-2,2), cbAvatar.position.z+ Mathf.Sin(degree)*radius);
+
+			this.transform.position=Vector3.Lerp(this.transform.position, new_pos, Time.deltaTime*0.2f);
+			this.transform.LookAt(cbAvatar);
 
 		} else if (type == "chaseCb") {
 			if (chasingDir == Vector3.zero) {
-				print ("chasingDir pre " + chasingDir);
+				//print ("chasingDir pre " + chasingDir);
 				chasingDir = cbAvatar.position - this.transform.position;
 				chasingDir.Normalize();
-				print ("chasingDir post " + chasingDir);
+				//print ("chasingDir post " + chasingDir);
 			}
 			this.transform.position += chasingDir * Time.deltaTime * 10;
 		} else if (type == "chaseBoth") {
@@ -86,4 +94,5 @@ public class EnemyController : Photon.MonoBehaviour {
 		return life <= 0;
 	}
 	
+
 }

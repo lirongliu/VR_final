@@ -65,7 +65,8 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 		if (Input.GetKey ("w")) {
 			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(0, 0, movingSpeed)));
 		}
-		
+
+		//print ("movingSpeed"+ movingSpeed * Time.deltaTime);
 		
 		if (Input.GetKey ("right")) {
 			playerLocal.Rotate (new Vector3 (0, 2, 0));

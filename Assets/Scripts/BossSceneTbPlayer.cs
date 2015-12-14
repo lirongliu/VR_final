@@ -2,6 +2,9 @@
 using System.Collections;
 
 public class BossSceneTbPlayer : NetworkedPlayer {
+
+	public AudioClip BossClip;
+
 	GameObject cbAvatar;
 	void Start ()
 	{
@@ -17,6 +20,13 @@ public class BossSceneTbPlayer : NetworkedPlayer {
 //		playerLocal = headTransform;
 //		playerGlobal = cbAvatar.transform;
 		avatar.SetActive (false);
+
+		if (GameController.play_audio) {
+			AudioSource audio=this.GetComponent<AudioSource>();
+			audio.Stop();
+			audio.clip=BossClip;
+			audio.Play();
+		}
 	}
 	
 	void Update(){
