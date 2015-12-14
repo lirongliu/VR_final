@@ -45,7 +45,6 @@ public class BossSceneTbPlayer : NetworkedPlayer {
 		}
 	}
 	override protected void inputHandler() {
-		float movingSpeed = Constants.movingSpeed;
 
 		if (Input.GetKey ("l")) {
 			string nextScene = Utility.getGameController().getNextScene();
@@ -57,7 +56,6 @@ public class BossSceneTbPlayer : NetworkedPlayer {
 			return;
 		
 		AvatarController avatarController = cbAvatar.GetComponent<AvatarController> ();
-		
 
 		if (Input.GetKey ("d")) {
 			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(movingSpeed, 0, 0)));

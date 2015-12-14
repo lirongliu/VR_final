@@ -9,13 +9,14 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	public Transform playerGlobal;
 	public Transform playerLocal;
 	public GameObject Enemy;
-	
-	
+
 	protected Vector3 correctAvatarPos = Vector3.zero; //We lerp towards this
 	protected Quaternion correctAvatarRot = Quaternion.identity; //We lerp towards this
 	protected Quaternion correctHeadRot = Quaternion.identity; //We lerp towards this
 
 	protected Transform headTransform;
+
+	protected float movingSpeed = Constants.defaultMovingSpeed;
 
 	void Start () {
 	}
@@ -38,35 +39,30 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	}
 	
 	protected virtual void inputHandler() {
-		float movingSpeed = Constants.movingSpeed;
-
-		AvatarController avatarController = avatar.GetComponent<AvatarController> ();
-		if (Input.GetKey ("q")) {	//	moving towards the viewing direction
-			avatarController.Move(Utility.movementAdjustedWithFPS(Camera.main.transform.forward * movingSpeed));
-
-		}
 
 		if (Input.GetKey ("l")) {
 			string nextScene = Utility.getGameController().getNextScene();
 			photonView.RPC("loadScene", PhotonTargets.All, nextScene);
 		}
 
+		if (Input.GetKey ("q")) {	//	moving towards the viewing direction
+			this.move(Camera.main.transform.forward);
+		}
 		if (Input.GetKey ("d")) {
-			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(movingSpeed, 0, 0)));
+			this.move(new Vector3(1, 0, 0));
 		}
 		
 		if (Input.GetKey ("a")) {
-			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(-movingSpeed, 0, 0)));
+			this.move(new Vector3(-1, 0, 0));
 		}
 		
 		if (Input.GetKey ("s")) {
-			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(0, 0, -movingSpeed)));
+			this.move(new Vector3(0, 0, -1));
 		}
 		
 		if (Input.GetKey ("w")) {
-			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(0, 0, movingSpeed)));
+			this.move(new Vector3(0, 0, 1));
 		}
-		
 		
 		if (Input.GetKey ("right")) {
 			playerLocal.Rotate (new Vector3 (0, 2, 0));
@@ -83,6 +79,12 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 			playerLocal.Rotate (new Vector3 (-2, 0, 0));
 		}
 		
+	}
+
+	public void move(Vector3 dir) {
+		
+		AvatarController avatarController = avatar.GetComponent<AvatarController> ();
+		avatarController.Move(Utility.movementAdjustedWithFPS(movingSpeed * dir));
 	}
 
 	protected void checkHitTbPlayer(RaycastHit hit) {

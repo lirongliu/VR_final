@@ -22,6 +22,8 @@ public class DarkBackyardSceneTbPlayer : NetworkedPlayer {
 		// enable spotlight
 		GameObject spotlight = Utility.FindTransform (this.transform, "Spotlight").gameObject;
 		spotlight.GetComponent<Light> ().enabled = true;
+
+		this.movingSpeed = Constants.defaultMovingSpeed / 1.5f;	//	dark environment, slow the speed...
 	}
 	
 	void Update(){

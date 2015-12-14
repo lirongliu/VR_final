@@ -83,7 +83,6 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 	}
 	
  	override protected void inputHandler() {
-		float movingSpeed = Constants.movingSpeed;
 		
 		AvatarController avatarController = avatar.GetComponent<AvatarController> ();
 		
