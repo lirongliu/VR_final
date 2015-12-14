@@ -9,7 +9,7 @@ public class BossSceneTbPlayer : NetworkedPlayer {
 
 		cbAvatar = GameObject.FindGameObjectWithTag (Constants.cbPlayerAvatarTag);
 
-//		avatar.transform.localPosition = new Vector3 (5, 0.5f, -1);
+		avatar.transform.localPosition = new Vector3 (5, 1f, -1);
 
 		// set head transform
 //		this.headTransform = Utility.FindTransform (cbAvatar.transform, "AvatarHead");

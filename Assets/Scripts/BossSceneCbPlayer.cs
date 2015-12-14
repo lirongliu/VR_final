@@ -8,7 +8,7 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 
 	void OnLevelWasLoaded(int level) {
 		print ("level " + level);
-		if (level == 1) {
+		if (level == 1 && photonView.isMine) {
 			photonView.RPC ("generateBoss", PhotonTargets.All, Random.Range (-30, 30), Random.Range (-30, 30), 1000f, "boss");
 		}
 	}
@@ -17,7 +17,7 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 	{
 		DontDestroyOnLoad (this);
 		
-		avatar.transform.localPosition = new Vector3 (-5, 0.5f, -2);
+		avatar.transform.localPosition = new Vector3 (-5, 1f, -2);
 
 		if (photonView.isMine) {
 			GameObject cb = GameObject.Find ("CardboardMain");
@@ -111,7 +111,7 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 	protected void checkHitBoss() {
 		
 		float angle = Utility.getVectorAngle(Camera.main.transform.forward, boss.transform.position - Camera.main.transform.position);
-		if (angle < Constants.cbSpotlightAngle / 2) {
+		if (angle < Constants.cbMaxSpotlightAngle / 2) {
 			EnemyController ec = boss.GetComponent<EnemyController> ();
 			ec.getHit (300);
 			

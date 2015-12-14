@@ -18,6 +18,8 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 
 	protected float movingSpeed = Constants.defaultMovingSpeed;
 
+//	private int count = 0;
+
 	void Start () {
 	}
 	
@@ -92,7 +94,7 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 		GameObject tabletPlayerAvatar = Utility.getTabletPlayerAvatar();
 		if (tabletPlayerAvatar != null) {
 			float angle = Utility.getVectorAngle(Camera.main.transform.forward, tabletPlayerAvatar.transform.position - Camera.main.transform.position);
-			if(angle < Constants.cbSpotlightAngle / 2) {
+			if(angle < Constants.cbMaxSpotlightAngle / 2) {
 				bool hitByLight = false;
 				if (hit.collider != null) {
 					if (Utility.checkTag(hit.collider.gameObject.transform, Constants.tbPlayerAvatarTag)) {
@@ -108,7 +110,9 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 					hitByLight = true;
 				}
 				if (hitByLight) {
-					print ("hit by spotlight!!!!");
+//					print ("hit by spotlight!!!!");
+//					count++;
+//					print ("count " + count);
 					photonView.RPC ("decreseTabletSpotlightIntensity",PhotonTargets.All);
 				}
 				

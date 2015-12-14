@@ -26,7 +26,7 @@ public class SpotLightController : MonoBehaviour {
 			}
 
 			Light light = this.GetComponent<Light>();
-			light.spotAngle = Constants.cbSpotlightAngle;
+			light.spotAngle = Constants.cbMaxSpotlightAngle;
 		}
 	}
 	

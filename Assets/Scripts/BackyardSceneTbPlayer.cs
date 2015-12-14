@@ -7,7 +7,7 @@ public class BackyardSceneTbPlayer : NetworkedPlayer {
 	{
 		DontDestroyOnLoad (this);
 		
-		avatar.transform.localPosition = new Vector3 (5, 0.5f, -1);
+		avatar.transform.localPosition = new Vector3 (5, 1f, -1);
 		
 		Transform avatarHeadTransform = this.transform.Find("AvatarHead");
 		Transform avatarBodyTransform = this.transform.Find("AvatarBody");

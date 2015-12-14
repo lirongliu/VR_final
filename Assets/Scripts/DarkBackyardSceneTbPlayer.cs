@@ -10,7 +10,7 @@ public class DarkBackyardSceneTbPlayer : NetworkedPlayer {
 		
 		avatar.SetActive (true);
 
-		avatar.transform.localPosition = new Vector3 (5, 0.5f, -1);
+		avatar.transform.localPosition = new Vector3 (5, 1f, -1);
 
 		// set head transform
 		this.headTransform = Utility.FindTransform (avatar.transform, "AvatarHead");

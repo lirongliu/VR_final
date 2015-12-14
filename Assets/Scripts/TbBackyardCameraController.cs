@@ -17,7 +17,7 @@ public class TbBackyardCameraController : MonoBehaviour {
 			this.transform.position = new Vector3 (tbAvatarPos.x, 15, tbAvatarPos.z);
 			
 			Camera camera = this.GetComponent<Camera> ();
-			camera.orthographicSize = 30;
+			camera.orthographicSize = 18;
 		}
 	}
 }

@@ -8,10 +8,11 @@ public class Constants : MonoBehaviour {
 
 	public static float minOrthographicSize = 25;
 
-	public static float cbAvatarHeight = 1;
+	public static float cbAvatarHeight = 1.5f;
 	public static float tbSpotlightHight = 50;
 
-	public static float cbSpotlightAngle = 60;
+	public static float cbMaxSpotlightAngle = 50;
+	public static float cbMaxSpotlightIntensity = 5;
 
 	public static string tbPlayerAvatarTag = "iPadNetworkedPlayerAvatar";
 	public static string cbPlayerAvatarTag = "cbNetworkedPlayerAvatar";

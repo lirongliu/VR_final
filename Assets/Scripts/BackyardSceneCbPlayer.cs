@@ -7,7 +7,7 @@ public class BackyardSceneCbPlayer : NetworkedPlayer {
 	{
 		DontDestroyOnLoad (this);
 		
-		avatar.transform.localPosition = new Vector3 (-5, 0.5f, -2);
+		avatar.transform.localPosition = new Vector3 (-5, 1f, -2);
 		
 		if (photonView.isMine) {
 			GameObject cb = GameObject.Find ("CardboardMain");
