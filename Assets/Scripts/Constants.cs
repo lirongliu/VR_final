@@ -11,7 +11,7 @@ public class Constants : MonoBehaviour {
 	public static float cbAvatarHeight = 1.5f;
 	public static float tbSpotlightHight = 50;
 
-	public static float cbMaxSpotlightAngle = 50;
+	public static float cbMaxSpotlightAngle = 80;
 	public static float cbMaxSpotlightIntensity = 5;
 
 	public static string tbPlayerAvatarTag = "iPadNetworkedPlayerAvatar";

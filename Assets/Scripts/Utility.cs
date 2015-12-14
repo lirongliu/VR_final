@@ -45,7 +45,7 @@ public class Utility : MonoBehaviour {
 	}
 
 	
-	public static GameObject CreateEnemy(int x_position,int z_position, float maxLife, string type)
+	public static GameObject CreateEnemy(float x_position,float z_position, float maxLife, string type)
 	{
 		Object prefab;
 		if (type == "boss") {

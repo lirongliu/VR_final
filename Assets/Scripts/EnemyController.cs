@@ -65,6 +65,13 @@ public class EnemyController : Photon.MonoBehaviour {
 				chasingDir.Normalize();
 			}
 			this.transform.position += chasingDir * Time.deltaTime * 10;
+
+			Vector3 pos = this.transform.position;
+			if (pos.x < -35 || pos.x > 35 || pos.z < -27 || pos.z > 27) {
+//				print ("destroy");
+				Destroy(this.gameObject);
+			}
+
 		} else if (type == "chaseBoth") {
 			//	TODO: change it so that it chases both
 			if (cbAvatar != null) {
@@ -89,6 +96,10 @@ public class EnemyController : Photon.MonoBehaviour {
 
 	public bool shouldBeDead() {
 		return life <= 0;
+	}
+
+	public float getLife() {
+		return life;
 	}
 	
 

@@ -22,9 +22,12 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 
 		if (photonView.isMine) {
 			GameObject cb = GameObject.Find ("CardboardMain");
-
+			
+			Transform cbHead = cb.transform.Find("Head");
+			Transform mainCamera = Utility.FindTransform(cb.transform, "Main Camera");
+			this.headTransform = mainCamera;
 			// set head transform
-			this.headTransform = cb.transform;
+//			this.headTransform = cb.transform;
 		} else {
 
 			// set head transform
@@ -65,7 +68,10 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 			
 			// only cb is responsible for generating enemies
 			if (Time.frameCount % 50 == 0) {
-				photonView.RPC ("generateEnemy", PhotonTargets.All, Random.Range (-30, 30), Random.Range (-30, 30), 100f, "chaseCb");
+				float angle = Random.Range(0, 2 * Mathf.PI);
+				float x = Mathf.Cos(angle) * 15;
+				float z = Mathf.Sin(angle) * 15;
+				photonView.RPC ("generateEnemy", PhotonTargets.All, x, z, 100f, "chaseCb");
 			}
 		}
 	}
@@ -77,7 +83,7 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 						stream.SendNext(headTransform.localRotation);
 		}
 		else{
-//						correctAvatarPos = (Vector3)stream.ReceiveNext();
+//						correctAvatarPos Random.Range = (Vector3)stream.ReceiveNext();
 			//			correctAvatarRot = (Quaternion)stream.ReceiveNext();
 			correctHeadRot = (Quaternion)stream.ReceiveNext();
 		}
@@ -106,28 +112,50 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 		if (Input.GetKey ("up")) {
 			playerLocal.Rotate (new Vector3 (-2, 0, 0));
 		}
+		
+		if (Input.GetKey ("d")) {
+			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(movingSpeed, 0, 0)));
+		}
+		
+		if (Input.GetKey ("a")) {
+			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(-movingSpeed, 0, 0)));
+		}
+		
+		if (Input.GetKey ("s")) {
+			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(0, 0, -movingSpeed)));
+		}
+		
+		if (Input.GetKey ("w")) {
+			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(0, 0, movingSpeed)));
+		}
+
 	}
 
 	
 	protected void checkHitBoss() {
-		
-		float angle = Utility.getVectorAngle(Camera.main.transform.forward, boss.transform.position - Camera.main.transform.position);
+		print ("Camera.main.transform.position  " + Camera.main.transform.position);
+		print ("Camera.main.transform.forward  " + Camera.main.transform.forward);
+		print ("boss.transform.position " + boss.transform.position);
+		Vector3 realBossPos = boss.transform.position + new Vector3 (0, 7.5f, 0);
+		float angle = Utility.getVectorAngle(Camera.main.transform.forward, realBossPos - Camera.main.transform.position);
+		print ("angle " + angle);
 		if (angle < Constants.cbMaxSpotlightAngle / 2) {
 			EnemyController ec = boss.GetComponent<EnemyController> ();
 			ec.getHit (300);
+			print ("ec life " + ec.getLife());
 			
 			if (ec.shouldBeDead ()) {
 
-				print ("boss should be dead");
+				print ("boss should be dead!!!!!!");
 				
 //				if (NetworkController.enemyList.IndexOf (hitEnemy) != null && NetworkController.enemyList.IndexOf (hitEnemy) != (-1)) {
 //					//print("NetworkedPlayer enemyList:"+NetworkController.enemyList[0]+"\t"+NetworkController.enemyList[1]+"\t"+NetworkController.enemyList[2]);
 //					//print("INDEX:"+NetworkController.enemyList.IndexOf (hit.collider.gameObject));
 //					photonView.RPC ("destroyEnemy", PhotonTargets.All, NetworkController.enemyList.IndexOf (hitEnemy));
-//				}
+				//			headTransform	}
 			}
 		} else {
-			
+			print ("revive!!!");
 			EnemyController ec = boss.GetComponent<EnemyController> ();
 			ec.revive();
 		}
