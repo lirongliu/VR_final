@@ -4,7 +4,6 @@ using System.Collections;
 public class DarkBackyardSceneCbPlayer : NetworkedPlayer {
 
 	private GameObject hitEnemy;
-	
 
 	void Start ()
 	{
@@ -15,8 +14,11 @@ public class DarkBackyardSceneCbPlayer : NetworkedPlayer {
 		if (photonView.isMine) {
 			GameObject cb = GameObject.Find ("CardboardMain");
 			
+			Transform cbHead = cb.transform.Find("Head");
+			Transform mainCamera = Utility.FindTransform(cb.transform, "Main Camera");
+			this.headTransform = mainCamera;
 			// set head transform
-			this.headTransform = cb.transform;
+//			this.headTransform = cb.transform;
 		} else {
 			
 			// set head transform
@@ -43,6 +45,12 @@ public class DarkBackyardSceneCbPlayer : NetworkedPlayer {
 			headTransform.localRotation = Quaternion.Lerp (headTransform.localRotation, correctHeadRot, Time.deltaTime * 5);
 		} else {
 			inputHandler ();
+
+			cbInputHandler();
+			if (shouldBeMoving) {
+				moveForward();
+			}
+
 			RaycastHit hit;
 			Physics.Raycast (Camera.main.transform.position, Camera.main.transform.forward, out hit);
 			this.checkHitEnemies (hit, ref hitEnemy);
@@ -50,7 +58,7 @@ public class DarkBackyardSceneCbPlayer : NetworkedPlayer {
 			
 			// only cb is responsible for generating enemies
 			if (Time.frameCount % 100 == 0) {
-				photonView.RPC ("generateEnemy", PhotonTargets.All, Random.Range (-30, 30), Random.Range (-30, 30), 100f, "chaseBoth");
+				photonView.RPC ("generateEnemy", PhotonTargets.All, Random.Range (-30f, 30f), Random.Range (-30f, 30f), 100f, "chaseBoth");
 			}
 		}
 		

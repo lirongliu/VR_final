@@ -3,6 +3,7 @@ using System.Collections;
 
 public class BackyardSceneCbPlayer : NetworkedPlayer {
 
+
 	void Start ()
 	{
 		DontDestroyOnLoad (this);
@@ -26,12 +27,18 @@ public class BackyardSceneCbPlayer : NetworkedPlayer {
 			avatarBodyTransform.localPosition = Vector3.zero;
 			
 			cb.transform.SetParent(avatarBodyTransform);
-			avatarHeadTransform.SetParent(cb.transform);
+
+			Transform cbHead = cb.transform.Find("Head");
+			Transform mainCamera = Utility.FindTransform(cb.transform, "Main Camera");
+
+			avatarHeadTransform.SetParent(mainCamera);
+//			avatarHeadTransform.SetParent(cb.transform);
 			cb.transform.localPosition = new Vector3(0, Constants.cbAvatarHeight, 0);
 			avatarHeadTransform.localPosition = Vector3.zero;
 			
 			// set head transform
-			this.headTransform = cb.transform;
+			//			this.headTransform = cb.transform;
+			this.headTransform = mainCamera;
 		}   else {
 			
 			Transform avatarHeadTransform = this.transform.Find("AvatarHead");
@@ -69,11 +76,17 @@ public class BackyardSceneCbPlayer : NetworkedPlayer {
 			headTransform.localRotation = Quaternion.Lerp (headTransform.localRotation, correctHeadRot, Time.deltaTime * 5);
 		} else {
 			inputHandler ();
+			cbInputHandler();
+			if (shouldBeMoving) {
+				moveForward();
+			}
 		}
 
 		if (arriveInDest(Constants.backyardDestinationCoord, 10)) {
 			string nextScene = Utility.getGameController().getNextScene();
 			photonView.RPC("loadScene", PhotonTargets.All, nextScene);
 		}
+
+
 	}
 }

@@ -18,6 +18,8 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 
 	protected float movingSpeed = Constants.defaultMovingSpeed;
 
+	protected bool shouldBeMoving = false; // for cb only
+
 //	private int count = 0;
 
 	void Start () {
@@ -48,7 +50,7 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 		}
 
 		if (Input.GetKey ("q")) {	//	moving towards the viewing direction
-			this.move(Camera.main.transform.forward);
+			this.moveForward();
 		}
 		if (Input.GetKey ("d")) {
 			this.move(new Vector3(1, 0, 0));
@@ -94,10 +96,37 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 		}
 	}
 
+	protected void cbInputHandler() {
+		
+		if (Input.touchCount > 0) {
+			if (Input.GetTouch(0).phase == TouchPhase.Began) {
+				//				print ("touch Began");
+			} else if (Input.GetTouch(0).phase == TouchPhase.Stationary) {
+				
+			} else if (Input.GetTouch(0).phase == TouchPhase.Ended) {
+				
+				changeMovementState();
+				
+			}
+		}
+
+		if (Input.GetMouseButtonUp (0) || Input.GetKeyUp("z")) {
+			changeMovementState();
+		}
+	}
+
+	protected void changeMovementState() {
+		shouldBeMoving = !shouldBeMoving;
+	}
+
 	public void move(Vector3 dir) {
 		
 		AvatarController avatarController = avatar.GetComponent<AvatarController> ();
 		avatarController.Move(Utility.movementAdjustedWithFPS(movingSpeed * dir));
+	}
+
+	public void moveForward() {
+		this.move(Camera.main.transform.forward);
 	}
 
 	protected void checkHitTbPlayer(RaycastHit hit) {
