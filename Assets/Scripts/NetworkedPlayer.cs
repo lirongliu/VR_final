@@ -42,7 +42,8 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 
 		AvatarController avatarController = avatar.GetComponent<AvatarController> ();
 		if (Input.GetKey ("q")) {	//	moving towards the viewing direction
-			avatarController.Move(Camera.main.transform.forward * 0.1f);
+			avatarController.Move(Utility.movementAdjustedWithFPS(Camera.main.transform.forward * movingSpeed));
+
 		}
 
 		if (Input.GetKey ("l")) {
@@ -65,6 +66,8 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 		if (Input.GetKey ("w")) {
 			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(0, 0, movingSpeed)));
 		}
+
+		print ("movingSpeed " + movingSpeed * Time.deltaTime);
 		
 		
 		if (Input.GetKey ("right")) {
