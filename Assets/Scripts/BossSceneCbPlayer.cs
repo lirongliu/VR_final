@@ -10,6 +10,7 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 		print ("level " + level);
 		// FIXED: sometimes the boss doesn't show up in tbPlayer view.
 		if (level == 1 && photonView.isMine) {
+
 			photonView.RPC ("generateBoss", PhotonTargets.All, Random.Range (-30, 30), Random.Range (-30, 30), 1000f, "boss");
 		}
 	}
@@ -141,12 +142,16 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 //		print ("angle " + angle);
 		if (angle < Constants.cbMaxSpotlightAngle / 2) {
 			EnemyController ec = boss.GetComponent<EnemyController> ();
-			ec.getHit (300);
+			ec.getHit (250);
 //			print ("ec life " + ec.getLife());
 			
 			if (ec.shouldBeDead ()) {
 
 				print ("boss should be dead!!!!!!");
+				Destroy(ec);
+				
+				string nextScene = Utility.getGameController().getNextScene();
+				photonView.RPC("loadScene", PhotonTargets.All, nextScene);
 				
 //				if (NetworkController.enemyList.IndexOf (hitEnemy) != null && NetworkController.enemyList.IndexOf (hitEnemy) != (-1)) {
 //					//print("NetworkedPlayer enemyList:"+NetworkController.enemyList[0]+"\t"+NetworkController.enemyList[1]+"\t"+NetworkController.enemyList[2]);

@@ -11,6 +11,8 @@ public class EnemyController : Photon.MonoBehaviour {
 
 	private Vector3 chasingDir = Vector3.zero;	//	only useful for type == "chaseBoth"
 
+	private GameObject chasingAvatar;
+
 	public void config(float maxLife, string type) {
 		this.maxLife = maxLife;
 		this.life = maxLife;
@@ -74,9 +76,23 @@ public class EnemyController : Photon.MonoBehaviour {
 
 		} else if (type == "chaseBoth") {
 			//	TODO: change it so that it chases both
-			if (cbAvatar != null) {
-				this.transform.position = Vector3.Lerp (this.transform.position, cbAvatar.position, Time.deltaTime * 0.1f);
-			}
+//			if (chasingAvatar == null) {
+//				if (Random.Range(-1, 1) > 0) {
+//					chasingAvatar = tbAvatar;
+//				} else {
+//					chasingAvatar = cbAvatar;
+//				}
+//
+//			}
+//
+//			if (chasingAvatar != null) {
+//				
+//				this.transform.position=Vector3.Lerp(this.transform.position, chasingAvatar.transform.position, Time.deltaTime*0.2f);
+
+				if (cbAvatar != null) {
+					this.transform.position = Vector3.Lerp (this.transform.position, cbAvatar.position, Time.deltaTime * 0.1f);
+				}
+//			}
 		}
 	}
 	

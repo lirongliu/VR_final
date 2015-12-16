@@ -434,7 +434,7 @@ MonoBehaviour:
   playerGlobal: {fileID: 0}
   playerLocal: {fileID: 0}
   Enemy: {fileID: 158638, guid: f063c54a9e26a457091f892bbb6ba13c, type: 2}
-  Dark_Clip: {fileID: 8300000, guid: 7ab36ab66febc4370bba7bf28e436bb5, type: 3}
+  Dark_Clip: {fileID: 8300000, guid: 2b415fcd201e54f87899809ef6550183, type: 3}
 --- !u!114 &11495362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -512,7 +512,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: Dark_Clip
       value: 
-      objectReference: {fileID: 8300000, guid: 7ab36ab66febc4370bba7bf28e436bb5, type: 3}
+      objectReference: {fileID: 8300000, guid: 2b415fcd201e54f87899809ef6550183, type: 3}
     - target: {fileID: 0}
       propertyPath: BossClip
       value: 
