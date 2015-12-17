@@ -9,6 +9,7 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 	void OnLevelWasLoaded(int level) {
 		print ("level " + level);
 		// FIXED: sometimes the boss doesn't show up in tbPlayer view.
+		// TO FIX: sometimes there are two bosses.
 		if (level == 1 && photonView.isMine) {
 
 			photonView.RPC ("generateBoss", PhotonTargets.All, Random.Range (-30, 30), Random.Range (-30, 30), 1000f, "boss");

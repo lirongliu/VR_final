@@ -3,6 +3,23 @@ using System.Collections;
 
 public class Utility : MonoBehaviour {
 
+	/* get scripts */
+	public static GameController getGameController() {
+		return GameObject.Find ("GameController").GetComponent<GameController> ();
+	}
+
+	
+	
+	/* get Objects */
+	public static GameObject getTabletPlayerAvatar() {
+		return GameObject.FindGameObjectWithTag (Constants.tbPlayerAvatarTag);
+	}
+	
+	public static GameObject getCbPlayerAvatar() {
+		return GameObject.FindGameObjectWithTag (Constants.cbPlayerAvatarTag);
+	}
+
+
 
 	public static Transform FindTransform(Transform parent, string name)
 	{
@@ -28,20 +45,11 @@ public class Utility : MonoBehaviour {
 		}
 		
 		return false;
-		
 	}
 
 	public static float getVectorAngle(Vector3 from, Vector3 to) {
 		float angle = Vector3.Angle(from, to);
 		return Mathf.Abs (angle);
-	}
-
-	public static GameObject getTabletPlayerAvatar() {
-		return GameObject.FindGameObjectWithTag (Constants.tbPlayerAvatarTag);
-	}
-	
-	public static GameObject getCbPlayerAvatar() {
-		return GameObject.FindGameObjectWithTag (Constants.cbPlayerAvatarTag);
 	}
 
 	
@@ -60,10 +68,6 @@ public class Utility : MonoBehaviour {
 		enemyController.config(maxLife, type);
 		//do additional initialization steps here
 		return enemyObj;
-	}
-
-	public static GameController getGameController() {
-		return GameObject.Find ("GameController").GetComponent<GameController> ();
 	}
 
 	public static Vector3 movementAdjustedWithFPS(Vector3 displacementVec) {

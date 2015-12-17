@@ -61,11 +61,6 @@ public class PunRPCs : MonoBehaviour {
 		}
 	}
 
-	IEnumerator wait5s() {
-		yield return new WaitForSeconds(10);
-		GameController.tb_instruction.text = "";
-	}
-
 
 	[PunRPC]
 	void loadScene(string sceneName) {
@@ -80,9 +75,8 @@ public class PunRPCs : MonoBehaviour {
 		GameObject tbCamera = GameObject.Find("TabletCamera");
 
 		if (sceneName == Constants.bossSceneName) {
-			GameController.tb_instruction.text = "Task 2:\nYou and your partner are controlling the same character. Tablet player controls the position, cardboard player controls the direction. Stare at the boss for 10 seconds and you will win.";
-			
-			StartCoroutine(wait5s());
+//			GameController.instruction.text = "Task 2:\nYou and your partner are controlling the same character. Tablet player controls the position, cardboard player controls the direction. Stare at the boss for 10 seconds and you will win.";
+//			StartCoroutine(wait5s());
 
 			if (cbNetworkedPlayer != null) {
 				cbNetworkedPlayer.GetComponent<BackyardSceneCbPlayer> ().enabled = false;
@@ -108,8 +102,8 @@ public class PunRPCs : MonoBehaviour {
 			}
 		} else if (sceneName == Constants.darkBackyardSceneName) {
 
-			GameController.tb_instruction.text = "Task 3:\nWork with your partner to find the way home. Tablet player can light up the environment with spotlight. Cardboard player can kill enemies with torchlight, but it will also decrease the light of tablet player if you look at him.";
-			StartCoroutine(wait5s());
+//			GameController.instruction.text = "Task 3:\nWork with your partner to find the way home. Tablet player can light up the environment with spotlight. Cardboard player can kill enemies with torchlight, but it will also decrease the light of tablet player if you look at him.";
+//			StartCoroutine(wait5s());
 
 			if (cbNetworkedPlayer != null) {
 				cbNetworkedPlayer.GetComponent<BossSceneCbPlayer> ().enabled = false;
