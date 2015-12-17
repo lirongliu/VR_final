@@ -7,8 +7,6 @@ public class Utility : MonoBehaviour {
 	public static GameController getGameController() {
 		return GameObject.Find ("GameController").GetComponent<GameController> ();
 	}
-
-	
 	
 	/* get Objects */
 	public static GameObject getTabletPlayerAvatar() {
@@ -18,8 +16,6 @@ public class Utility : MonoBehaviour {
 	public static GameObject getCbPlayerAvatar() {
 		return GameObject.FindGameObjectWithTag (Constants.cbPlayerAvatarTag);
 	}
-
-
 
 	public static Transform FindTransform(Transform parent, string name)
 	{
@@ -56,17 +52,24 @@ public class Utility : MonoBehaviour {
 	public static GameObject CreateEnemy(float x_position,float z_position, float maxLife, string type)
 	{
 		Object prefab;
+		GameObject enemyObj;
 		if (type == "boss") {
 			prefab = Resources.Load ("boss");
+			
+			enemyObj = Instantiate (prefab, new Vector3 (x_position,1,z_position), Quaternion.identity) as GameObject;
+			
+			//		GameObject enemyObj = Instantiate(prefab) as GameObject;
+			BossController bossController = enemyObj.GetComponent<BossController>();
+			bossController.config(maxLife, type);
 		} else {
 			prefab = Resources.Load("Enemy");
+			
+			enemyObj = Instantiate (prefab, new Vector3 (x_position,1,z_position), Quaternion.identity) as GameObject;
+			
+			//		GameObject enemyObj = Instantiate(prefab) as GameObject;
+			NormalEnemyController normalEnemyController = enemyObj.GetComponent<NormalEnemyController>();
+			normalEnemyController.config(maxLife, type);
 		}
-		GameObject enemyObj = Instantiate (prefab, new Vector3 (x_position,1,z_position), Quaternion.identity) as GameObject;
-
-//		GameObject enemyObj = Instantiate(prefab) as GameObject;
-		EnemyController enemyController = enemyObj.GetComponent<EnemyController>();
-		enemyController.config(maxLife, type);
-		//do additional initialization steps here
 		return enemyObj;
 	}
 

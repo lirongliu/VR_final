@@ -167,7 +167,7 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 
 		if (hit.collider != null) {
 			if (hit.collider.gameObject == hitEnemy) {
-				EnemyController ec = hitEnemy.GetComponent<EnemyController> ();
+				NormalEnemyController ec = hitEnemy.GetComponent<NormalEnemyController> ();
 				ec.getHit (300);
 					
 				if (ec.shouldBeDead ()) {
@@ -181,7 +181,7 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 					
 			} else {
 				if (hitEnemy != null) {
-					EnemyController ec = hitEnemy.GetComponent<EnemyController> ();
+					NormalEnemyController ec = hitEnemy.GetComponent<NormalEnemyController> ();
 					ec.revive ();
 					hitEnemy = null;
 				}

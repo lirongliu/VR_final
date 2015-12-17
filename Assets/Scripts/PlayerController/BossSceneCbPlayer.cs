@@ -142,7 +142,7 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 		float angle = Utility.getVectorAngle(Camera.main.transform.forward, realBossPos - Camera.main.transform.position);
 //		print ("angle " + angle);
 		if (angle < Constants.cbMaxSpotlightAngle / 2) {
-			EnemyController ec = boss.GetComponent<EnemyController> ();
+			BossController ec = boss.GetComponent<BossController> ();
 			ec.getHit (250);
 //			print ("ec life " + ec.getLife());
 			
@@ -162,7 +162,7 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 			}
 		} else {
 //			print ("revive!!!");
-			EnemyController ec = boss.GetComponent<EnemyController> ();
+			BossController ec = boss.GetComponent<BossController> ();
 			ec.revive();
 		}
 	}
