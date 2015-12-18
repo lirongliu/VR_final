@@ -12,8 +12,9 @@ TagManager:
   - Enemy
   - AvatarHead
   - boss
-  - instruction
+  - tbInstruction
   - tbCanvas
+  - cbInstruction
   layers:
   - Default
   - TransparentFX

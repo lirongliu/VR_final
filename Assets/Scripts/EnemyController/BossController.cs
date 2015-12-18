@@ -34,8 +34,8 @@ public class BossController : EnemyController {
 	}
 
 	void FixedUpdate(){
-		print ("thisRoundBossRevolveTime " + thisRoundBossRevolveTime);
-		print ("bossMovementDir " + bossMovementDir);
+//		print ("thisRoundBossRevolveTime " + thisRoundBossRevolveTime);
+//		print ("bossMovementDir " + bossMovementDir);
 		if (thisRoundBossRevolveTime < 0) {
 			thisRoundBossRevolveTime = Random.Range(0.3f, 2f);
 			bossMovementDir = Random.Range(-1f, 1f) > 0 ? 1 : -1;

@@ -27,7 +27,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 466664}
   - 114: {fileID: 11499004}
-  - 114: {fileID: 11416880}
   - 114: {fileID: 11401658}
   - 114: {fileID: 11492450}
   - 114: {fileID: 11490474}
@@ -279,21 +278,6 @@ MonoBehaviour:
   playerGlobal: {fileID: 0}
   playerLocal: {fileID: 0}
   Enemy: {fileID: 158638, guid: f063c54a9e26a457091f892bbb6ba13c, type: 2}
---- !u!114 &11416880
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 133968}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 674c9455ebfae47a6b404bd41a65ae87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  avatar: {fileID: 147150}
-  playerGlobal: {fileID: 0}
-  playerLocal: {fileID: 0}
-  Enemy: {fileID: 158638, guid: f063c54a9e26a457091f892bbb6ba13c, type: 2}
 --- !u!114 &11439870
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -442,6 +426,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

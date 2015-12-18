@@ -8,6 +8,9 @@ public class Utility : MonoBehaviour {
 	public static GameController getGameController() {
 		return GameObject.Find ("GameController").GetComponent<GameController> ();
 	}
+	public static InstructionController getInstructionController() {
+		return GameObject.FindWithTag (Constants.tbNetworkedPlayerTag).GetComponent<InstructionController> ();
+	}
 	
 	/* get Objects */
 	public static GameObject getTabletPlayerAvatar() {
@@ -18,10 +21,9 @@ public class Utility : MonoBehaviour {
 		return GameObject.FindGameObjectWithTag (Constants.cbPlayerAvatarTag);
 	}
 
-	public static Text getInstructionText() {
-		return 	GameObject.FindWithTag ("instruction").transform.Find("Text").GetComponent<Text>();
-
-	}
+//	public static Text getInstructionText() {
+//		return FindTransform(GameObject.FindWithTag ("instruction").transform, "Text").GetComponent<Text>();
+//	}
 
 	public static Transform FindTransform(Transform parent, string name)
 	{
@@ -83,13 +85,14 @@ public class Utility : MonoBehaviour {
 		return displacementVec * Time.deltaTime;
 	}
 
+	// not working...
 	public static void resetScene() {
-		GameObject[] GameObjects = (FindObjectsOfType<GameObject>() as GameObject[]);
-		
-		for (int i = 0; i < GameObjects.Length; i++) {
-			Destroy(GameObjects[i]);
-		}
-		Application.LoadLevel ("BackyardScene");
+//		GameObject[] GameObjects = (FindObjectsOfType<GameObject>() as GameObject[]);
+//		
+//		for (int i = 0; i < GameObjects.Length; i++) {
+//			Destroy(GameObjects[i]);
+//		}
+		Application.LoadLevel (0);
 	}
 
 	// Use this for initialization

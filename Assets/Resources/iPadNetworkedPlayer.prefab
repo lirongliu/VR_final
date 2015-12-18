@@ -26,7 +26,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 439134}
   - 114: {fileID: 11400380}
-  - 114: {fileID: 11420380}
   - 114: {fileID: 11465812}
   - 114: {fileID: 11447886}
   - 114: {fileID: 11442930}
@@ -378,21 +377,6 @@ MonoBehaviour:
   playerGlobal: {fileID: 0}
   playerLocal: {fileID: 0}
   Enemy: {fileID: 0}
---- !u!114 &11420380
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 152492}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 674c9455ebfae47a6b404bd41a65ae87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  avatar: {fileID: 166664}
-  playerGlobal: {fileID: 0}
-  playerLocal: {fileID: 0}
-  Enemy: {fileID: 158638, guid: f063c54a9e26a457091f892bbb6ba13c, type: 2}
 --- !u!114 &11442930
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -432,6 +416,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da415babd79db48baa18e1bfd1d8e372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gc: {fileID: 0}
+  instructionObj: {fileID: 0}
 --- !u!114 &11465812
 MonoBehaviour:
   m_ObjectHideFlags: 1

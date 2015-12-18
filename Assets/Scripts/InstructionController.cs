@@ -3,7 +3,9 @@ using System.Collections;
 
 public class InstructionController : Photon.MonoBehaviour {
 
-	GameController gc;
+	public GameController gc;
+	
+	public GameObject instructionObj;	//	could be cb or tb depending on who the player is
 
 	private BackyardSceneController backyardSceneController = new BackyardSceneController();
 	private BossSceneController bossSceneController = new BossSceneController();
@@ -12,6 +14,13 @@ public class InstructionController : Photon.MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		gc = Utility.getGameController ();
+
+		if (NetworkController.whoAmI == Constants.IS_IPAD_PLAYER) {
+			instructionObj = GameObject.FindWithTag("tbInstruction");
+		} else {
+			instructionObj = GameObject.FindWithTag("cbInstruction");
+		}
+		instructionObj.SetActive (false);
 	}
 	
 	// Update is called once per frame

@@ -13,7 +13,6 @@ public class NetworkController : Photon.PunBehaviour
 
 	private GameObject enemy1,enemy2,enemy3;
 
-
 	void Start(){
 		DontDestroyOnLoad (this);
 		enemyList = new ArrayList ();

@@ -44,9 +44,9 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	
 	protected virtual void inputHandler() {
 		
-		if (Input.GetKey ("r")) {
-			photonView.RPC("resetScene", PhotonTargets.All);
-		}
+//		if (Input.GetKey ("r")) {
+//			photonView.RPC("resetScene", PhotonTargets.All);
+//		}
 
 		if (Input.GetKey ("l")) {
 			string nextScene = Utility.getGameController().getNextScene();

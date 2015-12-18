@@ -9,6 +9,7 @@ public class GameController : Photon.MonoBehaviour {
 	public static bool play_audio=true;
 	public string currScene = Constants.backyardSceneName;
 
+
 	void Start () {
 		DontDestroyOnLoad (this);
 	}
@@ -16,7 +17,6 @@ public class GameController : Photon.MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
 
 	}
 

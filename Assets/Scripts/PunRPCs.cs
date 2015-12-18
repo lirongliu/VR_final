@@ -22,18 +22,23 @@ public class PunRPCs : MonoBehaviour {
 	}
 	
 	
-	IEnumerator showInstructionRoutine(string text, int seconds) {
-		Text instruction = Utility.getInstructionText();
-		instruction.text = text;
-		//		print ("showInstruction starts");
+	IEnumerator showInstructionRoutine(string instructionText, int seconds, GameObject instructionObj) {
 		yield return new WaitForSeconds(seconds);
 		//		print ("showInstruction ends");
-		instruction.text = "";
+		Text text = Utility.FindTransform(instructionObj.transform, "Text").GetComponent<Text>();
+		text.text = "";
+		instructionObj.SetActive (false);
+
 	}
 	
 	[PunRPC]
-	void showInstruction(string text, int seconds) {
-		StartCoroutine (showInstructionRoutine(text, seconds));
+	void showInstruction(string instructionText, int seconds) {
+		GameObject instructionObj = Utility.getInstructionController ().instructionObj;
+		instructionObj.SetActive (true);
+		Text text = Utility.FindTransform(instructionObj.transform, "Text").GetComponent<Text>();
+		text.text = instructionText;
+		print ("showInstruction starts: " + instructionText);
+		StartCoroutine (showInstructionRoutine(instructionText, seconds, instructionObj));
 	}
 	
 	[PunRPC]
