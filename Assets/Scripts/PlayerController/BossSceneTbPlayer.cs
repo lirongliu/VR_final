@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BossSceneTbPlayer : NetworkedPlayer {
+public class BossSceneTbPlayer : TbNetworkedPlayer {
 
 	public AudioClip BossClip;
 
@@ -38,7 +38,12 @@ public class BossSceneTbPlayer : NetworkedPlayer {
 //			headTransform.localRotation = Quaternion.Lerp (headTransform.localRotation, correctHeadRot, Time.deltaTime * 5);
 		}
 		else {
-			inputHandler();
+			TbInstructionController t = Utility.getTbInstructionController();
+			if (t != null && t.ShowingInstruction) {
+				instructionHandler();
+			} else {
+				inputHandler();
+			}
 		}
 	}
 	

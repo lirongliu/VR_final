@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BackyardSceneTbPlayer : NetworkedPlayer {
+public class BackyardSceneTbPlayer : TbNetworkedPlayer {
 	
 	void Start ()
 	{
@@ -52,7 +52,12 @@ public class BackyardSceneTbPlayer : NetworkedPlayer {
 			headTransform.localRotation = Quaternion.Lerp (headTransform.localRotation, correctHeadRot, Time.deltaTime * 5);
 		}
 		else {
-			inputHandler();
+			TbInstructionController t = Utility.getTbInstructionController();
+			if (t != null && t.ShowingInstruction) {
+				instructionHandler();
+			} else {
+				inputHandler();
+			}
 		}
 	}
 }

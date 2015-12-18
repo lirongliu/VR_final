@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DarkBackyardSceneCbPlayer : NetworkedPlayer {
+public class DarkBackyardSceneCbPlayer : CbNetworkedPlayer {
 
 	private GameObject hitEnemy;
 
@@ -49,9 +49,15 @@ public class DarkBackyardSceneCbPlayer : NetworkedPlayer {
 			avatar.transform.localRotation = Quaternion.Lerp (avatar.transform.localRotation, correctAvatarRot, Time.deltaTime * 5);
 			headTransform.localRotation = Quaternion.Lerp (headTransform.localRotation, correctHeadRot, Time.deltaTime * 5);
 		} else {
-			inputHandler ();
+			
+			CbInstructionController c = Utility.getCbInstructionController();
+			if (c != null && c.ShowingInstruction) {
+				instructionHandler();
+			} else {
+				inputHandler ();
+				cbInputHandler();
+			}
 
-			cbInputHandler();
 			if (shouldBeMoving) {
 				moveForward();
 			}

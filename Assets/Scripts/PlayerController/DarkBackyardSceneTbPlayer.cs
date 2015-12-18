@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Diagnostics;
 
-public class DarkBackyardSceneTbPlayer : NetworkedPlayer {
+public class DarkBackyardSceneTbPlayer : TbNetworkedPlayer {
 
 	public AudioClip Dark_Clip;
 
@@ -50,7 +50,12 @@ public class DarkBackyardSceneTbPlayer : NetworkedPlayer {
 			headTransform.localRotation = Quaternion.Lerp (headTransform.localRotation, correctHeadRot, Time.deltaTime * 5);
 		}
 		else {
-			inputHandler();
+			TbInstructionController t = Utility.getTbInstructionController();
+			if (t != null && t.ShowingInstruction) {
+				instructionHandler();
+			} else {
+				inputHandler();
+			}
 		}
 	}
 

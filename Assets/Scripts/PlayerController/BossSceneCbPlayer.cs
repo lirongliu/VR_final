@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BossSceneCbPlayer : NetworkedPlayer {
+public class BossSceneCbPlayer : CbNetworkedPlayer {
 	
 	private GameObject hitEnemy;
 	private GameObject boss;
@@ -53,7 +53,13 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 //			avatar.transform.localRotation = Quaternion.Lerp (avatar.transform.localRotation, correctAvatarRot, Time.deltaTime * 5);
 			headTransform.localRotation = Quaternion.Lerp (headTransform.localRotation, correctHeadRot, Time.deltaTime * 5);
 		} else {
-			inputHandler ();
+			
+			CbInstructionController c = Utility.getCbInstructionController();
+			if (c != null && c.ShowingInstruction) {
+				instructionHandler();
+			} else {
+				inputHandler ();
+			}
 
 			if (boss == null) {
 				boss = GameObject.FindGameObjectWithTag (Constants.bossTag);
@@ -90,49 +96,6 @@ public class BossSceneCbPlayer : NetworkedPlayer {
 			correctHeadRot = (Quaternion)stream.ReceiveNext();
 		}
 	}
-	
- 	override protected void inputHandler() {
-		
-		AvatarController avatarController = avatar.GetComponent<AvatarController> ();
-		
-		if (Input.GetKey ("l")) {
-			string nextScene = Utility.getGameController().getNextScene();
-			photonView.RPC("loadScene", PhotonTargets.All, nextScene);
-		}
-
-		if (Input.GetKey ("right")) {
-			playerLocal.Rotate (new Vector3 (0, 2, 0));
-		}
-		if (Input.GetKey ("left")) {
-			playerLocal.Rotate (new Vector3 (0, -2, 0));
-		}
-		
-		if (Input.GetKey ("down")) {
-			playerLocal.Rotate (new Vector3 (2, 0, 0));
-		}
-		
-		if (Input.GetKey ("up")) {
-			playerLocal.Rotate (new Vector3 (-2, 0, 0));
-		}
-		
-		if (Input.GetKey ("d")) {
-			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(movingSpeed, 0, 0)));
-		}
-		
-		if (Input.GetKey ("a")) {
-			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(-movingSpeed, 0, 0)));
-		}
-		
-		if (Input.GetKey ("s")) {
-			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(0, 0, -movingSpeed)));
-		}
-		
-		if (Input.GetKey ("w")) {
-			avatarController.Move(Utility.movementAdjustedWithFPS(new Vector3(0, 0, movingSpeed)));
-		}
-
-	}
-
 	
 	protected void checkHitBoss() {
 //		print ("Camera.main.transform.position  " + Camera.main.transform.position);

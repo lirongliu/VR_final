@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BackyardSceneCbPlayer : NetworkedPlayer {
+public class BackyardSceneCbPlayer : CbNetworkedPlayer {
 
 
 	void Start ()
@@ -75,8 +75,13 @@ public class BackyardSceneCbPlayer : NetworkedPlayer {
 			avatar.transform.localRotation = Quaternion.Lerp (avatar.transform.localRotation, correctAvatarRot, Time.deltaTime * 5);
 			headTransform.localRotation = Quaternion.Lerp (headTransform.localRotation, correctHeadRot, Time.deltaTime * 5);
 		} else {
-			inputHandler ();
-			cbInputHandler();
+			if (Utility.getCbInstructionController ().ShowingInstruction) {
+				instructionHandler();
+			} else {
+				inputHandler ();
+				cbInputHandler();
+			}
+
 			if (shouldBeMoving) {
 				moveForward();
 			}
@@ -86,7 +91,5 @@ public class BackyardSceneCbPlayer : NetworkedPlayer {
 			string nextScene = Utility.getGameController().getNextScene();
 			photonView.RPC("loadScene", PhotonTargets.All, nextScene);
 		}
-
-
 	}
 }

@@ -31,6 +31,7 @@ GameObject:
   - 114: {fileID: 11492450}
   - 114: {fileID: 11490474}
   - 114: {fileID: 11459762}
+  - 114: {fileID: 11435396}
   m_Layer: 0
   m_Name: cbNetworkedPlayer
   m_TagString: cbNetworkedPlayer
@@ -278,6 +279,19 @@ MonoBehaviour:
   playerGlobal: {fileID: 0}
   playerLocal: {fileID: 0}
   Enemy: {fileID: 158638, guid: f063c54a9e26a457091f892bbb6ba13c, type: 2}
+--- !u!114 &11435396
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133968}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 059c9b2bfeb45433b9e15099bb9e659b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gc: {fileID: 0}
+  instructionObj: {fileID: 0}
 --- !u!114 &11439870
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -364,6 +378,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 11459762}
   - {fileID: 11492450}
+  - {fileID: 11435396}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -401,6 +416,10 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: ObservedComponents.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: m_LocalScale.x
       value: .600000024
       objectReference: {fileID: 0}
@@ -432,6 +451,10 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ObservedComponents.Array.data[2]
+      value: 
+      objectReference: {fileID: 11435396}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 133968}

@@ -8,8 +8,11 @@ public class Utility : MonoBehaviour {
 	public static GameController getGameController() {
 		return GameObject.Find ("GameController").GetComponent<GameController> ();
 	}
-	public static InstructionController getInstructionController() {
-		return GameObject.FindWithTag (Constants.tbNetworkedPlayerTag).GetComponent<InstructionController> ();
+	public static TbInstructionController getTbInstructionController() {
+		return GameObject.FindWithTag (Constants.tbNetworkedPlayerTag).GetComponent<TbInstructionController> ();
+	}
+	public static CbInstructionController getCbInstructionController() {
+		return GameObject.FindWithTag (Constants.cbNetworkedPlayerTag).GetComponent<CbInstructionController> ();
 	}
 	
 	/* get Objects */
@@ -19,6 +22,12 @@ public class Utility : MonoBehaviour {
 	
 	public static GameObject getCbPlayerAvatar() {
 		return GameObject.FindGameObjectWithTag (Constants.cbPlayerAvatarTag);
+	}
+	public static GameObject getCbPlayer() {
+		return GameObject.FindGameObjectWithTag (Constants.cbNetworkedPlayerTag);
+	}
+	public static GameObject getTbPlayer() {
+		return GameObject.FindGameObjectWithTag (Constants.tbNetworkedPlayerTag);
 	}
 
 //	public static Text getInstructionText() {

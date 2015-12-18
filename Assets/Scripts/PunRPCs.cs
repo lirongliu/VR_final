@@ -21,25 +21,29 @@ public class PunRPCs : MonoBehaviour {
 		Utility.resetScene();
 	}
 	
-	
-	IEnumerator showInstructionRoutine(string instructionText, int seconds, GameObject instructionObj) {
-		yield return new WaitForSeconds(seconds);
-		//		print ("showInstruction ends");
-		Text text = Utility.FindTransform(instructionObj.transform, "Text").GetComponent<Text>();
-		text.text = "";
-		instructionObj.SetActive (false);
-
-	}
-	
-	[PunRPC]
-	void showInstruction(string instructionText, int seconds) {
-		GameObject instructionObj = Utility.getInstructionController ().instructionObj;
-		instructionObj.SetActive (true);
-		Text text = Utility.FindTransform(instructionObj.transform, "Text").GetComponent<Text>();
-		text.text = instructionText;
-		print ("showInstruction starts: " + instructionText);
-		StartCoroutine (showInstructionRoutine(instructionText, seconds, instructionObj));
-	}
+//	
+//	IEnumerator showInstructionRoutine(string instructionText, int seconds, GameObject instructionObj) {
+//		yield return new WaitForSeconds(seconds);
+//		//		print ("showInstruction ends");
+//		Text text = Utility.FindTransform(instructionObj.transform, "Text").GetComponent<Text>();
+//		text.text = "";
+//		instructionObj.SetActive (false);
+//
+//		Utility.getInstructionController ().ShowingInstruction = false;
+//
+//	}
+//	
+//	[PunRPC]
+//	void showInstruction(string instructionText, int seconds) {
+//		GameObject instructionObj = Utility.getInstructionController ().instructionObj;
+//		instructionObj.SetActive (true);
+//
+//		Text text = Utility.FindTransform(instructionObj.transform, "Text").GetComponent<Text>();
+//		text.text = instructionText;
+//
+//		Utility.getInstructionController ().ShowingInstruction = true;
+////		StartCoroutine (showInstructionRoutine(instructionText, seconds, instructionObj));
+//	}
 	
 	[PunRPC]
 	void destroyEnemy(int item_index){

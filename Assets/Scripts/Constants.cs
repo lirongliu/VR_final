@@ -3,8 +3,8 @@ using System.Collections;
 
 public class Constants : MonoBehaviour {
 
-	public static int IS_IPAD_PLAYER = 0;
-	public static int IS_CB_PLAYER = 1;
+	public static int tbPlayerID = 0;
+	public static int cbPlayerID = 1;
 
 	public static float minOrthographicSize = 25;
 

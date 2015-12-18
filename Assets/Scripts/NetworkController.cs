@@ -42,11 +42,11 @@ public class NetworkController : Photon.PunBehaviour
 		if (iPadTest) {
 			GameObject.Find ("CardboardMain").SetActive (false);
 			GameObject.Find ("TabletCamera").SetActive (true);
-			whoAmI = Constants.IS_IPAD_PLAYER;
+			whoAmI = Constants.tbPlayerID;
 		} else if (cbTest) {
 			GameObject.Find ("CardboardMain").SetActive (true);
 			GameObject.Find ("TabletCamera").SetActive (false);
-			whoAmI = Constants.IS_CB_PLAYER;
+			whoAmI = Constants.cbPlayerID;
 			GameObject.Find("tbCanvas").SetActive(false);
 //			GameObject.FindWithTag("instruction").SetActive(false);
 		} else {
@@ -54,12 +54,12 @@ public class NetworkController : Photon.PunBehaviour
 				
 				GameObject.Find ("CardboardMain").SetActive (false);
 				GameObject.Find ("TabletCamera").SetActive (true);
-				whoAmI = Constants.IS_IPAD_PLAYER;
+				whoAmI = Constants.tbPlayerID;
 			} else {        // cardboard
 				
 				GameObject.Find ("CardboardMain").SetActive (true);
 				GameObject.Find ("TabletCamera").SetActive (false);
-				whoAmI = Constants.IS_CB_PLAYER;
+				whoAmI = Constants.cbPlayerID;
 				GameObject.Find("tbCanvas").SetActive(false);
 				//				GameObject.FindWithTag("instruction").SetActive(false);
 			}
@@ -68,7 +68,7 @@ public class NetworkController : Photon.PunBehaviour
 		Vector3 originalTablet = new Vector3 (5, 2, -1);
 		Vector3 originalCB = new Vector3 (-5, 1, -2);
 		//instantiate cardboard & ipad players, and some enemies
-		if (whoAmI == Constants.IS_CB_PLAYER) {
+		if (whoAmI == Constants.cbPlayerID) {
 			GameObject networkedPlayer = PhotonNetwork.Instantiate("cbNetworkedPlayer",Vector3.zero , Quaternion.identity, 0);
 		} else {        
 			GameObject networkedPlayer = PhotonNetwork.Instantiate("iPadNetworkedPlayer", Vector3.zero, Quaternion.identity, 0);
