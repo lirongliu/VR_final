@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Utility : MonoBehaviour {
-
+	
 	/* get scripts */
 	public static GameController getGameController() {
 		return GameObject.Find ("GameController").GetComponent<GameController> ();
@@ -15,6 +16,11 @@ public class Utility : MonoBehaviour {
 	
 	public static GameObject getCbPlayerAvatar() {
 		return GameObject.FindGameObjectWithTag (Constants.cbPlayerAvatarTag);
+	}
+
+	public static Text getInstructionText() {
+		return 	GameObject.FindWithTag ("instruction").transform.Find("Text").GetComponent<Text>();
+
 	}
 
 	public static Transform FindTransform(Transform parent, string name)
@@ -75,6 +81,15 @@ public class Utility : MonoBehaviour {
 
 	public static Vector3 movementAdjustedWithFPS(Vector3 displacementVec) {
 		return displacementVec * Time.deltaTime;
+	}
+
+	public static void resetScene() {
+		GameObject[] GameObjects = (FindObjectsOfType<GameObject>() as GameObject[]);
+		
+		for (int i = 0; i < GameObjects.Length; i++) {
+			Destroy(GameObjects[i]);
+		}
+		Application.LoadLevel ("BackyardScene");
 	}
 
 	// Use this for initialization

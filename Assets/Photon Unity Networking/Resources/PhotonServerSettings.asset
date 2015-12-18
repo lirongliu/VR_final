@@ -45,4 +45,6 @@ MonoBehaviour:
   - decreseTabletSpotlightIntensity
   - loadScene
   - generateBoss
+  - showInstruction
+  - resetScene
   DisableAutoOpenWizard: 1

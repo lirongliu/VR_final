@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PunRPCs : MonoBehaviour {
 	
@@ -13,6 +14,26 @@ public class PunRPCs : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	[PunRPC]
+	void resetScene() {
+		Utility.resetScene();
+	}
+	
+	
+	IEnumerator showInstructionRoutine(string text, int seconds) {
+		Text instruction = Utility.getInstructionText();
+		instruction.text = text;
+		//		print ("showInstruction starts");
+		yield return new WaitForSeconds(seconds);
+		//		print ("showInstruction ends");
+		instruction.text = "";
+	}
+	
+	[PunRPC]
+	void showInstruction(string text, int seconds) {
+		StartCoroutine (showInstructionRoutine(text, seconds));
 	}
 	
 	[PunRPC]

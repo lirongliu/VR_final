@@ -13,6 +13,7 @@ TagManager:
   - AvatarHead
   - boss
   - instruction
+  - tbCanvas
   layers:
   - Default
   - TransparentFX

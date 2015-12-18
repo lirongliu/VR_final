@@ -19,10 +19,14 @@ public class NetworkController : Photon.PunBehaviour
 		enemyList = new ArrayList ();
 
 		PhotonNetwork.ConnectUsingSettings("0.1");
+
 		Debug.Log ("Connected");
 	}
 
 	void Update() {
+//		if (PhotonNetwork.playerList.Length >= 1) {
+//			GameObject.FindGameObjectWithTag("GameController").SetActive(true);
+//		}
 	}
 	
 	public override void OnJoinedLobby() {
@@ -44,7 +48,8 @@ public class NetworkController : Photon.PunBehaviour
 			GameObject.Find ("CardboardMain").SetActive (true);
 			GameObject.Find ("TabletCamera").SetActive (false);
 			whoAmI = Constants.IS_CB_PLAYER;
-			GameObject.FindWithTag("instruction").SetActive(false);
+			GameObject.Find("tbCanvas").SetActive(false);
+//			GameObject.FindWithTag("instruction").SetActive(false);
 		} else {
 			if (PhotonNetwork.playerList.Length == 1) {        //    iPad
 				
@@ -56,7 +61,8 @@ public class NetworkController : Photon.PunBehaviour
 				GameObject.Find ("CardboardMain").SetActive (true);
 				GameObject.Find ("TabletCamera").SetActive (false);
 				whoAmI = Constants.IS_CB_PLAYER;
-				GameObject.FindWithTag("instruction").SetActive(false);
+				GameObject.Find("tbCanvas").SetActive(false);
+				//				GameObject.FindWithTag("instruction").SetActive(false);
 			}
 		}
 
