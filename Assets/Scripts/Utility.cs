@@ -34,6 +34,10 @@ public class Utility : MonoBehaviour {
 //		return FindTransform(GameObject.FindWithTag ("instruction").transform, "Text").GetComponent<Text>();
 //	}
 
+	public static bool playersAreReady() {
+		return NetworkController.iAmReady && NetworkController.otherPlayerReady;
+	}
+
 	public static bool isAncestor(Transform t1, Transform t2) {
 		
 		while (t2 != t2.root) {

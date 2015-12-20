@@ -47,4 +47,5 @@ MonoBehaviour:
   - generateBoss
   - showInstruction
   - resetScene
+  - setOtherPlayerReady
   DisableAutoOpenWizard: 1

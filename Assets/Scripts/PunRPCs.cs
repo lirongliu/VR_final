@@ -91,6 +91,11 @@ public class PunRPCs : MonoBehaviour {
 		}
 	}
 
+	[PunRPC]
+	void setOtherPlayerReady(bool isReady) {
+		NetworkController.otherPlayerReady = isReady;
+	}
+
 
 	[PunRPC]
 	void loadScene(string sceneName) {

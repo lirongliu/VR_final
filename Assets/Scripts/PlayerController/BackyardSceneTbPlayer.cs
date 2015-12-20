@@ -8,6 +8,10 @@ public class BackyardSceneTbPlayer : TbNetworkedPlayer {
 		DontDestroyOnLoad (this);
 		
 		avatar.transform.localPosition = new Vector3 (5, 1f, -1);
+
+		if (photonView.isMine) {
+			reset();
+		}
 		
 		Transform avatarHeadTransform = this.transform.Find("AvatarHead");
 		Transform avatarBodyTransform = this.transform.Find("AvatarBody");
@@ -58,6 +62,14 @@ public class BackyardSceneTbPlayer : TbNetworkedPlayer {
 			} else {
 				inputHandler();
 			}
+
+			if (NetworkController.iAmReady == false) {
+				if (t.isInstructionFinished(Constants.tbPlayerID)) {
+					NetworkController.iAmReady = true;
+					photonView.RPC("setOtherPlayerReady", PhotonTargets.Others, true);
+				}
+			}
 		}
+
 	}
 }

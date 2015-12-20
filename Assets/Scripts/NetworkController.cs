@@ -13,6 +13,10 @@ public class NetworkController : Photon.PunBehaviour
 
 	private GameObject enemy1,enemy2,enemy3;
 
+	// check whether players finish reading the instruction
+	public static bool otherPlayerReady;
+	public static bool iAmReady;
+
 	void Start(){
 		DontDestroyOnLoad (this);
 		enemyList = new ArrayList ();

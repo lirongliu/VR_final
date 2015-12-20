@@ -23,10 +23,13 @@ public class BossSceneCbPlayer : CbNetworkedPlayer {
 		avatar.transform.localPosition = new Vector3 (-5, 1f, -2);
 
 		if (photonView.isMine) {
+			reset();
+
 			GameObject cb = GameObject.Find ("CardboardMain");
 			
 			Transform cbHead = cb.transform.Find("Head");
 			Transform mainCamera = Utility.FindTransform(cb.transform, "Main Camera");
+			// set head transform
 			this.headTransform = mainCamera;
 		} else {
 
@@ -64,27 +67,36 @@ public class BossSceneCbPlayer : CbNetworkedPlayer {
 				instructionHandler();
 			} else {
 				inputHandler ();
+			}			
+			if (NetworkController.iAmReady == false) {
+				if (c.isInstructionFinished(Constants.cbPlayerID)) {
+					NetworkController.iAmReady = true;
+					photonView.RPC("setOtherPlayerReady", PhotonTargets.Others, true);
+				}
 			}
 
-			if (boss == null) {
-				boss = GameObject.FindGameObjectWithTag (Constants.bossTag);
-			}
+//			print (NetworkController.iAmReady + " " + NetworkController.otherPlayerReady);
+			if (Utility.playersAreReady()) {
+				if (boss == null) {
+					boss = GameObject.FindGameObjectWithTag (Constants.bossTag);
+				}
 
-			RaycastHit hit;
-			Physics.Raycast (Camera.main.transform.position, Camera.main.transform.forward, out hit);
-			this.checkHitEnemies (hit, ref hitEnemy);
-			this.checkHitTbPlayer (hit);
+				RaycastHit hit;
+				Physics.Raycast (Camera.main.transform.position, Camera.main.transform.forward, out hit);
+				this.checkHitEnemies (hit, ref hitEnemy);
+				this.checkHitTbPlayer (hit);
 
-			if (boss != null) {
-				this.checkHitBoss();
-			}
-			
-			// only cb is responsible for generating enemies
-			if (Time.frameCount % 50 == 0) {
-				float angle = Random.Range(0, 2 * Mathf.PI);
-				float x = Mathf.Cos(angle) * 15;
-				float z = Mathf.Sin(angle) * 15;
-				photonView.RPC ("generateEnemy", PhotonTargets.All, x, z, 100f, "chaseCb");
+				if (boss != null) {
+					this.checkHitBoss();
+				}
+
+				// only cb is responsible for generating enemies
+				if (Time.frameCount % 50 == 0) {
+					float angle = Random.Range(0, 2 * Mathf.PI);
+					float x = Mathf.Cos(angle) * 15;
+					float z = Mathf.Sin(angle) * 15;
+					photonView.RPC ("generateEnemy", PhotonTargets.All, x, z, 100f, "chaseCb");
+				}
 			}
 		}
 	}

@@ -22,6 +22,8 @@ public class DarkBackyardSceneCbPlayer : CbNetworkedPlayer {
 		}
 
 		if (photonView.isMine) {
+			reset();
+
 			GameObject cb = GameObject.Find ("CardboardMain");
 			
 			Transform cbHead = cb.transform.Find("Head");
@@ -69,19 +71,27 @@ public class DarkBackyardSceneCbPlayer : CbNetworkedPlayer {
 				inputHandler ();
 				cbInputHandler();
 			}
+			
+			if (NetworkController.iAmReady == false) {
+				if (c.isInstructionFinished(Constants.cbPlayerID)) {
+					NetworkController.iAmReady = true;
+					photonView.RPC("setOtherPlayerReady", PhotonTargets.Others, true);
+				}
+			}
 
 			if (shouldBeMoving) {
 				moveForward();
 			}
-
-			RaycastHit hit;
-			Physics.Raycast (Camera.main.transform.position, Camera.main.transform.forward, out hit);
-			this.checkHitEnemies (hit, ref hitEnemy);
-			this.checkHitTbPlayer (hit);
-			
-			// only cb is responsible for generating enemies
-			if (Time.frameCount % 100 == 0) {
-				photonView.RPC ("generateEnemy", PhotonTargets.All, Random.Range (-30f, 30f), Random.Range (-30f, 30f), 100f, "chaseBoth");
+			if (Utility.playersAreReady()) {
+				RaycastHit hit;
+				Physics.Raycast (Camera.main.transform.position, Camera.main.transform.forward, out hit);
+				this.checkHitEnemies (hit, ref hitEnemy);
+				this.checkHitTbPlayer (hit);
+				
+				// only cb is responsible for generating enemies
+				if (Time.frameCount % 100 == 0) {
+					photonView.RPC ("generateEnemy", PhotonTargets.All, Random.Range (-30f, 30f), Random.Range (-30f, 30f), 100f, "chaseBoth");
+				}
 			}
 		}
 		

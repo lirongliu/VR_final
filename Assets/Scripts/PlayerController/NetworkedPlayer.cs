@@ -26,6 +26,11 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	void Update() {
 
 	}
+
+	protected virtual void reset() {
+		NetworkController.iAmReady = false;
+		NetworkController.otherPlayerReady = false;
+	}
 	
 	protected virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
 

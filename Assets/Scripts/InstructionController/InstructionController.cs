@@ -24,6 +24,21 @@ public class InstructionController : Photon.MonoBehaviour {
 	void Update () {
 
 	}
+
+	public bool isInstructionFinished(int playerId) {
+		if (ShowingInstruction)
+			return false;
+
+		if (gc.currScene == Constants.backyardSceneName) {
+			return backyardSceneController.checkIfToShowInstruction (playerId) == false;
+		} else if (gc.currScene == Constants.bossSceneName) {
+			return bossSceneController.checkIfToShowInstruction (playerId) == false;
+		} else if (gc.currScene == Constants.darkBackyardSceneName) {
+			return darkBackyardSceneController.checkIfToShowInstruction (playerId) == false;
+		}
+		return false;
+	}
+
 	
 	protected virtual void showInstruction(string instructionText) {
 		instructionObj.SetActive (true);

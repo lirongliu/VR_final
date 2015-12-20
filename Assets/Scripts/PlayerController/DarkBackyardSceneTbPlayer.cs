@@ -24,6 +24,10 @@ public class DarkBackyardSceneTbPlayer : TbNetworkedPlayer {
 		if (cbAvatar != null) {
 			cbAvatar.transform.localPosition = Constants.darkBackyardStartCoord + new Vector3 (-2, 0, 0);
 		}
+		
+		if (photonView.isMine) {
+			reset ();
+		}
 
 		// set head transform
 		this.headTransform = Utility.FindTransform (avatar.transform, "AvatarHead");
@@ -60,6 +64,12 @@ public class DarkBackyardSceneTbPlayer : TbNetworkedPlayer {
 				instructionHandler();
 			} else {
 				inputHandler();
+			}
+			if (NetworkController.iAmReady == false) {
+				if (t.isInstructionFinished(Constants.tbPlayerID)) {
+					NetworkController.iAmReady = true;
+					photonView.RPC("setOtherPlayerReady", PhotonTargets.Others, true);
+				}
 			}
 		}
 	}

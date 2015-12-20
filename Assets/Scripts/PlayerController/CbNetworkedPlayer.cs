@@ -47,6 +47,7 @@ public class CbNetworkedPlayer : NetworkedPlayer
 		} else if (Input.GetMouseButtonUp (0) || Input.GetKeyUp ("z")) {
 			Utility.getCbInstructionController ().requestToJumpToNext ();
 		}
+
 	}
 
 	protected virtual void inputHandler() {

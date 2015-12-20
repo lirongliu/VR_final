@@ -9,6 +9,10 @@ public class BossSceneTbPlayer : TbNetworkedPlayer {
 	void Start ()
 	{
 		DontDestroyOnLoad (this);
+		
+		if (photonView.isMine) {
+			reset();
+		}
 
 		cbAvatar = GameObject.FindGameObjectWithTag (Constants.cbPlayerAvatarTag);
 
@@ -38,6 +42,12 @@ public class BossSceneTbPlayer : TbNetworkedPlayer {
 				instructionHandler();
 			} else {
 				inputHandler();
+			}	
+			if (NetworkController.iAmReady == false) {
+				if (t.isInstructionFinished(Constants.tbPlayerID)) {
+					NetworkController.iAmReady = true;
+					photonView.RPC("setOtherPlayerReady", PhotonTargets.Others, true);
+				}
 			}
 		}
 	}

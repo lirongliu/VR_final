@@ -11,12 +11,13 @@ public class BackyardSceneCbPlayer : CbNetworkedPlayer {
 		avatar.transform.localPosition = new Vector3 (-5, 1f, -2);
 		
 		if (photonView.isMine) {
+			reset();
+
 			GameObject cb = GameObject.Find ("CardboardMain");
 			
 			Transform avatarHeadTransform = this.transform.Find("AvatarHead");
 			Transform avatarBodyTransform = this.transform.Find("AvatarBody");
-			
-			
+
 			/* hierachy:
 			 * avatar
 			 * avatarBody
@@ -89,7 +90,14 @@ public class BackyardSceneCbPlayer : CbNetworkedPlayer {
 				inputHandler ();
 				cbInputHandler();
 			}
-
+			
+			if (NetworkController.iAmReady == false) {
+				if (c.isInstructionFinished(Constants.cbPlayerID)) {
+					NetworkController.iAmReady = true;
+					photonView.RPC("setOtherPlayerReady", PhotonTargets.Others, true);
+				}
+			}
+			
 			if (shouldBeMoving) {
 				moveForward();
 			}
