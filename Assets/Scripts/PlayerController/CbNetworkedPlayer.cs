@@ -5,6 +5,9 @@ using System.Diagnostics;
 public class CbNetworkedPlayer : NetworkedPlayer
 {
 	protected bool shouldBeMoving = false; // for cb only
+	protected Vector3 correctDir = Vector3.zero; //We lerp towards this
+
+	protected GameObject spotlight;
 
 
 	void Start () {
@@ -14,13 +17,31 @@ public class CbNetworkedPlayer : NetworkedPlayer
 
 	}
 
+	
+	protected override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+		
+		if (stream.isWriting){
+			if (playerGlobal == null || headTransform == null)
+				return;
+			
+			stream.SendNext(playerGlobal.position);
+			stream.SendNext(playerGlobal.rotation);
+			stream.SendNext(Camera.main.transform.forward);
+		}
+		else{
+			correctAvatarPos = (Vector3)stream.ReceiveNext();
+			correctAvatarRot = (Quaternion)stream.ReceiveNext();
+			correctDir = (Vector3)stream.ReceiveNext();
+		}
+	}
+
 	protected virtual void instructionHandler() {
 		if (Input.touchCount > 0) {
 			if (Input.GetTouch (0).phase == TouchPhase.Ended) {
 				
 				CbInstructionController c = Utility.getCbInstructionController();
 				if (c != null) {
-				Utility.getCbInstructionController ().requestToJumpToNext ();
+					Utility.getCbInstructionController ().requestToJumpToNext ();
 				}
 			}
 		} else if (Input.GetMouseButtonUp (0) || Input.GetKeyUp ("z")) {

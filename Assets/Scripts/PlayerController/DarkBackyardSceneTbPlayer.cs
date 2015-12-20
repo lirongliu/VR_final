@@ -17,9 +17,14 @@ public class DarkBackyardSceneTbPlayer : TbNetworkedPlayer {
 		}
 		
 		avatar.SetActive (true);
-		
+
+		// reset the positions of both players to avoid lerp effect
 		avatar.transform.localPosition = Constants.darkBackyardStartCoord + new Vector3(2, 0, 0);
-		print ("avatar.transform.localPosition" + avatar.transform.localPosition);
+		GameObject cbAvatar = GameObject.FindWithTag (Constants.tbPlayerAvatarTag);
+		if (cbAvatar != null) {
+			cbAvatar.transform.localPosition = Constants.darkBackyardStartCoord + new Vector3 (-2, 0, 0);
+		}
+
 		// set head transform
 		this.headTransform = Utility.FindTransform (avatar.transform, "AvatarHead");
 
@@ -29,7 +34,7 @@ public class DarkBackyardSceneTbPlayer : TbNetworkedPlayer {
 		
 		// enable spotlight
 		GameObject spotlight = Utility.FindTransform (this.transform, "Spotlight").gameObject;
-		spotlight.GetComponent<Light> ().enabled = true;
+		spotlight.GetComponent<Light> ().intensity = Constants.tbMaxSpotlightIntensity;
 
 
 		if (GameController.play_audio) {

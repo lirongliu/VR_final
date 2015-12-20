@@ -86,7 +86,7 @@ public class PunRPCs : MonoBehaviour {
 		if (tbNetworkedPlayer != null) {
 			Transform spotLight = Utility.FindTransform (tbNetworkedPlayer.transform, "Spotlight");
 			
-			spotLight.GetComponent<Light> ().intensity -= Constants.cbMaxSpotlightIntensity / 300f;
+			spotLight.GetComponent<Light> ().intensity -= Constants.tbMaxSpotlightIntensity / 300f;
 			spotLight.GetComponent<Light> ().spotAngle *= 0.995f;
 		}
 	}

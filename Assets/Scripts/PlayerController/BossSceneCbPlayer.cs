@@ -28,8 +28,6 @@ public class BossSceneCbPlayer : CbNetworkedPlayer {
 			Transform cbHead = cb.transform.Find("Head");
 			Transform mainCamera = Utility.FindTransform(cb.transform, "Main Camera");
 			this.headTransform = mainCamera;
-			// set head transform
-//			this.headTransform = cb.transform;
 		} else {
 
 			// set head transform
@@ -42,7 +40,7 @@ public class BossSceneCbPlayer : CbNetworkedPlayer {
 		
 		// disable spotlight
 		GameObject spotlight = Utility.FindTransform (this.transform, "Spotlight").gameObject;
-		spotlight.GetComponent<Light> ().enabled = true;
+		spotlight.GetComponent<Light> ().intensity = Constants.cbSpotlightIntensity;
 	}
 	
 	void Update(){
@@ -51,7 +49,14 @@ public class BossSceneCbPlayer : CbNetworkedPlayer {
 			//Update remote player (smooth this, this looks good, at the cost of some accuracy)
 //			avatar.transform.localPosition = Vector3.Lerp (avatar.transform.localPosition, correctAvatarPos, Time.deltaTime * 5);
 //			avatar.transform.localRotation = Quaternion.Lerp (avatar.transform.localRotation, correctAvatarRot, Time.deltaTime * 5);
-			headTransform.localRotation = Quaternion.Lerp (headTransform.localRotation, correctHeadRot, Time.deltaTime * 5);
+//			headTransform.localRotation = Quaternion.Lerp (headTransform.localRotation, correctHeadRot, Time.deltaTime * 5);
+			
+			if (spotlight == null) {
+				spotlight = GameObject.FindWithTag("cbSpotlight");
+			}
+			if (spotlight != null) {
+				spotlight.transform.forward = Vector3.Lerp (spotlight.transform.forward, correctDir, Time.deltaTime * 5);
+			}
 		} else {
 			
 			CbInstructionController c = Utility.getCbInstructionController();
@@ -85,15 +90,23 @@ public class BossSceneCbPlayer : CbNetworkedPlayer {
 	}
 	
 	override protected void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+//		if (stream.isWriting){
+//			if (headTransform == null)
+//				return;
+////			stream.SendNext(cbAvatar.transform.position);
+//			//			stream.SendNext(playerGlobal.rotation);
+//						stream.SendNext(headTransform.localRotation);
+//		}
+//		else{
+////						correctAvatarPos Random.Range = (Vector3)stream.ReceiveNext();
+//			//			correctAvatarRot = (Quaternion)stream.ReceiveNext();
+//			correctHeadRot = (Quaternion)stream.ReceiveNext();
+//		}
+
 		if (stream.isWriting){
-//			stream.SendNext(cbAvatar.transform.position);
-			//			stream.SendNext(playerGlobal.rotation);
-						stream.SendNext(headTransform.localRotation);
-		}
-		else{
-//						correctAvatarPos Random.Range = (Vector3)stream.ReceiveNext();
-			//			correctAvatarRot = (Quaternion)stream.ReceiveNext();
-			correctHeadRot = (Quaternion)stream.ReceiveNext();
+			stream.SendNext (Camera.main.transform.forward);
+		} else {
+			correctDir = (Vector3)stream.ReceiveNext ();
 		}
 	}
 	

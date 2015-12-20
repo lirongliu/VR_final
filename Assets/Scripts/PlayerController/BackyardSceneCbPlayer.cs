@@ -37,7 +37,6 @@ public class BackyardSceneCbPlayer : CbNetworkedPlayer {
 			avatarHeadTransform.localPosition = Vector3.zero;
 			
 			// set head transform
-			//			this.headTransform = cb.transform;
 			this.headTransform = mainCamera;
 		}   else {
 			
@@ -64,7 +63,7 @@ public class BackyardSceneCbPlayer : CbNetworkedPlayer {
 
 		// disable spotlight
 		GameObject spotlight = Utility.FindTransform (this.transform, "Spotlight").gameObject;
-		spotlight.GetComponent<Light> ().enabled = false;
+		spotlight.GetComponent<Light> ().intensity = 2;
 	}
 	
 	void Update(){
@@ -73,9 +72,18 @@ public class BackyardSceneCbPlayer : CbNetworkedPlayer {
 			//Update remote player (smooth this, this looks good, at the cost of some accuracy)
 			avatar.transform.localPosition = Vector3.Lerp (avatar.transform.localPosition, correctAvatarPos, Time.deltaTime * 5);
 			avatar.transform.localRotation = Quaternion.Lerp (avatar.transform.localRotation, correctAvatarRot, Time.deltaTime * 5);
-			headTransform.localRotation = Quaternion.Lerp (headTransform.localRotation, correctHeadRot, Time.deltaTime * 5);
+
+			if (spotlight == null) {
+				spotlight = GameObject.FindWithTag("cbSpotlight");
+			}
+			if (spotlight != null) {
+				spotlight.transform.forward = Vector3.Lerp (spotlight.transform.forward, correctDir, Time.deltaTime * 5);
+			}
+
+//			headTransform.localRotation = Quaternion.Lerp (headTransform.localRotation, correctHeadRot, Time.deltaTime * 5);
 		} else {
-			if (Utility.getCbInstructionController ().ShowingInstruction) {
+			CbInstructionController c = Utility.getCbInstructionController();
+			if (c != null && c.ShowingInstruction) {
 				instructionHandler();
 			} else {
 				inputHandler ();

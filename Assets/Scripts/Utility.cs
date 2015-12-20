@@ -34,6 +34,16 @@ public class Utility : MonoBehaviour {
 //		return FindTransform(GameObject.FindWithTag ("instruction").transform, "Text").GetComponent<Text>();
 //	}
 
+	public static bool isAncestor(Transform t1, Transform t2) {
+		
+		while (t2 != t2.root) {
+			if (t2.parent == t1) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public static Transform FindTransform(Transform parent, string name)
 	{
 		if (parent.name.Equals(name)) return parent;

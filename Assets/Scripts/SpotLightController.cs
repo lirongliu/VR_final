@@ -32,6 +32,5 @@ public class SpotLightController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
 	}
 }

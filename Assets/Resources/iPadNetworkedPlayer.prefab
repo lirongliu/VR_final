@@ -12,7 +12,7 @@ GameObject:
   - 114: {fileID: 11495362}
   m_Layer: 0
   m_Name: Spotlight
-  m_TagString: Untagged
+  m_TagString: tbSpotlight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -356,8 +356,6 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents:
   - {fileID: 11411546}
-  - {fileID: 11447886}
-  - {fileID: 11465766}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -490,7 +488,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: ObservedComponents.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.x
@@ -539,7 +537,15 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: ObservedComponents.Array.data[2]
       value: 
-      objectReference: {fileID: 11465766}
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ObservedComponents.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: tbSpotlight
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 152492}

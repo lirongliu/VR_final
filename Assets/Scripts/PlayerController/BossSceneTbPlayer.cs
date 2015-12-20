@@ -14,11 +14,6 @@ public class BossSceneTbPlayer : TbNetworkedPlayer {
 
 		avatar.transform.localPosition = new Vector3 (5, 1f, -1);
 
-		// set head transform
-//		this.headTransform = Utility.FindTransform (cbAvatar.transform, "AvatarHead");
-		
-//		playerLocal = headTransform;
-//		playerGlobal = cbAvatar.transform;
 		avatar.SetActive (false);
 
 		if (GameController.play_audio) {
@@ -49,6 +44,9 @@ public class BossSceneTbPlayer : TbNetworkedPlayer {
 	
 	override protected void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
 		if (stream.isWriting){
+			if (cbAvatar == null)
+				return;
+
 			stream.SendNext(cbAvatar.transform.position);
 //			stream.SendNext(playerGlobal.rotation);
 //			stream.SendNext(headTransform.localRotation);

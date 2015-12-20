@@ -15,6 +15,9 @@ TagManager:
   - tbInstruction
   - tbCanvas
   - cbInstruction
+  - instruction
+  - cbSpotlight
+  - tbSpotlight
   layers:
   - Default
   - TransparentFX

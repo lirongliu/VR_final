@@ -28,7 +28,11 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	}
 	
 	protected virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+
 		if (stream.isWriting){
+			if (playerGlobal == null || headTransform == null)
+				return;
+
 			stream.SendNext(playerGlobal.position);
 			stream.SendNext(playerGlobal.rotation);
 			stream.SendNext(headTransform.localRotation);
