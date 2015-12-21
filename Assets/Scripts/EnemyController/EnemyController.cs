@@ -30,7 +30,7 @@ public class EnemyController : Photon.MonoBehaviour {
 
 	public virtual void getHit(float damage) {
 		Renderer r = GetComponent<Renderer> ();
-		r.material.color = Color.red;
+		r.material.color = Color.white;
 
 		life -= damage * Time.deltaTime;
 	}

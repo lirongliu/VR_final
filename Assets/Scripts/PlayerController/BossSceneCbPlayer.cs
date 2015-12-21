@@ -16,11 +16,21 @@ public class BossSceneCbPlayer : CbNetworkedPlayer {
 		}
 	}
 	
+	public override void reset() {
+		base.reset ();
+		
+		avatar.transform.localPosition = new Vector3 (-5, 1f, -2);
+		GameObject tbAvatar = GameObject.FindWithTag (Constants.tbPlayerAvatarTag);
+		if (tbAvatar != null) {
+			tbAvatar.transform.localPosition = new Vector3 (-5, 1f, -1);
+		}
+	}
+
+	
 	void Start ()
 	{
 		DontDestroyOnLoad (this);
-		
-		avatar.transform.localPosition = new Vector3 (-5, 1f, -2);
+
 
 		if (photonView.isMine) {
 			reset();
@@ -61,6 +71,8 @@ public class BossSceneCbPlayer : CbNetworkedPlayer {
 				spotlight.transform.forward = Vector3.Lerp (spotlight.transform.forward, correctDir, Time.deltaTime * 5);
 			}
 		} else {
+			
+			checkLife ();
 			
 			CbInstructionController c = Utility.getCbInstructionController();
 			if (c != null && c.ShowingInstruction) {

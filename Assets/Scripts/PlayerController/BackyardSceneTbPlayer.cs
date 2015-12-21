@@ -3,11 +3,20 @@ using System.Collections;
 
 public class BackyardSceneTbPlayer : TbNetworkedPlayer {
 	
+	public override void reset() {
+		base.reset ();
+		avatar.transform.localPosition = Constants.backyardStartCoord + new Vector3 (0, 0, 1);
+		GameObject cbAvatar = GameObject.FindWithTag (Constants.cbPlayerAvatarTag);
+		if (cbAvatar != null) {
+			cbAvatar.transform.localPosition = Constants.backyardStartCoord + new Vector3 (0, 0, -1);
+		}
+
+	}
+
 	void Start ()
 	{
 		DontDestroyOnLoad (this);
 		
-		avatar.transform.localPosition = new Vector3 (5, 1f, -1);
 
 		if (photonView.isMine) {
 			reset();
@@ -56,6 +65,9 @@ public class BackyardSceneTbPlayer : TbNetworkedPlayer {
 			headTransform.localRotation = Quaternion.Lerp (headTransform.localRotation, correctHeadRot, Time.deltaTime * 5);
 		}
 		else {
+			
+			checkLife ();
+
 			TbInstructionController t = Utility.getTbInstructionController();
 			if (t != null && t.ShowingInstruction) {
 				instructionHandler();

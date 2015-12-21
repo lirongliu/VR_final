@@ -5,6 +5,17 @@ public class DarkBackyardSceneCbPlayer : CbNetworkedPlayer {
 
 	private GameObject hitEnemy;
 
+	public override void reset ()
+	{
+		base.reset ();
+		// reset the positions of both players to avoid lerp effect
+		avatar.transform.localPosition = Constants.darkBackyardStartCoord + new Vector3(-2, 0, 0);
+		GameObject tbAvatar = GameObject.FindWithTag (Constants.tbPlayerAvatarTag);
+		if (tbAvatar != null) {
+			tbAvatar.transform.localPosition = Constants.darkBackyardStartCoord + new Vector3 (2, 0, 0);
+		}
+	}
+
 	void Start ()
 	{
 		DontDestroyOnLoad (this);
@@ -64,6 +75,8 @@ public class DarkBackyardSceneCbPlayer : CbNetworkedPlayer {
 			}
 		} else {
 			
+			checkLife ();
+			
 			CbInstructionController c = Utility.getCbInstructionController();
 			if (c != null && c.ShowingInstruction) {
 				instructionHandler();
@@ -71,6 +84,7 @@ public class DarkBackyardSceneCbPlayer : CbNetworkedPlayer {
 				inputHandler ();
 				cbInputHandler();
 			}
+//			print ("creating enemy!!");
 			
 			if (NetworkController.iAmReady == false) {
 				if (c.isInstructionFinished(Constants.cbPlayerID)) {
@@ -90,7 +104,22 @@ public class DarkBackyardSceneCbPlayer : CbNetworkedPlayer {
 				
 				// only cb is responsible for generating enemies
 				if (Time.frameCount % 100 == 0) {
-					photonView.RPC ("generateEnemy", PhotonTargets.All, Random.Range (-30f, 30f), Random.Range (-30f, 30f), 100f, "chaseBoth");
+
+					Vector3 center;
+					GameObject tbAvatar = GameObject.FindWithTag (Constants.tbPlayerAvatarTag);
+					if (tbAvatar != null) {
+						center = (avatar.transform.position + tbAvatar.transform.position) / 2;
+					} else {
+						center = avatar.transform.position;
+					}
+
+//					print ("creating enemy!!");
+
+					float angle = Random.Range(0, 2 * Mathf.PI);
+					float x = Mathf.Cos(angle) * 15;
+					float z = Mathf.Sin(angle) * 15;
+					photonView.RPC ("generateEnemy", PhotonTargets.All, x + center.x, z + center.z, 100f, "chaseBoth");
+//					photonView.RPC ("generateEnemy", PhotonTargets.All, Random.Range (-30f, 30f), Random.Range (-30f, 30f), 100f, "chaseBoth");
 				}
 			}
 		}

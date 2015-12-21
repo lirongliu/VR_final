@@ -6,6 +6,17 @@ public class BossSceneTbPlayer : TbNetworkedPlayer {
 	public AudioClip BossClip;
 
 	GameObject cbAvatar;
+
+	
+	public override void reset() {
+		base.reset ();
+		avatar.transform.localPosition = new Vector3 (5, 1f, -1);
+		GameObject cbAvatar = GameObject.FindWithTag (Constants.cbPlayerAvatarTag);
+		if (cbAvatar != null) {
+			cbAvatar.transform.localPosition = new Vector3 (-5, 1f, -2);
+		}
+	}
+
 	void Start ()
 	{
 		DontDestroyOnLoad (this);
@@ -16,7 +27,6 @@ public class BossSceneTbPlayer : TbNetworkedPlayer {
 
 		cbAvatar = GameObject.FindGameObjectWithTag (Constants.cbPlayerAvatarTag);
 
-		avatar.transform.localPosition = new Vector3 (5, 1f, -1);
 
 		avatar.SetActive (false);
 
@@ -37,6 +47,9 @@ public class BossSceneTbPlayer : TbNetworkedPlayer {
 //			headTransform.localRotation = Quaternion.Lerp (headTransform.localRotation, correctHeadRot, Time.deltaTime * 5);
 		}
 		else {
+			
+			checkLife ();
+
 			TbInstructionController t = Utility.getTbInstructionController();
 			if (t != null && t.ShowingInstruction) {
 				instructionHandler();

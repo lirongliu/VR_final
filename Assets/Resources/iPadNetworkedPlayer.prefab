@@ -356,6 +356,8 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents:
   - {fileID: 11411546}
+  - {fileID: 0}
+  - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -389,7 +391,7 @@ MonoBehaviour:
   avatar: {fileID: 166664}
   playerGlobal: {fileID: 0}
   playerLocal: {fileID: 0}
-  Enemy: {fileID: 158638, guid: f063c54a9e26a457091f892bbb6ba13c, type: 2}
+  Enemy: {fileID: 0}
   BossClip: {fileID: 8300000, guid: 6434d9a9158394ed7868c9ede23dbd09, type: 3}
 --- !u!114 &11447886
 MonoBehaviour:
@@ -430,7 +432,7 @@ MonoBehaviour:
   avatar: {fileID: 166664}
   playerGlobal: {fileID: 0}
   playerLocal: {fileID: 0}
-  Enemy: {fileID: 158638, guid: f063c54a9e26a457091f892bbb6ba13c, type: 2}
+  Enemy: {fileID: 0}
   Dark_Clip: {fileID: 8300000, guid: 2b415fcd201e54f87899809ef6550183, type: 3}
 --- !u!114 &11495362
 MonoBehaviour:
@@ -488,7 +490,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: ObservedComponents.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.x
@@ -545,6 +547,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: tbSpotlight
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Enemy
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

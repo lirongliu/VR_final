@@ -20,16 +20,18 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 
 //	private int count = 0;
 
+	protected int life = 100;
+
 	void Start () {
 	}
 	
 	void Update() {
-
 	}
 
-	protected virtual void reset() {
-		NetworkController.iAmReady = false;
-		NetworkController.otherPlayerReady = false;
+	public virtual void reset() {
+		life = 100;
+//		NetworkController.iAmReady = false;
+//		NetworkController.otherPlayerReady = false;
 	}
 	
 	protected virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
@@ -52,6 +54,21 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	protected virtual void instructionHandler() {
 	}
 
+	public void damage(int d) {
+		print ("damage");
+		print ("pre " + life);
+		life -= d;
+		print ("post " + life);
+	}
+	
+	protected void checkLife() {
+//		print ("checkLife " + life);
+
+		if (life <= 0) {
+			photonView.RPC("resetCurrentScene", PhotonTargets.All, Utility.getGameController().currScene);
+		}
+	}
+
 	public void move(Vector3 dir) {
 		
 		AvatarController avatarController = avatar.GetComponent<AvatarController> ();
@@ -61,6 +78,7 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	public void moveForward() {
 		this.move(Camera.main.transform.forward);
 	}
+
 
 	protected bool arriveInDest(Vector3 dest, float allowance) {
 		GameObject cbNetworkedPlayerAvatar = GameObject.FindGameObjectWithTag (Constants.cbPlayerAvatarTag);
@@ -75,5 +93,9 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 			}
 		}
 		return false;
+	}
+
+	public void killEnemy(int idx) {
+		photonView.RPC ("destroyEnemy", PhotonTargets.All, idx);
 	}
 }

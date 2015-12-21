@@ -48,4 +48,5 @@ MonoBehaviour:
   - showInstruction
   - resetScene
   - setOtherPlayerReady
+  - resetCurrentScene
   DisableAutoOpenWizard: 1

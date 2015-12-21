@@ -29,12 +29,14 @@ public class InstructionController : Photon.MonoBehaviour {
 		if (ShowingInstruction)
 			return false;
 
-		if (gc.currScene == Constants.backyardSceneName) {
-			return backyardSceneController.checkIfToShowInstruction (playerId) == false;
-		} else if (gc.currScene == Constants.bossSceneName) {
-			return bossSceneController.checkIfToShowInstruction (playerId) == false;
-		} else if (gc.currScene == Constants.darkBackyardSceneName) {
-			return darkBackyardSceneController.checkIfToShowInstruction (playerId) == false;
+		if (gc != null) {
+			if (gc.currScene == Constants.backyardSceneName) {
+				return backyardSceneController.checkIfToShowInstruction (playerId) == false;
+			} else if (gc.currScene == Constants.bossSceneName) {
+				return bossSceneController.checkIfToShowInstruction (playerId) == false;
+			} else if (gc.currScene == Constants.darkBackyardSceneName) {
+				return darkBackyardSceneController.checkIfToShowInstruction (playerId) == false;
+			}
 		}
 		return false;
 	}

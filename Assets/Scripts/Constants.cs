@@ -30,11 +30,13 @@ public class Constants : MonoBehaviour {
 	public static float defaultMovingSpeed = 6f;
 	
 	public static Vector3 backyardStartCoord = new Vector3 (0, 1, -2);
-	public static Vector3 backyardDestinationCoord = new Vector3 (68, 1, -93);
+	//	public static Vector3 backyardDestinationCoord = new Vector3 (68, 1, -93);
+	public static Vector3 backyardDestinationCoord = new Vector3 (50, 1, -35);
 
-	public static Vector3 darkBackyardStartCoord = new Vector3 (68, 1, -93);
+	public static Vector3 darkBackyardStartCoord = backyardDestinationCoord;
 	public static Vector3 darkBackyardDestinationCoord = backyardStartCoord;
 
+	public static int ghostDamage = 20;
 
 	// Use this for initialization
 	void Start () {

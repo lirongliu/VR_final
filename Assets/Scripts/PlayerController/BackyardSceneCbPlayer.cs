@@ -3,12 +3,20 @@ using System.Collections;
 
 public class BackyardSceneCbPlayer : CbNetworkedPlayer {
 
+	public override void reset() {
+		base.reset ();
+
+		avatar.transform.localPosition = Constants.backyardStartCoord + new Vector3 (0, 0, -1);
+		GameObject tbAvatar = GameObject.FindWithTag (Constants.tbPlayerAvatarTag);
+		if (tbAvatar != null) {
+			tbAvatar.transform.localPosition = Constants.backyardStartCoord + new Vector3 (0, 0, 1);
+		}
+	}
 
 	void Start ()
 	{
 		DontDestroyOnLoad (this);
-		
-		avatar.transform.localPosition = new Vector3 (-5, 1f, -2);
+
 		
 		if (photonView.isMine) {
 			reset();
@@ -68,7 +76,6 @@ public class BackyardSceneCbPlayer : CbNetworkedPlayer {
 	}
 	
 	void Update(){
-		
 		if (!photonView.isMine) {
 			//Update remote player (smooth this, this looks good, at the cost of some accuracy)
 			avatar.transform.localPosition = Vector3.Lerp (avatar.transform.localPosition, correctAvatarPos, Time.deltaTime * 5);
@@ -83,6 +90,9 @@ public class BackyardSceneCbPlayer : CbNetworkedPlayer {
 
 //			headTransform.localRotation = Quaternion.Lerp (headTransform.localRotation, correctHeadRot, Time.deltaTime * 5);
 		} else {
+			
+			checkLife ();
+
 			CbInstructionController c = Utility.getCbInstructionController();
 			if (c != null && c.ShowingInstruction) {
 				instructionHandler();

@@ -39,7 +39,8 @@ public class BossController : EnemyController {
 		if (thisRoundBossRevolveTime < 0) {
 			thisRoundBossRevolveTime = Random.Range(0.3f, 2f);
 			bossMovementDir = Random.Range(-1f, 1f) > 0 ? 1 : -1;
-			thisRoundBossRevolveSpeed = Random.Range(0.7f, 1.5f) * Mathf.PI * Time.fixedDeltaTime;
+//			thisRoundBossRevolveSpeed = Random.Range(0.7f, 1.5f) * Mathf.PI * Time.fixedDeltaTime;
+			thisRoundBossRevolveSpeed = Random.Range(0.2f, 0.5f) * Mathf.PI * Time.fixedDeltaTime;
 		}
 
 		currBossPosDegree += thisRoundBossRevolveSpeed * bossMovementDir;

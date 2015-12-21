@@ -5,7 +5,17 @@ using System.Diagnostics;
 public class DarkBackyardSceneTbPlayer : TbNetworkedPlayer {
 
 	public AudioClip Dark_Clip;
-
+	
+	public override void reset ()
+	{
+		base.reset ();
+		// reset the positions of both players to avoid lerp effect
+		avatar.transform.localPosition = Constants.darkBackyardStartCoord + new Vector3(2, 0, 0);
+		GameObject tbAvatar = GameObject.FindWithTag (Constants.tbPlayerAvatarTag);
+		if (tbAvatar != null) {
+			tbAvatar.transform.localPosition = Constants.darkBackyardStartCoord + new Vector3 (-2, 0, 0);
+		}
+	}
 
 	void Start ()
 	{
@@ -57,8 +67,12 @@ public class DarkBackyardSceneTbPlayer : TbNetworkedPlayer {
 			avatar.transform.localPosition = Vector3.Lerp (avatar.transform.localPosition, correctAvatarPos, Time.deltaTime * 5);
 			avatar.transform.localRotation = Quaternion.Lerp (avatar.transform.localRotation, correctAvatarRot, Time.deltaTime * 5);
 			headTransform.localRotation = Quaternion.Lerp (headTransform.localRotation, correctHeadRot, Time.deltaTime * 5);
+
+//			print ("real: " + avatar.transform.localPosition + ", " + "correct: " + correctAvatarPos);
 		}
 		else {
+			
+			checkLife ();
 			TbInstructionController t = Utility.getTbInstructionController();
 			if (t != null && t.ShowingInstruction) {
 				instructionHandler();

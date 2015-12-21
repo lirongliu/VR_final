@@ -30,6 +30,9 @@ public class Utility : MonoBehaviour {
 		return GameObject.FindGameObjectWithTag (Constants.tbNetworkedPlayerTag);
 	}
 
+//	public static Component getActiveComponent(Component[] c) {
+//	}
+
 //	public static Text getInstructionText() {
 //		return FindTransform(GameObject.FindWithTag ("instruction").transform, "Text").GetComponent<Text>();
 //	}
@@ -86,6 +89,7 @@ public class Utility : MonoBehaviour {
 		GameObject enemyObj;
 		if (type == "boss") {
 			prefab = Resources.Load ("boss");
+//			print ("CreateEnemy boss" + " " + type);
 			
 			enemyObj = Instantiate (prefab, new Vector3 (x_position,1,z_position), Quaternion.identity) as GameObject;
 			
@@ -94,8 +98,9 @@ public class Utility : MonoBehaviour {
 			bossController.config(maxLife, type);
 		} else {
 			prefab = Resources.Load("Enemy");
+//			print ("CreateEnemy Enemy" + " " + type);
 			
-			enemyObj = Instantiate (prefab, new Vector3 (x_position,1,z_position), Quaternion.identity) as GameObject;
+			enemyObj = Instantiate (prefab, new Vector3 (x_position,0,z_position), Quaternion.identity) as GameObject;
 			
 			//		GameObject enemyObj = Instantiate(prefab) as GameObject;
 			NormalEnemyController normalEnemyController = enemyObj.GetComponent<NormalEnemyController>();
