@@ -30,8 +30,8 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 
 	public virtual void reset() {
 		life = 100;
-//		NetworkController.iAmReady = false;
-//		NetworkController.otherPlayerReady = false;
+		NetworkController.iAmReady = false;
+		NetworkController.otherPlayerReady = false;
 	}
 	
 	protected virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
@@ -55,10 +55,8 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	}
 
 	public void damage(int d) {
-		print ("damage");
-		print ("pre " + life);
+//		print ("damage");
 		life -= d;
-		print ("post " + life);
 	}
 	
 	protected void checkLife() {
@@ -95,7 +93,14 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 		return false;
 	}
 
-	public void killEnemy(int idx) {
-		photonView.RPC ("destroyEnemy", PhotonTargets.All, idx);
+	// only called by enemy controller
+	public void killEnemy(int id) {
+		photonView.RPC ("destroyEnemy", PhotonTargets.All, id);
+	}
+	public void assignEnemyChasingDir(Vector3 dir, int enemyId) {
+		photonView.RPC ("setEnemyChasingDir", PhotonTargets.Others, dir, enemyId);
+	}
+	public void assignEnemyChasingTarget(int playId, int enemyId) {
+		photonView.RPC ("setEnemyChasingTarget", PhotonTargets.Others, playId, enemyId);
 	}
 }

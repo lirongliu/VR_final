@@ -49,4 +49,6 @@ MonoBehaviour:
   - resetScene
   - setOtherPlayerReady
   - resetCurrentScene
+  - setEnemyChasingDir
+  - setEnemyChasingTarget
   DisableAutoOpenWizard: 1

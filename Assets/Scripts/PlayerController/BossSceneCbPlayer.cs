@@ -107,7 +107,7 @@ public class BossSceneCbPlayer : CbNetworkedPlayer {
 					float angle = Random.Range(0, 2 * Mathf.PI);
 					float x = Mathf.Cos(angle) * 15;
 					float z = Mathf.Sin(angle) * 15;
-					photonView.RPC ("generateEnemy", PhotonTargets.All, x, z, 100f, "chaseCb");
+					photonView.RPC ("generateEnemy", PhotonTargets.All, x, z, 100f, "chaseCb", Random.Range(1, 1000000000));
 				}
 			}
 		}

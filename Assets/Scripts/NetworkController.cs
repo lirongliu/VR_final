@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 
 public class NetworkController : Photon.PunBehaviour
@@ -11,6 +12,9 @@ public class NetworkController : Photon.PunBehaviour
 	public static ArrayList enemyList;
 	public GameObject Enemy;
 
+	
+	public static Dictionary<int, GameObject> enemyDict;
+
 	private GameObject enemy1,enemy2,enemy3;
 
 	// check whether players finish reading the instruction
@@ -20,6 +24,7 @@ public class NetworkController : Photon.PunBehaviour
 	void Start(){
 		DontDestroyOnLoad (this);
 		enemyList = new ArrayList ();
+		enemyDict = new Dictionary<int, GameObject> ();
 
 		PhotonNetwork.ConnectUsingSettings("0.1");
 
@@ -92,5 +97,9 @@ public class NetworkController : Photon.PunBehaviour
 			Destroy(enemy);
 		}
 		enemyList.Clear ();
+		foreach (KeyValuePair<int, GameObject> entry in enemyList) {
+			Destroy(entry.Value);
+		}
+		enemyDict.Clear ();
 	}
 }

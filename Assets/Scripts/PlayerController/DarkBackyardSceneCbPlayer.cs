@@ -118,7 +118,7 @@ public class DarkBackyardSceneCbPlayer : CbNetworkedPlayer {
 					float angle = Random.Range(0, 2 * Mathf.PI);
 					float x = Mathf.Cos(angle) * 15;
 					float z = Mathf.Sin(angle) * 15;
-					photonView.RPC ("generateEnemy", PhotonTargets.All, x + center.x, z + center.z, 100f, "chaseBoth");
+					photonView.RPC ("generateEnemy", PhotonTargets.All, x + center.x, z + center.z, 100f, "chaseBoth", Random.Range(1, 1000000000));
 //					photonView.RPC ("generateEnemy", PhotonTargets.All, Random.Range (-30f, 30f), Random.Range (-30f, 30f), 100f, "chaseBoth");
 				}
 			}

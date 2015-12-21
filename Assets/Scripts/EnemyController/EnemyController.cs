@@ -7,6 +7,8 @@ public class EnemyController : Photon.MonoBehaviour {
 	protected float life;
 	protected string type;
 
+	public int id;
+
 	void Start () {
 
 	}
@@ -19,7 +21,7 @@ public class EnemyController : Photon.MonoBehaviour {
 
 	}
 
-	public virtual void config (float maxLife, string type) {}
+	public virtual void config (float maxLife, string type, int id) {}
 	
 	public virtual void revive() {
 		Renderer r = GetComponent<Renderer> ();

@@ -10,10 +10,11 @@ public class BossController : EnemyController {
 	private float thisRoundBossRevolveSpeed = 0f;
 	private int bossMovementDir = 1;	//	-1 or 1
 
-	override public void config(float maxLife, string type) {
+	override public void config(float maxLife, string type, int id) {
 		this.maxLife = maxLife;
 		this.life = maxLife;
 		this.type = type;
+		this.id = id;
 	}
 
 	void Start () {

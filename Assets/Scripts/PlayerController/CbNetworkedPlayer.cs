@@ -167,11 +167,14 @@ public class CbNetworkedPlayer : NetworkedPlayer
 				ec.getHit (300);
 					
 				if (ec.shouldBeDead ()) {
-						
-					if (NetworkController.enemyList.IndexOf (hitEnemy) != null && NetworkController.enemyList.IndexOf (hitEnemy) != (-1)) {
+					if (NetworkController.enemyDict.ContainsKey (ec.id)) {
+
+//					if (NetworkController.enemyList.IndexOf (hitEnemy) != null && NetworkController.enemyList.IndexOf (hitEnemy) != (-1)) {
 						//print("NetworkedPlayer enemyList:"+NetworkController.enemyList[0]+"\t"+NetworkController.enemyList[1]+"\t"+NetworkController.enemyList[2]);
 						//print("INDEX:"+NetworkController.enemyList.IndexOf (hit.collider.gameObject));
-						photonView.RPC ("destroyEnemy", PhotonTargets.All, NetworkController.enemyList.IndexOf (hitEnemy));
+
+//						photonView.RPC ("destroyEnemy", PhotonTargets.All, NetworkController.enemyList.IndexOf (hitEnemy));
+						photonView.RPC ("destroyEnemy", PhotonTargets.All, hitEnemy.GetComponent<NormalEnemyController>().id);
 					}
 				}
 					

@@ -14,6 +14,29 @@ public class Utility : MonoBehaviour {
 	public static CbInstructionController getCbInstructionController() {
 		return GameObject.FindWithTag (Constants.cbNetworkedPlayerTag).GetComponent<CbInstructionController> ();
 	}
+	// only get active component
+	public static CbNetworkedPlayer getCbNetworkedPlayerScript() {
+		
+		CbNetworkedPlayer[] scripts = GameObject.FindWithTag (Constants.cbNetworkedPlayerTag).GetComponents<CbNetworkedPlayer> ();
+		for (int i = 0;i < scripts.Length;i++) {
+			if (scripts[i].enabled) {
+				return scripts[i];
+			}
+		}
+		return null;
+	}
+	// only get active component
+	public static TbNetworkedPlayer getTbNetworkedPlayerScript() {
+		
+		TbNetworkedPlayer[] scripts = GameObject.FindWithTag (Constants.tbNetworkedPlayerTag).GetComponents<TbNetworkedPlayer> ();
+		for (int i = 0;i < scripts.Length;i++) {
+			if (scripts[i].enabled) {
+				return scripts[i];
+				break;
+			}
+		}
+		return null;
+	}
 	
 	/* get Objects */
 	public static GameObject getTabletPlayerAvatar() {
@@ -29,6 +52,8 @@ public class Utility : MonoBehaviour {
 	public static GameObject getTbPlayer() {
 		return GameObject.FindGameObjectWithTag (Constants.tbNetworkedPlayerTag);
 	}
+
+
 
 //	public static Component getActiveComponent(Component[] c) {
 //	}
@@ -83,7 +108,7 @@ public class Utility : MonoBehaviour {
 	}
 
 	
-	public static GameObject CreateEnemy(float x_position,float z_position, float maxLife, string type)
+	public static GameObject CreateEnemy(float x_position,float z_position, float maxLife, string type, int id)
 	{
 		Object prefab;
 		GameObject enemyObj;
@@ -95,7 +120,7 @@ public class Utility : MonoBehaviour {
 			
 			//		GameObject enemyObj = Instantiate(prefab) as GameObject;
 			BossController bossController = enemyObj.GetComponent<BossController>();
-			bossController.config(maxLife, type);
+			bossController.config(maxLife, type, id);
 		} else {
 			prefab = Resources.Load("Enemy");
 //			print ("CreateEnemy Enemy" + " " + type);
@@ -104,7 +129,7 @@ public class Utility : MonoBehaviour {
 			
 			//		GameObject enemyObj = Instantiate(prefab) as GameObject;
 			NormalEnemyController normalEnemyController = enemyObj.GetComponent<NormalEnemyController>();
-			normalEnemyController.config(maxLife, type);
+			normalEnemyController.config(maxLife, type, id);
 		}
 		return enemyObj;
 	}

@@ -45,9 +45,17 @@ public class PunRPCs : MonoBehaviour {
 ////		StartCoroutine (showInstructionRoutine(instructionText, seconds, instructionObj));
 //	}
 	
+//	[PunRPC]
+//	void destroyEnemy(int item_index){
+//		Destroy ((UnityEngine.GameObject)NetworkController.enemyList[item_index]);
+//	}
+	
 	[PunRPC]
-	void destroyEnemy(int item_index){
-		Destroy ((UnityEngine.GameObject)NetworkController.enemyList[item_index]);
+	void destroyEnemy(int id){
+		if (NetworkController.enemyDict.ContainsKey (id)) {
+			Destroy (NetworkController.enemyDict [id]);
+			NetworkController.enemyDict.Remove(id);
+		}
 	}
 	
 	[PunRPC]
@@ -60,22 +68,39 @@ public class PunRPCs : MonoBehaviour {
 	//generate enemy at a regular frequency
 	
 	[PunRPC]
-	void generateEnemy(float x_position,float z_position, float maxLife, string type){
-		GameObject enemy = Utility.CreateEnemy (x_position, z_position, maxLife, type);
+	void generateEnemy(float x_position,float z_position, float maxLife, string type, int id){
+		GameObject enemy = Utility.CreateEnemy (x_position, z_position, maxLife, type, id);
 //		GameObject enemy = (GameObject)Instantiate (Enemy, new Vector3 (x_position,1,z_position), Quaternion.identity);
 		
 		
 		//enemy.GetComponent<EnemyController> ().id = EnemyController.total_enemy_count;
 		//EnemyController.total_enemy_count++;
-		NetworkController.enemyList.Add (enemy);
+//		NetworkController.enemyList.Add (enemy);
+		NetworkController.enemyDict.Add(id, enemy);
 		
 //		print("generate enemy:"+NetworkController.enemyList.IndexOf (enemy)+"\tcount:"+NetworkController.enemyList.Count);
 	}
 	
 	[PunRPC]
 	void generateBoss(int x_position,int z_position, float maxLife, string type){
-		GameObject boss = Utility.CreateEnemy (x_position, z_position, maxLife, type);
+		GameObject boss = Utility.CreateEnemy (x_position, z_position, maxLife, type, 0);
 		print ("generate boss");
+	}
+
+	[PunRPC]
+	void setEnemyChasingDir(Vector3 dir, int enemyId) {
+		GameObject enemy = NetworkController.enemyDict[enemyId];
+		if (enemy != null) {
+			enemy.GetComponent<NormalEnemyController>().setChasingDir(dir);
+		}
+	}
+
+	[PunRPC]
+	void setEnemyChasingTarget(int playerId, int enemyId) {
+		GameObject enemy = NetworkController.enemyDict[enemyId];
+		if (enemy != null) {
+			enemy.GetComponent<NormalEnemyController>().setChasingTarget(playerId);
+		}
 	}
 	
 	[PunRPC]
