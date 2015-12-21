@@ -69,6 +69,11 @@ public class BackyardSceneTbPlayer : TbNetworkedPlayer {
 			checkLife ();
 			checkFallingOutsideTheScene();
 
+			
+			if (playerGlobal != null) {
+				posSent = playerGlobal.transform.position;
+				rotationSent = playerGlobal.rotation;
+			}
 
 			TbInstructionController t = Utility.getTbInstructionController();
 			if (t != null && t.ShowingInstruction) {

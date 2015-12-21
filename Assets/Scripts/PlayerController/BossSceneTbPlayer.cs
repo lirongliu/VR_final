@@ -6,15 +6,15 @@ public class BossSceneTbPlayer : TbNetworkedPlayer {
 	public AudioClip BossClip;
 
 	GameObject cbAvatar;
-
 	
 	public override void reset(bool restart) {
 		base.reset (restart);
-		avatar.transform.localPosition = new Vector3 (5, 1f, -1);
+//		avatar.transform.localPosition = new Vector3 (5, 1f, -1);
 		GameObject cbAvatar = GameObject.FindWithTag (Constants.cbPlayerAvatarTag);
 		if (cbAvatar != null) {
 			cbAvatar.transform.localPosition = new Vector3 (-5, 1f, -2);
 		}
+		posSent = new Vector3 (-5, 1f, -2);
 	}
 
 	void Start ()
@@ -51,6 +51,10 @@ public class BossSceneTbPlayer : TbNetworkedPlayer {
 			checkLife ();
 			checkFallingOutsideTheScene();
 
+			
+			if (cbAvatar != null) {
+				posSent = cbAvatar.transform.position;
+			}
 
 			TbInstructionController t = Utility.getTbInstructionController();
 			if (t != null && t.ShowingInstruction) {
@@ -69,15 +73,17 @@ public class BossSceneTbPlayer : TbNetworkedPlayer {
 	
 	override protected void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
 		if (stream.isWriting){
-			if (cbAvatar == null)
-				return;
+//			if (cbAvatar == null)
+//				return;
 
-			stream.SendNext(cbAvatar.transform.position);
+			stream.SendNext(posSent);
+//			stream.SendNext(cbAvatar.transform.position);
 //			stream.SendNext(playerGlobal.rotation);
 //			stream.SendNext(headTransform.localRotation);
 		}
 		else{
 			correctAvatarPos = (Vector3)stream.ReceiveNext();
+			print ("correctAvatarPos " + correctAvatarPos);
 //			correctAvatarRot = (Quaternion)stream.ReceiveNext();
 //			correctHeadRot = (Quaternion)stream.ReceiveNext();
 		}

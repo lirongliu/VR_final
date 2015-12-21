@@ -92,6 +92,11 @@ public class BackyardSceneCbPlayer : CbNetworkedPlayer {
 			
 			checkLife ();
 			checkFallingOutsideTheScene();
+			
+			if (playerGlobal != null) {
+				posSent = playerGlobal.transform.position;
+				rotationSent = playerGlobal.rotation;
+			}
 
 			CbInstructionController c = Utility.getCbInstructionController();
 			if (c != null && c.ShowingInstruction) {

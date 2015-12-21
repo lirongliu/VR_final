@@ -9,7 +9,6 @@ public class CbNetworkedPlayer : NetworkedPlayer
 
 	protected GameObject spotlight;
 
-
 	void Start () {
 	}
 	
@@ -27,11 +26,14 @@ public class CbNetworkedPlayer : NetworkedPlayer
 	protected override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
 		
 		if (stream.isWriting){
-			if (playerGlobal == null || headTransform == null)
-				return;
+//			if (playerGlobal == null || headTransform == null)
+//				return;
 			
-			stream.SendNext(playerGlobal.position);
-			stream.SendNext(playerGlobal.rotation);
+//			stream.SendNext(playerGlobal.position);
+//			stream.SendNext(playerGlobal.rotation);
+			
+			stream.SendNext(posSent);
+			stream.SendNext(rotationSent);
 			stream.SendNext(Camera.main.transform.forward);
 		}
 		else{

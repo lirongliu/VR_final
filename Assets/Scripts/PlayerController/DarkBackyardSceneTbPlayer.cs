@@ -5,6 +5,7 @@ using System.Diagnostics;
 public class DarkBackyardSceneTbPlayer : TbNetworkedPlayer {
 
 	public AudioClip Dark_Clip;
+
 	
 	public override void reset (bool restart)
 	{
@@ -15,6 +16,10 @@ public class DarkBackyardSceneTbPlayer : TbNetworkedPlayer {
 		if (tbAvatar != null) {
 			tbAvatar.transform.localPosition = Constants.darkBackyardStartCoord + new Vector3 (-2, 0, 0);
 		}
+		
+		// enable spotlight
+		GameObject spotlight = Utility.FindTransform (this.transform, "Spotlight").gameObject;
+		spotlight.GetComponent<Light> ().intensity = Constants.tbMaxSpotlightIntensity;
 	}
 
 	void Start ()
@@ -74,6 +79,11 @@ public class DarkBackyardSceneTbPlayer : TbNetworkedPlayer {
 			
 			checkLife ();
 			checkFallingOutsideTheScene();
+			
+			if (playerGlobal != null) {
+				posSent = playerGlobal.transform.position;
+				rotationSent = playerGlobal.rotation;
+			}
 
 			TbInstructionController t = Utility.getTbInstructionController();
 			if (t != null && t.ShowingInstruction) {

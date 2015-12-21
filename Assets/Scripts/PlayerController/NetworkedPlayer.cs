@@ -18,9 +18,16 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 
 	protected float movingSpeed = Constants.defaultMovingSpeed;
 
+	protected bool resetting;
+
 //	private int count = 0;
 
 	protected int life = 100;
+
+	
+	protected Vector3 posSent = new Vector3(0,0,0);
+	protected Quaternion rotationSent = Quaternion.identity;
+	protected Quaternion localRotationSent = Quaternion.identity;
 
 	void Start () {
 	}
@@ -45,17 +52,30 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 			}
 		}
 
+		if (avatar != null) {
+			Transform avatarBodyTransform = this.transform.Find ("AvatarBody");
+			if (avatarBodyTransform != null) {
+				avatarBodyTransform.position = new Vector3(0, 3f, 0);
+			}
+		}
+
+		resetting = false;
+
 	}
 	
 	protected virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
 
 		if (stream.isWriting){
-			if (playerGlobal == null || headTransform == null)
-				return;
+//			if (playerGlobal == null || headTransform == null)
+//				return;
 
-			stream.SendNext(playerGlobal.position);
-			stream.SendNext(playerGlobal.rotation);
-			stream.SendNext(headTransform.localRotation);
+			stream.SendNext(posSent);
+			stream.SendNext(rotationSent);
+			stream.SendNext(localRotationSent);
+			
+			//	stream.SendNext(playerGlobal.position);
+			//	stream.SendNext(playerGlobal.rotation);
+//			stream.SendNext(headTransform.localRotation);
 		}
 		else{
 			correctAvatarPos = (Vector3)stream.ReceiveNext();
@@ -75,8 +95,9 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	protected void checkLife() {
 //		print ("checkLife " + life);
 
-		if (life <= 0) {
+		if (resetting == false && life <= 0) {
 			print ("checkLife " + life);
+			resetting = true;
 			photonView.RPC("resetCurrentScene", PhotonTargets.All);
 		}
 	}
@@ -92,8 +113,10 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	}
 
 	protected void checkFallingOutsideTheScene() {
-		if (avatar.transform.position.y < -10) {
+		if (resetting == false && avatar.transform.position.y < -10) {
 			print ("checkFallingOutsideTheScene");
+			print ("resetting " + resetting);
+			resetting = true;
 			photonView.RPC("resetCurrentScene", PhotonTargets.All);
 		}
 	}

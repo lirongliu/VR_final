@@ -20,10 +20,10 @@ public class BossSceneCbPlayer : CbNetworkedPlayer {
 		base.reset (restart);
 		
 		avatar.transform.localPosition = new Vector3 (-5, 1f, -2);
-		GameObject tbAvatar = GameObject.FindWithTag (Constants.tbPlayerAvatarTag);
-		if (tbAvatar != null) {
-			tbAvatar.transform.localPosition = new Vector3 (-5, 1f, -1);
-		}
+//		GameObject tbAvatar = GameObject.FindWithTag (Constants.tbPlayerAvatarTag);
+//		if (tbAvatar != null) {
+//			tbAvatar.transform.localPosition = new Vector3 (-5, 1f, -1);
+//		}
 	}
 
 	
@@ -46,7 +46,7 @@ public class BossSceneCbPlayer : CbNetworkedPlayer {
 			// set head transform
 			this.headTransform = Utility.FindTransform (avatar.transform, "AvatarHead");
 		}
-		
+
 		playerLocal = headTransform;
 		playerGlobal = avatar.transform;
 

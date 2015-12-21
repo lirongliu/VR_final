@@ -14,20 +14,20 @@ public class BackyardSceneController : SceneController {
 
 		instructionList = new string[2][];
 		instructionList [cbId] = new string[2];
-		instructionList [cbId][0] = "Task 1:\nWork with your partner to find the exit of the maze!\n Press the button to see the next instruction!";
+		instructionList [cbId][0] = "Task 1: Work with your partner to find the exit of the maze! Press the button to see the next instruction!";
 		instructionList [cbId][1] = "Press the button to move or stay still.";
 		
 		instructionList [tbId] = new string[1];
-		instructionList [tbId][0] = "Task 1:\nWork with your partner to find the exit of the maze!";
+		instructionList [tbId][0] = "Task 1: Work with your partner to find the exit of the maze!";
 
 		
 		restartInstructionList = new string[2][];
 		restartInstructionList [cbId] = new string[2];
-		restartInstructionList [cbId][0] = "restart msg: Task 1:\nWork with your partner to find the exit of the maze!\n Press the button to see the next instruction!";
-		restartInstructionList [cbId][1] = "restart msg:  Press the button to move or stay still.";
+		restartInstructionList [cbId][0] = "Restart";
+		restartInstructionList [cbId][1] = "Restart";
 		
 		restartInstructionList [tbId] = new string[1];
-		restartInstructionList [tbId][0] = "restart msg:  Task 1:\nWork with your partner to find the exit of the maze!";
+		restartInstructionList [tbId][0] = "Restart!";
 	}
 	
 }
