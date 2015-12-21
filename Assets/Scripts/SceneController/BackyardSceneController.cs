@@ -6,7 +6,7 @@ public class BackyardSceneController : SceneController {
 
 
 	// Use this for initialization
-	public BackyardSceneController () {
+	public BackyardSceneController (): base() {
 
 		currInstructionIdx = new int[2];
 		currInstructionIdx [cbId] = 0;
@@ -19,6 +19,15 @@ public class BackyardSceneController : SceneController {
 		
 		instructionList [tbId] = new string[1];
 		instructionList [tbId][0] = "Task 1:\nWork with your partner to find the exit of the maze!";
+
+		
+		restartInstructionList = new string[2][];
+		restartInstructionList [cbId] = new string[2];
+		restartInstructionList [cbId][0] = "restart msg: Task 1:\nWork with your partner to find the exit of the maze!\n Press the button to see the next instruction!";
+		restartInstructionList [cbId][1] = "restart msg:  Press the button to move or stay still.";
+		
+		restartInstructionList [tbId] = new string[1];
+		restartInstructionList [tbId][0] = "restart msg:  Task 1:\nWork with your partner to find the exit of the maze!";
 	}
 	
 }

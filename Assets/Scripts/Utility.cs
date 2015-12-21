@@ -9,10 +9,18 @@ public class Utility : MonoBehaviour {
 		return GameObject.Find ("GameController").GetComponent<GameController> ();
 	}
 	public static TbInstructionController getTbInstructionController() {
-		return GameObject.FindWithTag (Constants.tbNetworkedPlayerTag).GetComponent<TbInstructionController> ();
+		GameObject tbNetworkedPlayer = GameObject.FindWithTag (Constants.tbNetworkedPlayerTag);
+		if (tbNetworkedPlayer != null) {
+			return tbNetworkedPlayer.GetComponent<TbInstructionController> ();
+		}
+		return null;
 	}
 	public static CbInstructionController getCbInstructionController() {
-		return GameObject.FindWithTag (Constants.cbNetworkedPlayerTag).GetComponent<CbInstructionController> ();
+		GameObject cbNetworkedPlayer = GameObject.FindWithTag (Constants.cbNetworkedPlayerTag);
+		if (cbNetworkedPlayer != null) {
+			return cbNetworkedPlayer.GetComponent<CbInstructionController> ();
+		}
+		return null;
 	}
 	// only get active component
 	public static CbNetworkedPlayer getCbNetworkedPlayerScript() {

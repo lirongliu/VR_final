@@ -129,12 +129,12 @@ public class PunRPCs : MonoBehaviour {
 		if (NetworkController.whoAmI == Constants.cbPlayerID) {
 			CbNetworkedPlayer cbNetworkedPlayer = Utility.getCbNetworkedPlayerScript();
 			if (cbNetworkedPlayer != null) {
-				cbNetworkedPlayer.reset();
+				cbNetworkedPlayer.reset(true);
 			}
 		} else {
 			TbNetworkedPlayer tbNetworkedPlayer = Utility.getTbNetworkedPlayerScript();
 			if (tbNetworkedPlayer != null) {
-				tbNetworkedPlayer.reset();
+				tbNetworkedPlayer.reset(true);
 			}
 
 		}

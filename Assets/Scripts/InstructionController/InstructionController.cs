@@ -41,6 +41,19 @@ public class InstructionController : Photon.MonoBehaviour {
 		return false;
 	}
 
+	public void resetInstruction() {
+		
+		if (gc != null) {
+			if (gc.currScene == Constants.backyardSceneName) {
+				backyardSceneController.reset ();
+			} else if (gc.currScene == Constants.bossSceneName) {
+				bossSceneController.reset ();
+			} else if (gc.currScene == Constants.darkBackyardSceneName) {
+				darkBackyardSceneController.reset ();
+			}
+		}
+	}
+
 	
 	protected virtual void showInstruction(string instructionText) {
 		instructionObj.SetActive (true);

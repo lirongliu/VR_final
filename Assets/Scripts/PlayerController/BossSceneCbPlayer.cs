@@ -16,8 +16,8 @@ public class BossSceneCbPlayer : CbNetworkedPlayer {
 		}
 	}
 	
-	public override void reset() {
-		base.reset ();
+	public override void reset(bool restart) {
+		base.reset (restart);
 		
 		avatar.transform.localPosition = new Vector3 (-5, 1f, -2);
 		GameObject tbAvatar = GameObject.FindWithTag (Constants.tbPlayerAvatarTag);
@@ -33,7 +33,7 @@ public class BossSceneCbPlayer : CbNetworkedPlayer {
 
 
 		if (photonView.isMine) {
-			reset();
+			reset(false);
 
 			GameObject cb = GameObject.Find ("CardboardMain");
 			

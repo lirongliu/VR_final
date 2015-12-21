@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class BackyardSceneTbPlayer : TbNetworkedPlayer {
 	
-	public override void reset() {
-		base.reset ();
+	public override void reset(bool restart) {
+		base.reset (restart);
 		avatar.transform.localPosition = Constants.backyardStartCoord + new Vector3 (0, 0, 1);
 		GameObject cbAvatar = GameObject.FindWithTag (Constants.cbPlayerAvatarTag);
 		if (cbAvatar != null) {
@@ -19,7 +19,7 @@ public class BackyardSceneTbPlayer : TbNetworkedPlayer {
 		
 
 		if (photonView.isMine) {
-			reset();
+			reset(false);
 		}
 		
 		Transform avatarHeadTransform = this.transform.Find("AvatarHead");
@@ -45,7 +45,7 @@ public class BackyardSceneTbPlayer : TbNetworkedPlayer {
 		
 		// disable spotlight
 		GameObject spotlight = Utility.FindTransform (this.transform, "Spotlight").gameObject;
-		spotlight.GetComponent<Light> ().intensity = 2;
+		spotlight.GetComponent<Light> ().intensity = 0;
 
 		print ("GameController.play_audio" + GameController.play_audio);
 		//Debug.Log ("GameController.play_audio" + GameController.play_audio);

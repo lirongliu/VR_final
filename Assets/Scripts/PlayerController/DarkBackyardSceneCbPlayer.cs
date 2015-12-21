@@ -5,9 +5,9 @@ public class DarkBackyardSceneCbPlayer : CbNetworkedPlayer {
 
 	private GameObject hitEnemy;
 
-	public override void reset ()
+	public override void reset (bool restart)
 	{
-		base.reset ();
+		base.reset (restart);
 		// reset the positions of both players to avoid lerp effect
 		avatar.transform.localPosition = Constants.darkBackyardStartCoord + new Vector3(-2, 0, 0);
 		GameObject tbAvatar = GameObject.FindWithTag (Constants.tbPlayerAvatarTag);
@@ -33,7 +33,7 @@ public class DarkBackyardSceneCbPlayer : CbNetworkedPlayer {
 		}
 
 		if (photonView.isMine) {
-			reset();
+			reset(false);
 
 			GameObject cb = GameObject.Find ("CardboardMain");
 			

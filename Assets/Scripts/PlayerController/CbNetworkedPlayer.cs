@@ -17,6 +17,12 @@ public class CbNetworkedPlayer : NetworkedPlayer
 
 	}
 
+	public override void reset (bool restart)
+	{
+		base.reset (restart);
+		shouldBeMoving = false;
+	}
+
 	
 	protected override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
 		

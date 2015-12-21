@@ -3,8 +3,8 @@ using System.Collections;
 
 public class BackyardSceneCbPlayer : CbNetworkedPlayer {
 
-	public override void reset() {
-		base.reset ();
+	public override void reset(bool restart) {
+		base.reset (restart);
 
 		avatar.transform.localPosition = Constants.backyardStartCoord + new Vector3 (0, 0, -1);
 		GameObject tbAvatar = GameObject.FindWithTag (Constants.tbPlayerAvatarTag);
@@ -18,7 +18,7 @@ public class BackyardSceneCbPlayer : CbNetworkedPlayer {
 		DontDestroyOnLoad (this);
 
 		if (photonView.isMine) {
-			reset();
+			reset(false);
 
 			GameObject cb = GameObject.Find ("CardboardMain");
 			
@@ -71,7 +71,7 @@ public class BackyardSceneCbPlayer : CbNetworkedPlayer {
 
 		// disable spotlight
 		GameObject spotlight = Utility.FindTransform (this.transform, "Spotlight").gameObject;
-		spotlight.GetComponent<Light> ().intensity = 2;
+		spotlight.GetComponent<Light> ().intensity = 0;
 	}
 	
 	void Update(){

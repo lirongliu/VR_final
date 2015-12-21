@@ -28,10 +28,23 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	void Update() {
 	}
 
-	public virtual void reset() {
+	public virtual void reset(bool restartScene) {
 		life = 100;
 		NetworkController.iAmReady = false;
 		NetworkController.otherPlayerReady = false;
+
+		if (restartScene) {
+			CbInstructionController c = Utility.getCbInstructionController ();
+			if (c != null) {
+				c.resetInstruction ();
+			}
+		
+			TbInstructionController t = Utility.getTbInstructionController ();
+			if (t != null) {
+				t.resetInstruction ();
+			}
+		}
+
 	}
 	
 	protected virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
@@ -63,6 +76,7 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 //		print ("checkLife " + life);
 
 		if (life <= 0) {
+			print ("checkLife " + life);
 			photonView.RPC("resetCurrentScene", PhotonTargets.All);
 		}
 	}
@@ -78,7 +92,8 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 	}
 
 	protected void checkFallingOutsideTheScene() {
-		if (avatar.transform.position.y < -3) {
+		if (avatar.transform.position.y < -10) {
+			print ("checkFallingOutsideTheScene");
 			photonView.RPC("resetCurrentScene", PhotonTargets.All);
 		}
 	}
