@@ -63,7 +63,7 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 //		print ("checkLife " + life);
 
 		if (life <= 0) {
-			photonView.RPC("resetCurrentScene", PhotonTargets.All, Utility.getGameController().currScene);
+			photonView.RPC("resetCurrentScene", PhotonTargets.All);
 		}
 	}
 
@@ -77,6 +77,11 @@ public class NetworkedPlayer : Photon.MonoBehaviour
 		this.move(Camera.main.transform.forward);
 	}
 
+	protected void checkFallingOutsideTheScene() {
+		if (avatar.transform.position.y < -3) {
+			photonView.RPC("resetCurrentScene", PhotonTargets.All);
+		}
+	}
 
 	protected bool arriveInDest(Vector3 dest, float allowance) {
 		GameObject cbNetworkedPlayerAvatar = GameObject.FindGameObjectWithTag (Constants.cbPlayerAvatarTag);

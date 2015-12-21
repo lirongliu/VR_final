@@ -17,7 +17,6 @@ public class BackyardSceneCbPlayer : CbNetworkedPlayer {
 	{
 		DontDestroyOnLoad (this);
 
-		
 		if (photonView.isMine) {
 			reset();
 
@@ -92,6 +91,7 @@ public class BackyardSceneCbPlayer : CbNetworkedPlayer {
 		} else {
 			
 			checkLife ();
+			checkFallingOutsideTheScene();
 
 			CbInstructionController c = Utility.getCbInstructionController();
 			if (c != null && c.ShowingInstruction) {

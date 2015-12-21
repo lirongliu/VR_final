@@ -76,6 +76,8 @@ public class DarkBackyardSceneCbPlayer : CbNetworkedPlayer {
 		} else {
 			
 			checkLife ();
+			checkFallingOutsideTheScene();
+
 			
 			CbInstructionController c = Utility.getCbInstructionController();
 			if (c != null && c.ShowingInstruction) {

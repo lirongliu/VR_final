@@ -67,6 +67,8 @@ public class BackyardSceneTbPlayer : TbNetworkedPlayer {
 		else {
 			
 			checkLife ();
+			checkFallingOutsideTheScene();
+
 
 			TbInstructionController t = Utility.getTbInstructionController();
 			if (t != null && t.ShowingInstruction) {

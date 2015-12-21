@@ -123,56 +123,21 @@ public class PunRPCs : MonoBehaviour {
 
 	
 	[PunRPC]
-	void resetCurrentScene(string sceneName) {
-
+	void resetCurrentScene() {
 		print ("OMG RESET!!!");
 
 		if (NetworkController.whoAmI == Constants.cbPlayerID) {
-			CbNetworkedPlayer[] scripts = GameObject.FindWithTag (Constants.cbNetworkedPlayerTag).GetComponents<CbNetworkedPlayer> ();
-			CbNetworkedPlayer cbNetworkedPlayer = null;
-			for (int i = 0;i < scripts.Length;i++) {
-				if (scripts[i].enabled) {
-					cbNetworkedPlayer = scripts[i];
-					break;
-				}
-			}
+			CbNetworkedPlayer cbNetworkedPlayer = Utility.getCbNetworkedPlayerScript();
 			if (cbNetworkedPlayer != null) {
 				cbNetworkedPlayer.reset();
 			}
 		} else {
-			
-			TbNetworkedPlayer[] scripts = GameObject.FindWithTag (Constants.tbNetworkedPlayerTag).GetComponents<TbNetworkedPlayer> ();
-			TbNetworkedPlayer tbNetworkedPlayer = null;
-			for (int i = 0;i < scripts.Length;i++) {
-				if (scripts[i].enabled) {
-					tbNetworkedPlayer = scripts[i];
-					break;
-				}
-			}
+			TbNetworkedPlayer tbNetworkedPlayer = Utility.getTbNetworkedPlayerScript();
 			if (tbNetworkedPlayer != null) {
 				tbNetworkedPlayer.reset();
 			}
 
 		}
-//		if (sceneName == Constants.backyardSceneName) {
-//			if (NetworkController.whoAmI == Constants.cbPlayerID) {
-//				GameObject.FindWithTag(Constants.cbNetworkedPlayerTag).GetComponent<BackyardSceneCbPlayer>().reset();
-//			} else {
-//				GameObject.FindWithTag(Constants.tbNetworkedPlayerTag).GetComponent<BackyardSceneTbPlayer>().reset();
-//			}
-//		} else if (sceneName == Constants.bossSceneName) {
-//			if (NetworkController.whoAmI == Constants.cbPlayerID) {
-//				GameObject.FindWithTag(Constants.cbNetworkedPlayerTag).GetComponent<BossSceneCbPlayer>().reset();
-//			} else {
-//				GameObject.FindWithTag(Constants.tbNetworkedPlayerTag).GetComponent<BossSceneTbPlayer>().reset();
-//			}
-//		} else if (sceneName == Constants.darkBackyardSceneName) {
-//			if (NetworkController.whoAmI == Constants.cbPlayerID) {
-//				GameObject.FindWithTag(Constants.cbNetworkedPlayerTag).GetComponent<DarkBackyardSceneCbPlayer>().reset();
-//			} else {
-//				GameObject.FindWithTag(Constants.tbNetworkedPlayerTag).GetComponent<DarkBackyardSceneTbPlayer>().reset();
-//			}
-//		}
 	}
 
 

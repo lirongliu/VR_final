@@ -49,6 +49,8 @@ public class BossSceneTbPlayer : TbNetworkedPlayer {
 		else {
 			
 			checkLife ();
+			checkFallingOutsideTheScene();
+
 
 			TbInstructionController t = Utility.getTbInstructionController();
 			if (t != null && t.ShowingInstruction) {
