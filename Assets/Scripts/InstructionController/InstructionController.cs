@@ -55,7 +55,7 @@ public class InstructionController : Photon.MonoBehaviour {
 	}
 
 	
-	protected virtual void showInstruction(string instructionText) {
+	public virtual void showInstruction(string instructionText) {
 		instructionObj.SetActive (true);
 		
 		Text text = Utility.FindTransform(instructionObj.transform, "Text").GetComponent<Text>();

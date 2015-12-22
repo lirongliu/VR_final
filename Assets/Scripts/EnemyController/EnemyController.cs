@@ -12,7 +12,6 @@ public class EnemyController : Photon.MonoBehaviour {
 	void Start () {
 
 	}
-	
 
 	void Update () {
 	}

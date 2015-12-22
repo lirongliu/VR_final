@@ -131,8 +131,9 @@ public class DarkBackyardSceneCbPlayer : CbNetworkedPlayer {
 		}
 		
 		if (arriveInDest(Constants.darkBackyardDestinationCoord, 4)) {
-			print ("finished!!!");
+			photonView.RPC ("win", PhotonTargets.All);
 		}
 	}
+
 
 }

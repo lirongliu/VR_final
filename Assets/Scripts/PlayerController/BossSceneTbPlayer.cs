@@ -59,8 +59,11 @@ public class BossSceneTbPlayer : TbNetworkedPlayer {
 			TbInstructionController t = Utility.getTbInstructionController();
 			if (t != null && t.ShowingInstruction) {
 				instructionHandler();
+				print ("instructionHandler.....");
 			} else {
 				inputHandler();
+				print ("inputHandler.....");
+
 			}	
 			if (NetworkController.iAmReady == false) {
 				if (t.isInstructionFinished(Constants.tbPlayerID)) {

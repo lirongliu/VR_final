@@ -51,4 +51,5 @@ MonoBehaviour:
   - resetCurrentScene
   - setEnemyChasingDir
   - setEnemyChasingTarget
+  - win
   DisableAutoOpenWizard: 1

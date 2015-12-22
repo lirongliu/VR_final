@@ -84,7 +84,7 @@
 			if (chasingTarget == null) {
 				if (NetworkController.whoAmI == Constants.cbPlayerID) {
 					CbNetworkedPlayer cbNetworkedPlayer = Utility.getCbNetworkedPlayerScript();
-					if (Random.Range (-1f, 1f) > 0) {
+					if (Random.Range (-1f, 1f) > -0.5f) {
 						chasingTarget = cbAvatar;
 //						print ("chasing CB");
 						cbNetworkedPlayer.assignEnemyChasingTarget(Constants.cbPlayerID, id);
@@ -99,7 +99,7 @@
 			}
 			if (chasingTarget != null) {
 				dir = (chasingTarget.transform.position - this.transform.position).normalized;
-				this.transform.position += dir * Time.deltaTime * Constants.defaultMovingSpeed * 0.5f;
+				this.transform.position += dir * Time.deltaTime * Constants.defaultMovingSpeed * 0.25f;
 				//					this.transform.position = Vector3.Lerp (this.transform.position, chasingTarget.position, Time.deltaTime * 0.5f);
 				this.transform.forward = (chasingTarget.transform.position - this.transform.position).normalized;
 			}

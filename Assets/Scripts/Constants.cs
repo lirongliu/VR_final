@@ -29,7 +29,7 @@ public class Constants : MonoBehaviour {
 
 	public static float defaultMovingSpeed = 6f;
 	
-	public static Vector3 backyardStartCoord = new Vector3 (0, 2, -2);
+	public static Vector3 backyardStartCoord = new Vector3 (-6.5f, 2, 6.5f);
 	//	public static Vector3 backyardDestinationCoord = new Vector3 (68, 1, -93);
 	public static Vector3 backyardDestinationCoord = new Vector3 (50, 2, -35);
 

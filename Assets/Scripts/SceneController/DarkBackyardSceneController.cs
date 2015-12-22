@@ -10,12 +10,15 @@ public class DarkBackyardSceneController : SceneController {
 		currInstructionIdx [tbId] = 0;
 		
 		instructionList = new string[2][];
-		instructionList [cbId] = new string[1];
-		instructionList [cbId][0] = "Task 3:Work with your partner to find the way home. Use your torchlight to kill enemies. But your light will decrease the light of tablet player if you look at your partner.";
+		instructionList [cbId] = new string[3];
+		instructionList [cbId][0] = "Find your way home!";
+		instructionList [cbId][1] = "There will be enemies coming from different direction and you have a torchlight to kill them. Gaze at enemies and they will disappear.";
+		instructionList [cbId][2] = "Remember: your torchlight will also hurt your partner, it will dim the intensity and reduce the range of his light. So do avoid that!";
 
-		instructionList [tbId] = new string[1];
-		instructionList [tbId][0] = "Task 3:Work with your partner to find the way home. Use your light to guide your partner and warn them of threat! Avoid being stared by your partner whose torchlight can hurt you.";
-
+		instructionList [tbId] = new string[3];
+		instructionList [tbId][0] = "Find your way home! You have a spotlight that can light up the area and help you read the map.";
+		instructionList [tbId][1] = "There will be enemies coming from different direction. It’s your job to tell your partner where are they coming from.";
+		instructionList [tbId][2] = "Your partner has the torchlight to kill enemies, but the torchlight also has the power to dim the intensity and reduce the range of your light. So run away when your partner is turning towards you!";
 
 		restartInstructionList = new string[2][];
 		restartInstructionList [cbId] = new string[1];

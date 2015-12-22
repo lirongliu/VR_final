@@ -20,7 +20,15 @@ public class PunRPCs : MonoBehaviour {
 	void resetScene() {
 		Utility.resetScene();
 	}
-	
+
+	[PunRPC]
+	void win() {
+		if (NetworkController.whoAmI == Constants.cbPlayerID) {
+			Utility.getCbInstructionController ().showInstruction ("Congrats! Mission Complete!");
+		} else {
+			Utility.getTbInstructionController ().showInstruction ("Congrats! Mission Complete!");
+		}
+	}
 //	
 //	IEnumerator showInstructionRoutine(string instructionText, int seconds, GameObject instructionObj) {
 //		yield return new WaitForSeconds(seconds);
@@ -111,8 +119,8 @@ public class PunRPCs : MonoBehaviour {
 		if (tbNetworkedPlayer != null) {
 			Transform spotLight = Utility.FindTransform (tbNetworkedPlayer.transform, "Spotlight");
 			
-			spotLight.GetComponent<Light> ().intensity -= Constants.tbMaxSpotlightIntensity / 300f;
-			spotLight.GetComponent<Light> ().spotAngle *= 0.995f;
+			spotLight.GetComponent<Light> ().intensity -= Constants.tbMaxSpotlightIntensity / 900f;
+			spotLight.GetComponent<Light> ().spotAngle *= 0.998f;
 		}
 	}
 

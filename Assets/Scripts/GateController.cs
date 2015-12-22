@@ -25,7 +25,7 @@ public class GateController : MonoBehaviour {
 		float distance2 = Vector3.Distance (cb_avatar.transform.position, this.transform.position);
 
 
-		if ( distance1 < 5 || distance2<5) {
+		if ( distance1 < 5 && distance2 < 5) {
 	
 			if (this.transform.Find ("gate_right").transform.localEulerAngles.y < 90){
 
